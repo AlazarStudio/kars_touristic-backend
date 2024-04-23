@@ -30,6 +30,7 @@ class PostService {
   async registration(userValue) {
     const {
       name,
+      role,
       username,
       password,
     } = userValue.body
@@ -46,6 +47,7 @@ class PostService {
 
     const user = await User.create({
       name: name,
+      role: role,
       username: username,
       password: hashPassword,
     });
