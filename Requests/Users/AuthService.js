@@ -14,16 +14,6 @@ class PostService {
       }
     };
 
-    if (rank) {
-      modelFilter = {
-        name: {
-          $regex: search,
-          $options: 'i'
-        },
-        rank
-      };
-    }
-
     const totalCount = await User.countDocuments(modelFilter).exec();
     const users = await User.find(modelFilter)
       .sort(filter)
