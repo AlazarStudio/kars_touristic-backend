@@ -18,7 +18,12 @@ app.use('/api', router);
 
 async function startApp() {
     try {
-        await mongoose.connect(DB_URL)
+        await mongoose.connect(DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        }).then(() => console.log('MongoDB connected'))
+            .catch(err => console.log('MongoDB connection error:', err));
+            
         app.listen(PORT, () => console.log(`Server working on port ${PORT}`))
     } catch (e) {
         console.log(e)

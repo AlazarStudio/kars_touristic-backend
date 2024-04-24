@@ -5,8 +5,9 @@ class RegionController {
     async addRegion(req, res) {
         try {
             const { title, description } = req.body;
-            const iconPath = req.files['icon'][0].path;
-            const backgroundImgPath = req.files['backgroundImg'][0].path;
+            
+            const iconPath = req.files.iconPath;
+            const backgroundImgPath = req.files.backgroundImgPath;
 
             const region = await RegionService.addRegion({ title, description, iconPath, backgroundImgPath });
 
