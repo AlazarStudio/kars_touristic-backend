@@ -8,6 +8,9 @@ class RegionController {
             
             const iconPath = req.files.iconPath;
             const backgroundImgPath = req.files.backgroundImgPath;
+            
+            console.log('Files:', req.files);
+            console.log('Body:', req.body);
 
             const region = await RegionService.addRegion({ title, description, iconPath, backgroundImgPath });
 
