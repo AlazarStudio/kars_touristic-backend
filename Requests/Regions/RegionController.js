@@ -11,9 +11,10 @@ class RegionController {
             }
     
             const iconPath = req.files.iconPath;
+            const coverImgPath = req.files.coverImgPath;
             const backgroundImgPath = req.files.backgroundImgPath;
     
-            const region = await RegionService.addRegion({ title, description, iconPath, backgroundImgPath });
+            const region = await RegionService.addRegion({ title, description, iconPath, coverImgPath, backgroundImgPath });
     
             res.status(201).send(region);
         } catch (error) {
