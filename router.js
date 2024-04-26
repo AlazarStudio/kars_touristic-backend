@@ -16,5 +16,6 @@ router.post('/registration', AuthController.registration)
 router.post('/login', AuthController.login)
 
 router.post('/addRegion', RegionController.addRegion);
+router.get('/getRegions', RegionController.getRegions);
 
 export default router;

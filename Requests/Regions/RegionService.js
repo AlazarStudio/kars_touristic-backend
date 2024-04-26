@@ -26,6 +26,13 @@ class RegionService {
         return region;
     };
 
+    async getRegions(req) {
+        const regions = await Region.find()
+
+        return {
+            regions
+        };
+    }
 
 }
 
