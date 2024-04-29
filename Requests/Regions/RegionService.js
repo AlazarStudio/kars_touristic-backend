@@ -1,4 +1,5 @@
 import Region from "./Region.js"
+import { transliterate } from 'transliteration';
 
 class RegionService {
 
@@ -12,6 +13,7 @@ class RegionService {
         let iconPathName = iconPath.name;
         let coverImgPathName = coverImgPath.name;
         let backgroundImgPathName = backgroundImgPath.name;
+        let link = transliterate(title);
 
         const region = new Region(
             {
@@ -19,7 +21,8 @@ class RegionService {
                 description,
                 iconPath: iconPathName,
                 coverImgPath: coverImgPathName,
-                backgroundImgPath: backgroundImgPathName
+                backgroundImgPath: backgroundImgPathName,
+                link: link,
             }
         );
         await region.save();

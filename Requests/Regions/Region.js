@@ -5,7 +5,9 @@ const Region = new mongoose.Schema({
     description: { type: String, required: true },
     iconPath: { type: String, required: true },
     coverImgPath: { type: String, required: true },
-    backgroundImgPath: { type: String, required: true }
+    backgroundImgPath: { type: String, required: true },
+
+    link: { type: String, required: true, default:''},
 }, { timestamps: true });
 
 export default mongoose.model('Region', Region);
