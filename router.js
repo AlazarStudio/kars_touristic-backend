@@ -1,21 +1,22 @@
 import Router from "express";
 import AuthController from "./Requests/Users/AuthController.js";
 import RegionController from "./Requests/Regions/RegionController.js";
-import multer from "multer";
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => cb(null, 'uploads/'),
-//     filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
-// });
-// const upload = multer({ storage: storage });
+import upload from './Requests/Functions/multerConfig.js';
 
 const router = new Router()
 
-router.get('/getUsers', AuthController.getUsers)
-router.post('/registration', AuthController.registration)
-router.post('/login', AuthController.login)
+router.get('/getUsers', AuthController.getUsers);
 
-router.post('/addRegion', RegionController.addRegion);
+router.post('/registration', AuthController.registration);
+router.post('/login', AuthController.login);
+
+router.post('/addRegion', upload.fields([
+    { name: 'iconPath' },
+    { name: 'coverImgPath' },
+    { name: 'backgroundImgPath' }
+]), RegionController.addRegion);
+
 router.get('/getRegions', RegionController.getRegions);
 
 export default router;

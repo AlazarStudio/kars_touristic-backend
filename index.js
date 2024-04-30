@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import router from "./router.js";
-import fileUpload from "express-fileupload";
+
 import cors from "cors"
 
 const PORT = process.env.PORT || 5002
@@ -12,7 +12,6 @@ const app = express();
 
 app.use(express.json());
 app.use('/api/static', express.static('static'));
-app.use(fileUpload({}));
 app.use(cors());
 app.use('/api', router);
 
