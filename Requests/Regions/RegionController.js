@@ -10,6 +10,8 @@ class RegionController {
                 return res.status(400).send({ message: "Необходимо прикрепить файлы iconPath и backgroundImgPath" });
             }
 
+            console.log(iconPath);
+
             const region = await RegionService.addRegion({
                 title,
                 description,
