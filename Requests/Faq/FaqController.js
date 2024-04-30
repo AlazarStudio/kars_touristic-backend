@@ -5,7 +5,7 @@ class FaqController {
         try {
             const { question, answer} = req.query;
 
-            const faq = await FaqService.transfer({
+            const faq = await FaqService.faq({
                 question,
                 answer,
             });

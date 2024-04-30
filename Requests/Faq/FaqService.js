@@ -1,8 +1,8 @@
 import Faq from "./Faq.js";
 
 class FaqService {
-    async transfer(transferData) {
-        const { question, answer} = transferData;
+    async faq(faqData) {
+        const { question, answer} = faqData;
 
         const faq = new Faq({
             question,

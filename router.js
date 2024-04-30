@@ -6,6 +6,7 @@ import RegionController from "./Requests/Regions/RegionController.js";
 import AboutController from "./Requests/About/AboutController.js";
 import TransferController from "./Requests/Transfer/TransferController.js";
 import FaqController from "./Requests/Faq/FaqController.js";
+import ContactsController from "./Requests/Contacts/ContactsController.js";
 
 const router = new Router()
 
@@ -36,6 +37,9 @@ router.post('/transfer', TransferController.transfer);
 
 // FAQ
 router.post('/faq', FaqController.faq);
+
+// Контакты
+router.post('/contacts', ContactsController.contacts);
 
 
 export default router;
