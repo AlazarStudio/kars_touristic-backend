@@ -13,6 +13,8 @@ const MultidayTour = new mongoose.Schema({
     checklists: { type: Array, required: true },
     days: { type: Array, required: true },
     photos: { type: Array, required: true },
+
+    region: { type: String, required: true },
 }, { timestamps: true });
 
 export default mongoose.model('MultidayTour', MultidayTour);
