@@ -26,23 +26,23 @@ router.post('/addRegion', upload.fields([
 router.get('/getRegions', RegionController.getRegions);
 
 
-// О нас
+// О нас +
 router.post('/aboutCompany', AboutController.aboutCompany);
 router.post('/mission', AboutController.mission);
 router.post('/team', upload.fields([
     { name: 'imgPath' },
 ]), AboutController.team);
 
-// Трансфер
+// Трансфер +
 router.post('/transfer', TransferController.transfer);
 
-// FAQ
+// FAQ +
 router.post('/faq', FaqController.faq);
 
-// Контакты
+// Контакты +
 router.post('/contacts', ContactsController.contacts);
 
-// Турагентам
+// Турагентам +
 router.post('/turagent', upload.fields([
     { name: 'docPath' },
 ]), TuragentController.turagent);
