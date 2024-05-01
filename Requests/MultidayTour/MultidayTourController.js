@@ -4,7 +4,7 @@ class MultidayTourController {
     async multidayTour(req, res) {
         try {
             const { files, body } = req;
-            const photoPaths = files.photos.map(file => file.path);
+            const photoPaths = files.photos.map(file => file.filename);
             const multidayTourData = {
                 ...body,
                 photos: photoPaths,
