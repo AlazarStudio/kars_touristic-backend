@@ -8,6 +8,7 @@ import TransferController from "./Requests/Transfer/TransferController.js";
 import FaqController from "./Requests/Faq/FaqController.js";
 import ContactsController from "./Requests/Contacts/ContactsController.js";
 import TuragentController from "./Requests/Turagent/TuragentController.js";
+import MultidayTourController from "./Requests/MultidayTour/MultidayTourController.js";
 
 const router = new Router()
 
@@ -24,6 +25,11 @@ router.post('/addRegion', upload.fields([
 ]), RegionController.addRegion);
 
 router.get('/getRegions', RegionController.getRegions);
+
+// Многодневный тур
+router.post('/addMultidayTour', upload.fields([
+    { name: 'photos', maxCount: 10 } 
+]), MultidayTourController.multidayTour);
 
 
 // О нас +
