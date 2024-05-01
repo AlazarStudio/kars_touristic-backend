@@ -27,14 +27,14 @@ router.post('/addRegion', upload.fields([
 
 router.get('/getRegions', RegionController.getRegions);
 
-// Многодневный тур
+// Многодневный тур +
 router.post('/addMultidayTour', upload.fields([
-    { name: 'photos', maxCount: 10 } 
+    { name: 'photos', maxCount: 10 }
 ]), MultidayTourController.multidayTour);
 
-// Однодневный тур
+// Однодневный тур +
 router.post('/addOnedayTour', upload.fields([
-    { name: 'photos', maxCount: 10 } 
+    { name: 'photos', maxCount: 10 }
 ]), OnedayTourController.onedayTour);
 
 
