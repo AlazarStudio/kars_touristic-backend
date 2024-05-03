@@ -19,6 +19,16 @@ class MultidayTourController {
             res.status(500).json({ message: 'Error adding tour' });
         }
     }
+    
+    async getMultidayTours(req, res) {
+        try {
+            const getMultidayTours = await MultidayTourService.getMultidayTours(req);
+            return res.status(200).json(getMultidayTours);
+        } catch (e) {
+            console.log(e);
+            res.status(500).json(e);
+        }
+    }
 }
 
 export default new MultidayTourController();

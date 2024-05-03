@@ -27,6 +27,7 @@ class RegionService {
         const regions = await Region.find();
         return { regions };
     }
+
 }
 
 export default new RegionService();

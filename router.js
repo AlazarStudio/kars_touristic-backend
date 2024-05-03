@@ -32,6 +32,8 @@ router.post('/addMultidayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
 ]), MultidayTourController.multidayTour);
 
+router.get('/getMultidayTours', MultidayTourController.getMultidayTours);
+
 // Однодневный тур +
 router.post('/addOnedayTour', upload.fields([
     { name: 'photos', maxCount: 10 }

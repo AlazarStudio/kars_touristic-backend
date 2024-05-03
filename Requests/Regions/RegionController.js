@@ -33,6 +33,7 @@ class RegionController {
             res.status(500).json(e);
         }
     }
+
 }
 
 export default new RegionController();
