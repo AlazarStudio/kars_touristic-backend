@@ -32,9 +32,6 @@ class MultidayTourController {
     
         try {
             const updatedTour = await MultidayTourService.updateOneMultidayTour(id, tourData, photoPaths);
-            if (!updatedTour) {
-                return res.status(404).json({ message: 'Тур не найден' });
-            }
             res.status(200).json(updatedTour);
         } catch (error) {
             console.error(`Ошибка в updateOneMultidayTour: ${error}`);

@@ -25,6 +25,12 @@ class MultidayTourService {
     }
 
     async updateOneMultidayTour(id, tourData, photoPaths) {
+        if (tourData.photosToDelete) {
+            const pathToFile = path.resolve('static', JSON.parse(tourData.photosToDelete)[0])
+            if (!fs.existsSync(pathToFile)) return;
+            fs.unlinkSync(pathToFile);
+        }
+
         if (photoPaths.length > 0) {
             const updatedTour = await MultidayTour.findByIdAndUpdate(
                 id,
