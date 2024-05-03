@@ -35,9 +35,7 @@ class MultidayTourService {
             tour.photos.forEach(photo => {
                 const pathToFile = path.resolve('static', photo)
                 if (!fs.existsSync(pathToFile)) return;
-                setTimeout(() => {
-                    fs.unlinkSync(pathToFile);
-                }, 1000)
+                fs.unlinkSync(pathToFile);
             });
 
             const deleteMultidayTour = await MultidayTour.findByIdAndDelete(id);
