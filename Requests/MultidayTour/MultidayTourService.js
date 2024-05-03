@@ -25,18 +25,26 @@ class MultidayTourService {
     }
 
     async updateOneMultidayTour(id, tourData, photoPaths) {
-        const updatedTour = await MultidayTour.findByIdAndUpdate(
-            id,
-            { 
-                $set: tourData,
-                $push: { photos: { $each: photoPaths } }
-            },
-            { new: true, runValidators: true }
-        );
-    
-        return updatedTour;
+        if (photoPaths.length > 0) {
+            const updatedTour = await MultidayTour.findByIdAndUpdate(
+                id,
+                {
+                    $set: tourData,
+                    $push: { photos: { $each: photoPaths } }
+                },
+                { new: true, runValidators: true }
+            );
+            return updatedTour;
+        } else {
+            const updatedTour = await MultidayTour.findByIdAndUpdate(
+                id,
+                { $set: tourData },
+                { new: true, runValidators: true }
+            );
+            return updatedTour;
+        }
     }
-    
+
 
 
     async getOneMultidayTour(id) {
