@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import MultidayTour from "./MultidayTour.js"; // Предполагаем, что это Mongoose модель
+import MultidayTour from "./MultidayTour.js";
 
 class MultidayTourService {
     async multidayTour(multidayTourData) {
@@ -24,13 +24,26 @@ class MultidayTourService {
         return { totalCount, multidayTour };
     }
 
+    async updateOneMultidayTour(id, tourData) {
+        const updatedTour = await MultidayTour.findByIdAndUpdate(
+            id,
+            { $set: tourData },
+            { new: true, runValidators: true }
+        );
+
+        console.log(tourData);
+
+        return tourData;
+    }
+
+
     async getOneMultidayTour(id) {
         if (!id) {
-          throw new Error("не указан ID");
+            throw new Error("не указан ID");
         }
         const getOneMultidayTour = await MultidayTour.findById(id);
         return getOneMultidayTour;
-      }
+    }
 
     async deleteMultidayTour(id) {
         try {
@@ -53,6 +66,7 @@ class MultidayTourService {
             return { message: e.message };
         }
     }
+
 }
 
 export default new MultidayTourService();

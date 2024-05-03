@@ -20,6 +20,31 @@ class MultidayTourController {
         }
     }
 
+
+    async updateOneMultidayTour(req, res) {
+        const { id } = req.params;
+        let tourData = req.body;
+
+        // Проверка наличия фотографий и обработка их
+        if (req.files && req.files.length > 0) {
+            const photoPaths = req.files.map(file => file.path); // Получение путей фотографий
+            tourData.photos = photoPaths; // Добавление или обновление списка фотографий в данных тура
+        }
+
+        try {
+            const updatedTour = await MultidayTourService.updateOneMultidayTour(id, tourData);
+            if (!updatedTour) {
+                return res.status(404).json({ message: 'Тур не найден' });
+            }
+            res.status(200).json(updatedTour);
+        } catch (error) {
+            console.error(`Ошибка в updateOneMultidayTour: ${error}`);
+            res.status(500).json({ message: 'Ошибка при обновлении тура' });
+        }
+    }
+
+
+
     async getMultidayTours(req, res) {
         try {
             const getMultidayTours = await MultidayTourService.getMultidayTours(req);
@@ -30,7 +55,6 @@ class MultidayTourController {
         }
     }
 
-
     async getOneMultidayTour(req, res) {
         try {
             const getOneMultidayTour = await MultidayTourService.getOneMultidayTour(req.params.id)
@@ -39,6 +63,7 @@ class MultidayTourController {
             res.status(500).json(e.message)
         }
     }
+
 
     async deleteMultidayTour(req, res) {
         try {
