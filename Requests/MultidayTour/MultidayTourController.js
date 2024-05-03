@@ -30,6 +30,16 @@ class MultidayTourController {
         }
     }
 
+
+    async getOneMultidayTour(req, res) {
+        try {
+            const getOneMultidayTour = await MultidayTourService.getOneMultidayTour(req.params.id)
+            return res.status(200).json(getOneMultidayTour)
+        } catch (e) {
+            res.status(500).json(e.message)
+        }
+    }
+
     async deleteMultidayTour(req, res) {
         try {
             const deleteMultidayTour = await MultidayTourService.deleteMultidayTour(req.params.id)

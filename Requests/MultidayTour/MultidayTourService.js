@@ -24,6 +24,14 @@ class MultidayTourService {
         return { totalCount, multidayTour };
     }
 
+    async getOneMultidayTour(id) {
+        if (!id) {
+          throw new Error("не указан ID");
+        }
+        const getOneMultidayTour = await MultidayTour.findById(id);
+        return getOneMultidayTour;
+      }
+
     async deleteMultidayTour(id) {
         try {
             const tour = await MultidayTour.findById(id);
