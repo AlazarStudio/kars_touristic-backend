@@ -24,17 +24,19 @@ class MultidayTourService {
         return { totalCount, multidayTour };
     }
 
-    async updateOneMultidayTour(id, tourData) {
+    async updateOneMultidayTour(id, tourData, photoPaths) {
         const updatedTour = await MultidayTour.findByIdAndUpdate(
             id,
-            { $set: tourData },
+            { 
+                $set: tourData,
+                $push: { photos: { $each: photoPaths } }
+            },
             { new: true, runValidators: true }
         );
-
-        console.log(tourData);
-
-        return tourData;
+    
+        return updatedTour;
     }
+    
 
 
     async getOneMultidayTour(id) {

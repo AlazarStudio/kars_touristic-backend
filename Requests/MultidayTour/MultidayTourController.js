@@ -24,15 +24,14 @@ class MultidayTourController {
     async updateOneMultidayTour(req, res) {
         const { id } = req.params;
         let tourData = req.body;
-
-        // Проверка наличия фотографий и обработка их
-        if (req.files && req.files.length > 0) {
-            const photoPaths = req.files.map(file => file.path); // Получение путей фотографий
-            tourData.photos = photoPaths; // Добавление или обновление списка фотографий в данных тура
+        let photoPaths = []; 
+    
+        if (req.files && req.files.photos) {
+            photoPaths = req.files.photos.map(file => file.filename); 
         }
-
+    
         try {
-            const updatedTour = await MultidayTourService.updateOneMultidayTour(id, tourData);
+            const updatedTour = await MultidayTourService.updateOneMultidayTour(id, tourData, photoPaths);
             if (!updatedTour) {
                 return res.status(404).json({ message: 'Тур не найден' });
             }
@@ -42,6 +41,7 @@ class MultidayTourController {
             res.status(500).json({ message: 'Ошибка при обновлении тура' });
         }
     }
+    
 
 
 
