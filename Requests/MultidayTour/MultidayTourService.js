@@ -77,7 +77,7 @@ class MultidayTourService {
 
             const deleteMultidayTour = await MultidayTour.findByIdAndDelete(id);
 
-            return { message: 'Тур успешно удален', deleteResult };
+            return { message: 'Тур успешно удален', deleteMultidayTour };
         } catch (e) {
             return { message: e.message };
         }

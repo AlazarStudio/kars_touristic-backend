@@ -46,6 +46,14 @@ router.post('/addOnedayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
 ]), OnedayTourController.onedayTour);
 
+router.get('/getOnedayTours', OnedayTourController.getOnedayTours);
+router.get('/getOneOnedayTour/:id', OnedayTourController.getOneOnedayTour);
+
+router.put('/updateOneOnedayTour/:id', upload.fields([
+    { name: 'photos', maxCount: 10 }
+]), OnedayTourController.updateOneOnedayTour);
+
+router.delete('/deleteOnedayTour/:id', OnedayTourController.deleteOnedayTour);
 
 // О нас +
 router.post('/aboutCompany', AboutController.aboutCompany);
