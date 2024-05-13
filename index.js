@@ -16,6 +16,14 @@ app.use('/refs', express.static('static'));
 app.use(cors());
 app.use('/api', router);
 
+// Указываем путь к статическим файлам фронтенда
+app.use(express.static('../kars_touristic/dist'));
+
+// Отправляем index.html при обращении к корневому URL
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve('../kars_touristic/dist', 'index.html'));
+});
+
 async function startApp() {
     try {
         await mongoose.connect(DB_URL, {
