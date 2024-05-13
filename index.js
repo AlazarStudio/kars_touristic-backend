@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve('../kars_touristic/dist', 'index.html'));
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('../kars_touristic/dist', 'index.html'));
+});
+
 async function startApp() {
     try {
         await mongoose.connect(DB_URL, {
