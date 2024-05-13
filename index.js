@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 import router from "./router.js";
 
+import path from 'path';
 import cors from "cors"
 
 const PORT = process.env.PORT || 5002
