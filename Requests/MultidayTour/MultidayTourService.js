@@ -11,14 +11,20 @@ class MultidayTourService {
     }
 
     async getMultidayTours(req) {
-        const { page = 1, perPage = 10, search = '', filter, region = '' } = req.query;
+        const {
+            // page = 1,
+            // perPage = 10,
+            search = '',
+            filter,
+            region = ''
+        } = req.query;
 
         const modelFilter = { tourTitle: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
         const totalCount = await MultidayTour.countDocuments(modelFilter).exec();
         const multidayTour = await MultidayTour.find(modelFilter)
             .sort(filter)
-            .limit(perPage)
-            .skip((page - 1) * perPage)
+            // .limit(perPage)
+            // .skip((page - 1) * perPage)
             .exec();
 
         return { totalCount, multidayTour };

@@ -9,21 +9,27 @@ class OnedayTourService {
         await tour.save();
         return tour;
     }
-    
+
     async getOnedayTours(req) {
-        const { page = 1, perPage = 10, search = '', filter, region = '' } = req.query;
+        const {
+            // page = 1,
+            // perPage = 10,
+            search = '',
+            filter,
+            region = ''
+        } = req.query;
 
         const modelFilter = { tourTitle: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
         const totalCount = await OnedayTour.countDocuments(modelFilter).exec();
         const onedayTour = await OnedayTour.find(modelFilter)
             .sort(filter)
-            .limit(perPage)
-            .skip((page - 1) * perPage)
+            // .limit(perPage)
+            // .skip((page - 1) * perPage)
             .exec();
 
         return { totalCount, onedayTour };
     }
-    
+
     async updateOneOnedayTour(id, tourData, photoPaths) {
         if (tourData.photosToDelete) {
             const pathToFile = path.resolve('static', JSON.parse(tourData.photosToDelete)[0])
