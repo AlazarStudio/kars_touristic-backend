@@ -56,8 +56,12 @@ router.put('/updateOneOnedayTour/:id', upload.fields([
 router.delete('/deleteOnedayTour/:id', OnedayTourController.deleteOnedayTour);
 
 // О нас +
-router.post('/aboutCompany', AboutController.aboutCompany);
-router.post('/mission', AboutController.mission);
+router.put('/aboutCompany', AboutController.aboutCompany);
+router.get('/aboutCompany', AboutController.getAboutCompany);
+
+router.put('/mission', AboutController.mission);
+router.get('/mission', AboutController.getMission);
+
 router.post('/team', upload.fields([
     { name: 'imgPath' },
 ]), AboutController.team);

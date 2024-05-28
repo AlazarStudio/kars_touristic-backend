@@ -10,6 +10,16 @@ class AboutController {
             res.status(500).send({ message: "Не удалось добавить", error: error.message });
         }
     };
+    
+    async getAboutCompany(req, res) {
+        try {
+            const about = await AboutService.getAboutCompany();
+            res.status(200).send(about);
+        } catch (error) {
+            res.status(500).send({ message: "Не удалось получить данные", error: error.message });
+        }
+    }
+
 
     async mission(req, res) {
         try {
@@ -20,6 +30,16 @@ class AboutController {
             res.status(500).send({ message: "Не удалось добавить", error: error.message });
         }
     };
+
+    async getMission(req, res) {
+        try {
+            const mission = await AboutService.getMission();
+            res.status(200).send(mission);
+        } catch (error) {
+            res.status(500).send({ message: "Не удалось получить данные", error: error.message });
+        }
+    }
+
 
     async team(req, res) {
         try {
