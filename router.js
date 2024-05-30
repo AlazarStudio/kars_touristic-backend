@@ -80,7 +80,8 @@ router.get('/faq', FaqController.getFaq);
 router.delete('/deleteFaq/:id', FaqController.deleteFaq);
 
 // Контакты 
-router.post('/contacts', ContactsController.contacts);
+router.put('/contacts', ContactsController.contacts);
+router.get('/contacts', ContactsController.getContacts);
 
 // Турагентам 
 router.post('/turagent', upload.fields([
