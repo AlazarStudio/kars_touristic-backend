@@ -70,17 +70,17 @@ router.get('/getTeam', AboutController.getTeam);
 router.delete('/deleteTeam/:id', AboutController.deleteTeam);
 
 
+// Трансфер 
+router.put('/transfer', TransferController.transfer);
+router.get('/transfer', TransferController.getTransfer);
 
-// Трансфер +
-router.post('/transfer', TransferController.transfer);
-
-// FAQ +
+// FAQ 
 router.post('/faq', FaqController.faq);
 
-// Контакты +
+// Контакты 
 router.post('/contacts', ContactsController.contacts);
 
-// Турагентам +
+// Турагентам 
 router.post('/turagent', upload.fields([
     { name: 'docPath' },
 ]), TuragentController.turagent);
