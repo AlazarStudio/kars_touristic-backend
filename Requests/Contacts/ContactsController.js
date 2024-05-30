@@ -1,7 +1,7 @@
 import ContactsService from "./ContactsService.js"
 
 class ContactsController {
-    async contacts(req, res) { 
+    async contacts(req, res) {  
         try {
             const { adress, phone, email } = req.query;
 

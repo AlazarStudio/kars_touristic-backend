@@ -20,6 +20,15 @@ class TuragentController {
             res.status(500).send({ message: "Не удалось добавить", error: error.message });
         }
     };
+    
+    async getTuragent(req, res) {
+        try {
+            const getTuragent = await TuragentService.getTuragent();
+            res.status(200).send(getTuragent);
+        } catch (error) {
+            res.status(500).send({ message: "Не удалось получить данные", error: error.message });
+        }
+    }
 }
 
 export default new TuragentController();
