@@ -70,12 +70,14 @@ router.get('/getTeam', AboutController.getTeam);
 router.delete('/deleteTeam/:id', AboutController.deleteTeam);
 
 
-// Трансфер 
+// Трансфер +
 router.put('/transfer', TransferController.transfer);
 router.get('/transfer', TransferController.getTransfer);
 
-// FAQ 
+// FAQ +
 router.post('/faq', FaqController.faq);
+router.get('/faq', FaqController.getFaq);
+router.delete('/deleteFaq/:id', FaqController.deleteFaq);
 
 // Контакты 
 router.post('/contacts', ContactsController.contacts);
