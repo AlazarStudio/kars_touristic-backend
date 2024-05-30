@@ -66,6 +66,11 @@ router.post('/team', upload.fields([
     { name: 'imgPath' },
 ]), AboutController.team);
 
+router.get('/getTeam', AboutController.getTeam);
+router.delete('/deleteTeam/:id', AboutController.deleteTeam);
+
+
+
 // Трансфер +
 router.post('/transfer', TransferController.transfer);
 

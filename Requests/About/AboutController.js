@@ -61,6 +61,25 @@ class AboutController {
             res.status(500).send({ message: "Не удалось добавить", error: error.message });
         }
     };
+
+    
+    async getTeam(req, res) {
+        try {
+            const team = await AboutService.getTeam();
+            res.status(200).send(team);
+        } catch (error) {
+            res.status(500).send({ message: "Не удалось получить данные", error: error.message });
+        }
+    }
+
+    async deleteTeam(req, res) {
+        try {
+            const deleteTeam = await AboutService.deleteTeam(req.params.id)
+            return res.status(200).json(deleteTeam)
+        } catch (e) {
+            res.status(500).json(e.message)
+        }
+    }
 }
 
 export default new AboutController();
