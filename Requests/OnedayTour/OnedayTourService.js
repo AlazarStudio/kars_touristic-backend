@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import OnedayTour from "./OnedayTour.js"; // Предполагаем, что это Mongoose модель
+import OnedayTour from "./OnedayTour.js";
 
 class OnedayTourService {
     async onedayTour(onedayTourData) {

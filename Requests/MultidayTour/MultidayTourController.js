@@ -1,5 +1,7 @@
 import MultidayTourService from "./MultidayTourService.js";
 
+import MultidayTour from "./MultidayTour.js";
+
 class MultidayTourController {
     async multidayTour(req, res) {
         try {
@@ -39,6 +41,22 @@ class MultidayTourController {
         }
     }
     
+
+    async updateMultidayTourOrder(req, res) {
+        const { orderedIds } = req.body;
+    
+        try {
+            for (let i = 0; i < orderedIds.length; i++) {
+                const id = orderedIds[i];
+                await MultidayTour.findByIdAndUpdate(id, { order: i }, { new: true, runValidators: true });
+            }
+    
+            res.status(200).json({ message: 'Order updated successfully' });
+        } catch (error) {
+            console.error(`Ошибка в updateMultidayTourOrder: ${error}`);
+            res.status(500).json({ message: 'Ошибка при обновлении порядка туров' });
+        }
+    }
 
 
 

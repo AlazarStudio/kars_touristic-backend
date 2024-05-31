@@ -40,6 +40,8 @@ router.put('/updateOneMultidayTour/:id', upload.fields([
     { name: 'photos', maxCount: 10 }
 ]), MultidayTourController.updateOneMultidayTour);
 
+router.post('/updateMultidayTourOrder', MultidayTourController.updateMultidayTourOrder);
+
 router.delete('/deleteMultidayTour/:id', MultidayTourController.deleteMultidayTour);
 
 // Однодневный тур +
@@ -53,6 +55,8 @@ router.get('/getOneOnedayTour/:id', OnedayTourController.getOneOnedayTour);
 router.put('/updateOneOnedayTour/:id', upload.fields([
     { name: 'photos', maxCount: 10 }
 ]), OnedayTourController.updateOneOnedayTour);
+
+router.post('/updateOnedayTourOrder', OnedayTourController.updateOnedayTourOrder);
 
 router.delete('/deleteOnedayTour/:id', OnedayTourController.deleteOnedayTour);
 

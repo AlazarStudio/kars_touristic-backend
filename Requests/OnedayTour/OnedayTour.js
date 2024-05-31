@@ -15,6 +15,8 @@ const OnedayTour = new mongoose.Schema({
     photos: { type: Array, required: true },
 
     region: { type: String, required: true },
+    
+    order: { type: Number, required: true, default: 0 },
 }, { timestamps: true });
 
 export default mongoose.model('OnedayTour', OnedayTour);

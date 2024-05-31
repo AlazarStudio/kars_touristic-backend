@@ -1,4 +1,5 @@
 import OnedayTourService from "./OnedayTourService.js";
+import OnedayTour from "./OnedayTour.js";
 
 class OnedayTourController {
     async onedayTour(req, res) {
@@ -69,6 +70,21 @@ class OnedayTourController {
         }
     }
     
+    async updateOnedayTourOrder(req, res) {
+        const { orderedIds } = req.body;
+    
+        try {
+            for (let i = 0; i < orderedIds.length; i++) {
+                const id = orderedIds[i];
+                await OnedayTour.findByIdAndUpdate(id, { order: i }, { new: true, runValidators: true });
+            }
+    
+            res.status(200).json({ message: 'Order updated successfully' });
+        } catch (error) {
+            console.error(`Ошибка в updateOnedayTourOrder: ${error}`);
+            res.status(500).json({ message: 'Ошибка при обновлении порядка туров' });
+        }
+    }
 
 }
 
