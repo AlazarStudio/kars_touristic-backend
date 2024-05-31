@@ -88,6 +88,16 @@ class MultidayTourController {
             res.status(500).json(e.message)
         }
     }
+
+    async changeMainImg(req, res) {
+        try {
+            const changeMainImg = await MultidayTourService.changeMainImg(req.query);
+
+            res.status(201).send(changeMainImg);
+        } catch (error) {
+            res.status(500).send({ message: "Не удалось добавить", error: error.message });
+        }
+    };
 }
 
 export default new MultidayTourController();

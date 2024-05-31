@@ -89,6 +89,22 @@ class OnedayTourService {
         }
     }
 
+    
+    async changeMainImg(imgData) {
+        const { id, mainImgPath } = imgData;
+
+        try {
+            const changeMainImg = await OnedayTour.findByIdAndUpdate(
+                id,
+                { mainPhoto: mainImgPath},
+                { new: true, upsert: true }
+            );
+            return changeMainImg;
+        } catch (error) {
+            throw new Error('Error updating MultidayTour: ' + error.message);
+        }
+    }
+
 }
 
 export default new OnedayTourService();

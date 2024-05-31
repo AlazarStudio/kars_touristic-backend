@@ -9,6 +9,8 @@ const OnedayTour = new mongoose.Schema({
     difficulty: { type: String, required: true },
     cost: { type: String, required: true },
     
+    mainPhoto: { type: String, required: true, default: ''},
+    
     places: { type: Array, required: true },
     checklists: { type: Array, required: true },
     days: { type: Array, required: true },

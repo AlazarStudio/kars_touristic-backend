@@ -86,6 +86,17 @@ class OnedayTourController {
         }
     }
 
+    
+    async changeMainImg(req, res) {
+        try {
+            const changeMainImg = await OnedayTourService.changeMainImg(req.query);
+
+            res.status(201).send(changeMainImg);
+        } catch (error) {
+            res.status(500).send({ message: "Не удалось добавить", error: error.message });
+        }
+    };
+
 }
 
 export default new OnedayTourController();

@@ -1,16 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import MultidayTour from "./MultidayTour.js";
+import Hotels from "./Hotels.js";
 
-class MultidayTourService {
-    async multidayTour(multidayTourData) {
-        const tour = new MultidayTour(multidayTourData);
+class HotelsService {
+    async Hotels(HotelsData) {
+        const tour = new Hotels(HotelsData);
         await tour.save();
         return tour;
     }
 
-    async getMultidayTours(req) {
+    async getHotelss(req) {
         const {
             // page = 1,
             // perPage = 10,
@@ -20,17 +20,17 @@ class MultidayTourService {
         } = req.query;
 
         const modelFilter = { tourTitle: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
-        const totalCount = await MultidayTour.countDocuments(modelFilter).exec();
-        const multidayTour = await MultidayTour.find(modelFilter)
+        const totalCount = await Hotels.countDocuments(modelFilter).exec();
+        const Hotels = await Hotels.find(modelFilter)
             .sort(filter)
             // .limit(perPage)
             // .skip((page - 1) * perPage)
             .exec();
 
-        return { totalCount, multidayTour };
+        return { totalCount, Hotels };
     }
 
-    async updateOneMultidayTour(id, tourData, photoPaths) {
+    async updateOneHotels(id, tourData, photoPaths) {
         if (tourData.photosToDelete) {
             const pathToFile = path.resolve('static', JSON.parse(tourData.photosToDelete)[0])
             if (!fs.existsSync(pathToFile)) return;
@@ -38,7 +38,7 @@ class MultidayTourService {
         }
 
         if (photoPaths.length > 0) {
-            const updatedTour = await MultidayTour.findByIdAndUpdate(
+            const updatedTour = await Hotels.findByIdAndUpdate(
                 id,
                 {
                     $set: tourData,
@@ -48,7 +48,7 @@ class MultidayTourService {
             );
             return updatedTour;
         } else {
-            const updatedTour = await MultidayTour.findByIdAndUpdate(
+            const updatedTour = await Hotels.findByIdAndUpdate(
                 id,
                 { $set: tourData },
                 { new: true, runValidators: true }
@@ -59,17 +59,17 @@ class MultidayTourService {
 
 
 
-    async getOneMultidayTour(id) {
+    async getOneHotels(id) {
         if (!id) {
             throw new Error("не указан ID");
         }
-        const getOneMultidayTour = await MultidayTour.findById(id);
-        return getOneMultidayTour;
+        const getOneHotels = await Hotels.findById(id);
+        return getOneHotels;
     }
 
-    async deleteMultidayTour(id) {
+    async deleteHotels(id) {
         try {
-            const tour = await MultidayTour.findById(id);
+            const tour = await Hotels.findById(id);
 
             if (!tour) {
                 throw new Error("не указан ID");
@@ -81,29 +81,14 @@ class MultidayTourService {
                 fs.unlinkSync(pathToFile);
             });
 
-            const deleteMultidayTour = await MultidayTour.findByIdAndDelete(id);
+            const deleteHotels = await Hotels.findByIdAndDelete(id);
 
-            return { message: 'Тур успешно удален', deleteMultidayTour };
+            return { message: 'Тур успешно удален', deleteHotels };
         } catch (e) {
             return { message: e.message };
         }
     }
 
-    async changeMainImg(imgData) {
-        const { id, mainImgPath } = imgData;
-
-        try {
-            const changeMainImg = await MultidayTour.findByIdAndUpdate(
-                id,
-                { mainPhoto: mainImgPath},
-                { new: true, upsert: true }
-            );
-            return changeMainImg;
-        } catch (error) {
-            throw new Error('Error updating MultidayTour: ' + error.message);
-        }
-    }
-
 }
 
-export default new MultidayTourService();
+export default new HotelsService();

@@ -10,6 +10,7 @@ import ContactsController from "./Requests/Contacts/ContactsController.js";
 import TuragentController from "./Requests/Turagent/TuragentController.js";
 import MultidayTourController from "./Requests/MultidayTour/MultidayTourController.js";
 import OnedayTourController from "./Requests/OnedayTour/OnedayTourController.js";
+import HotelsController from "./Requests/Hotels/HotelsController.js";
 
 const router = new Router()
 
@@ -44,6 +45,9 @@ router.post('/updateMultidayTourOrder', MultidayTourController.updateMultidayTou
 
 router.delete('/deleteMultidayTour/:id', MultidayTourController.deleteMultidayTour);
 
+router.put('/changeMainImgMultidayTour', MultidayTourController.changeMainImg);
+
+
 // Однодневный тур +
 router.post('/addOnedayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
@@ -59,6 +63,8 @@ router.put('/updateOneOnedayTour/:id', upload.fields([
 router.post('/updateOnedayTourOrder', OnedayTourController.updateOnedayTourOrder);
 
 router.delete('/deleteOnedayTour/:id', OnedayTourController.deleteOnedayTour);
+
+router.put('/changeMainImgOnedayTour', OnedayTourController.changeMainImg);
 
 // О нас +
 router.put('/aboutCompany', AboutController.aboutCompany);
@@ -88,10 +94,26 @@ router.delete('/deleteFaq/:id', FaqController.deleteFaq);
 router.put('/contacts', ContactsController.contacts);
 router.get('/contacts', ContactsController.getContacts);
 
-// Турагентам 
+// Турагентам +
 router.put('/turagent', upload.fields([
     { name: 'docPath' },
 ]), TuragentController.turagent);
 router.get('/turagent', TuragentController.getTuragent);
+
+// Отели
+router.post('/addHotels', upload.fields([
+    { name: 'galery', maxCount: 10 }
+]), HotelsController.Hotels);
+
+router.get('/getHotels', HotelsController.getHotels);
+router.get('/getOneHotels/:id', HotelsController.getOneHotel);
+
+router.put('/updateOneHotels/:id', upload.fields([
+    { name: 'galery', maxCount: 10 }
+]), HotelsController.updateOneHotels);
+
+router.post('/updateHotelsOrder', HotelsController.updateHotelsOrder);
+
+router.delete('/deleteHotels/:id', HotelsController.deleteHotels);
 
 export default router;
