@@ -26,6 +26,7 @@ router.post('/addRegion', upload.fields([
 ]), RegionController.addRegion);
 
 router.get('/getRegions', RegionController.getRegions);
+router.delete('/deleteRegion/:id', RegionController.deleteRegion);
 
 // Многодневный тур +
 router.post('/addMultidayTour', upload.fields([

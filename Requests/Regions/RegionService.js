@@ -28,6 +28,17 @@ class RegionService {
         return { regions };
     }
 
+    
+    async deleteRegion(id) {
+        try {
+            const deleteRegion = await Region.findByIdAndDelete(id);
+
+            return { message: 'Успешно удален', deleteRegion };
+        } catch (e) {
+            return { message: e.message };
+        }
+    }
+
 }
 
 export default new RegionService();

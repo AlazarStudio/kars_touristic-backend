@@ -34,6 +34,15 @@ class RegionController {
         }
     }
 
+    async deleteRegion(req, res) {
+        try {
+            const deleteRegion = await RegionService.deleteRegion(req.params.id)
+            return res.status(200).json(deleteRegion)
+        } catch (e) {
+            res.status(500).json(e.message)
+        }
+    }
+
 }
 
 export default new RegionController();
