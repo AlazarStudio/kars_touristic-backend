@@ -10,7 +10,7 @@ class HotelsService {
         return tour;
     }
 
-    async getHotelss(req) {
+    async getHotels(req) {
         const {
             // page = 1,
             // perPage = 10,
@@ -19,18 +19,18 @@ class HotelsService {
             region = ''
         } = req.query;
 
-        const modelFilter = { tourTitle: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
+        const modelFilter = { title: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
         const totalCount = await Hotels.countDocuments(modelFilter).exec();
-        const Hotels = await Hotels.find(modelFilter)
+        const hotels = await Hotels.find(modelFilter)
             .sort(filter)
             // .limit(perPage)
             // .skip((page - 1) * perPage)
             .exec();
 
-        return { totalCount, Hotels };
+        return { totalCount, hotels };
     }
 
-    async updateOneHotels(id, tourData, photoPaths) {
+    async updateOneHotel(id, tourData, photoPaths) {
         if (tourData.photosToDelete) {
             const pathToFile = path.resolve('static', JSON.parse(tourData.photosToDelete)[0])
             if (!fs.existsSync(pathToFile)) return;
@@ -42,7 +42,7 @@ class HotelsService {
                 id,
                 {
                     $set: tourData,
-                    $push: { photos: { $each: photoPaths } }
+                    $push: { galery: { $each: photoPaths } }
                 },
                 { new: true, runValidators: true }
             );
@@ -67,7 +67,7 @@ class HotelsService {
         return getOneHotels;
     }
 
-    async deleteHotels(id) {
+    async deleteHotel(id) {
         try {
             const tour = await Hotels.findById(id);
 
@@ -75,7 +75,7 @@ class HotelsService {
                 throw new Error("не указан ID");
             }
 
-            tour.photos.forEach(photo => {
+            tour.galery.forEach(photo => {
                 const pathToFile = path.resolve('static', photo)
                 if (!fs.existsSync(pathToFile)) return;
                 fs.unlinkSync(pathToFile);
@@ -83,9 +83,25 @@ class HotelsService {
 
             const deleteHotels = await Hotels.findByIdAndDelete(id);
 
-            return { message: 'Тур успешно удален', deleteHotels };
+            return { message: 'Отель успешно удален', deleteHotels };
         } catch (e) {
             return { message: e.message };
+        }
+    }
+
+    
+    async changeMainImg(imgData) {
+        const { id, mainImgPath } = imgData;
+
+        try {
+            const changeMainImg = await Hotels.findByIdAndUpdate(
+                id,
+                { mainPhoto: mainImgPath},
+                { new: true, upsert: true }
+            );
+            return changeMainImg;
+        } catch (error) {
+            throw new Error('Error updating Hotels: ' + error.message);
         }
     }
 

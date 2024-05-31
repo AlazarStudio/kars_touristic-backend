@@ -1,19 +1,21 @@
 import mongoose from "mongoose";
 
 const Hotels = new mongoose.Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    moreInfo: { type: String, required: true },
+    title: { type: String, required: true, default: '' },
+    description: { type: String, required: true, default: '' },
+    moreInfo: { type: String, required: true, default: '' },
     stars: { type: Number, required: true, default: 0 },
 
-    items:{ type: Array, required: true },
-    galery: { type: Array, required: true },
-    feedbacks: { type: Array, required: true },
-    links: { type: Array, required: true },
+    mainPhoto: { type: String, required: true, default: ''},
+    
+    galery: { type: Array, required: true, default: [] },
+    items:{ type: Array, required: true, default: [] },
+    links: { type: Array, required: true, default: [] },
+    
+    feedbacks: { type: Array, required: true, default: [] },
+    rooms: { type: Array, required: true, default: []},
 
-    rooms: { type: Array, required: true },
-
-    region: { type: String, required: true },
+    region: { type: String, required: true, default: '' },
 
     order: { type: Number, required: true, default: 0 },
 }, { timestamps: true });

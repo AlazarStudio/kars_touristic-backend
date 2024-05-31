@@ -106,14 +106,16 @@ router.post('/addHotels', upload.fields([
 ]), HotelsController.Hotels);
 
 router.get('/getHotels', HotelsController.getHotels);
-router.get('/getOneHotels/:id', HotelsController.getOneHotel);
+router.get('/getOneHotel/:id', HotelsController.getOneHotel);
 
-router.put('/updateOneHotels/:id', upload.fields([
+router.put('/updateOneHotel/:id', upload.fields([
     { name: 'galery', maxCount: 10 }
-]), HotelsController.updateOneHotels);
+]), HotelsController.updateOneHotel);
 
 router.post('/updateHotelsOrder', HotelsController.updateHotelsOrder);
 
-router.delete('/deleteHotels/:id', HotelsController.deleteHotels);
+router.delete('/deleteHotel/:id', HotelsController.deleteHotel);
+
+router.put('/changeMainImgHotel', HotelsController.changeMainImg);
 
 export default router;

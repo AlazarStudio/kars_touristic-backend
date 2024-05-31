@@ -6,34 +6,31 @@ class HotelsController {
     async Hotels(req, res) {
         try {
             const { files, body } = req;
-            const photoPaths = files.photos.map(file => file.filename);
+            const photoPaths = files.galery.map(file => file.filename);
             const HotelsData = {
                 ...body,
-                photos: photoPaths,
-                places: body.places || [],
-                checklists: body.checklists || [],
-                days: body.days || []
+                galery: photoPaths,
             };
             const tour = await HotelsService.Hotels(HotelsData);
             res.status(201).json(tour);
         } catch (error) {
             console.error('Error in HotelsController:', error);
-            res.status(500).json({ message: 'Error adding tour' });
+            res.status(500).json({ message: 'Error adding Hotel' });
         }
     }
 
 
-    async updateOneHotels(req, res) {
+    async updateOneHotel(req, res) {
         const { id } = req.params;
         let tourData = req.body;
         let photoPaths = []; 
     
-        if (req.files && req.files.photos) {
-            photoPaths = req.files.photos.map(file => file.filename); 
+        if (req.files && req.files.galery) {
+            photoPaths = req.files.galery.map(file => file.filename); 
         }
     
         try {
-            const updatedTour = await HotelsService.updateOneHotels(id, tourData, photoPaths);
+            const updatedTour = await HotelsService.updateOneHotel(id, tourData, photoPaths);
             res.status(200).json(updatedTour);
         } catch (error) {
             console.error(`Ошибка в updateOneHotels: ${error}`);
@@ -62,8 +59,8 @@ class HotelsController {
 
     async getHotels(req, res) {
         try {
-            const getHotelss = await HotelsService.getHotelss(req);
-            return res.status(201).json(getHotelss);
+            const getHotels = await HotelsService.getHotels(req);
+            return res.status(201).json(getHotels);
         } catch (e) {
             console.log(e);
             res.status(500).json(e);
@@ -80,14 +77,25 @@ class HotelsController {
     }
 
 
-    async deleteHotels(req, res) {
+    async deleteHotel(req, res) {
         try {
-            const deleteHotels = await HotelsService.deleteHotels(req.params.id)
+            const deleteHotels = await HotelsService.deleteHotel(req.params.id)
             return res.status(200).json(deleteHotels)
         } catch (e) {
             res.status(500).json(e.message)
         }
     }
+
+        
+    async changeMainImg(req, res) {
+        try {
+            const changeMainImg = await HotelsService.changeMainImg(req.query);
+
+            res.status(201).send(changeMainImg);
+        } catch (error) {
+            res.status(500).send({ message: "Не удалось добавить", error: error.message });
+        }
+    };
 }
 
 export default new HotelsController();
