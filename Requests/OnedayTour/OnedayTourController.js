@@ -11,7 +11,8 @@ class OnedayTourController {
                 photos: photoPaths,
                 places: body.places || [],
                 checklists: body.checklists || [],
-                days: body.days || []
+                days: body.days || [],
+                mainPhoto: photoPaths[0],
             };
             const tour = await OnedayTourService.onedayTour(multidayTourData);
             res.status(201).json(tour);
@@ -76,7 +77,7 @@ class OnedayTourController {
         try {
             for (let i = 0; i < orderedIds.length; i++) {
                 const id = orderedIds[i];
-                await OnedayTour.findByIdAndUpdate(id, { order: i }, { new: true, runValidators: true });
+                await OnedayTour.findByIdAndUpdate(id, { order: i + 1 }, { new: true, runValidators: true });
             }
     
             res.status(200).json({ message: 'Order updated successfully' });

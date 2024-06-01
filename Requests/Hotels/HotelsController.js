@@ -10,6 +10,7 @@ class HotelsController {
             const HotelsData = {
                 ...body,
                 galery: photoPaths,
+                mainPhoto: photoPaths[0],
             };
             const tour = await HotelsService.Hotels(HotelsData);
             res.status(201).json(tour);
@@ -45,7 +46,7 @@ class HotelsController {
         try {
             for (let i = 0; i < orderedIds.length; i++) {
                 const id = orderedIds[i];
-                await Hotels.findByIdAndUpdate(id, { order: i }, { new: true, runValidators: true });
+                await Hotels.findByIdAndUpdate(id, { order: i + 1 }, { new: true, runValidators: true });
             }
     
             res.status(200).json({ message: 'Order updated successfully' });

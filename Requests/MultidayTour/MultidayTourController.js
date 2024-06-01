@@ -12,7 +12,8 @@ class MultidayTourController {
                 photos: photoPaths,
                 places: body.places || [],
                 checklists: body.checklists || [],
-                days: body.days || []
+                days: body.days || [],
+                mainPhoto: photoPaths[0],
             };
             const tour = await MultidayTourService.multidayTour(multidayTourData);
             res.status(201).json(tour);
@@ -26,12 +27,12 @@ class MultidayTourController {
     async updateOneMultidayTour(req, res) {
         const { id } = req.params;
         let tourData = req.body;
-        let photoPaths = []; 
-    
+        let photoPaths = [];
+
         if (req.files && req.files.photos) {
-            photoPaths = req.files.photos.map(file => file.filename); 
+            photoPaths = req.files.photos.map(file => file.filename);
         }
-    
+
         try {
             const updatedTour = await MultidayTourService.updateOneMultidayTour(id, tourData, photoPaths);
             res.status(200).json(updatedTour);
@@ -40,17 +41,17 @@ class MultidayTourController {
             res.status(500).json({ message: 'Ошибка при обновлении тура' });
         }
     }
-    
+
 
     async updateMultidayTourOrder(req, res) {
         const { orderedIds } = req.body;
-    
+
         try {
             for (let i = 0; i < orderedIds.length; i++) {
                 const id = orderedIds[i];
-                await MultidayTour.findByIdAndUpdate(id, { order: i }, { new: true, runValidators: true });
+                await MultidayTour.findByIdAndUpdate(id, { order: i + 1 }, { new: true, runValidators: true });
             }
-    
+
             res.status(200).json({ message: 'Order updated successfully' });
         } catch (error) {
             console.error(`Ошибка в updateMultidayTourOrder: ${error}`);
