@@ -12,6 +12,7 @@ import MultidayTourController from "./Requests/MultidayTour/MultidayTourControll
 import OnedayTourController from "./Requests/OnedayTour/OnedayTourController.js";
 import HotelsController from "./Requests/Hotels/HotelsController.js";
 import RoomsController from "./Requests/Rooms/RoomsController.js";
+import PlacesController from "./Requests/Places/PlacesController.js";
 
 const router = new Router()
 
@@ -137,5 +138,24 @@ router.post('/updateRoomsOrder', RoomsController.updateRoomsOrder);
 router.delete('/deleteRoom/:id', RoomsController.deleteRoom);
 
 router.put('/changeMainImgRoom', RoomsController.changeMainImg);
+
+
+// Достопримечательности
+router.post('/addPlaces', upload.fields([
+    { name: 'galery', maxCount: 10 }
+]), PlacesController.Places);
+
+router.get('/getPlaces', PlacesController.getPlaces);
+router.get('/getOnePlace/:id', PlacesController.getOnePlace);
+
+router.put('/updateOnePlace/:id', upload.fields([
+    { name: 'galery', maxCount: 10 }
+]), PlacesController.updateOnePlace);
+
+router.post('/updatePlacesOrder', PlacesController.updatePlacesOrder);
+
+router.delete('/deletePlace/:id', PlacesController.deletePlace);
+
+router.put('/changeMainImgPlace', PlacesController.changeMainImg);
 
 export default router;

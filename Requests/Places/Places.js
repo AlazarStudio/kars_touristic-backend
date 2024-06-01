@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
 
-const Rooms = new mongoose.Schema({
+const Places = new mongoose.Schema({
     title: { type: String, required: true, default: '' },
     description: { type: String, required: true, default: '' },
-    places: { type: String, required: true, default: '' },
 
     // Параметры номера
     square: { type: String, required: true, default: '' }, //Площадь
@@ -27,4 +26,4 @@ const Rooms = new mongoose.Schema({
     order: { type: Number, required: true, default: 0 },
 }, { timestamps: true });
 
-export default mongoose.model('Rooms', Rooms);
+export default mongoose.model('Places', Places);
