@@ -11,6 +11,7 @@ import TuragentController from "./Requests/Turagent/TuragentController.js";
 import MultidayTourController from "./Requests/MultidayTour/MultidayTourController.js";
 import OnedayTourController from "./Requests/OnedayTour/OnedayTourController.js";
 import HotelsController from "./Requests/Hotels/HotelsController.js";
+import RoomsController from "./Requests/Rooms/RoomsController.js";
 
 const router = new Router()
 
@@ -117,5 +118,24 @@ router.post('/updateHotelsOrder', HotelsController.updateHotelsOrder);
 router.delete('/deleteHotel/:id', HotelsController.deleteHotel);
 
 router.put('/changeMainImgHotel', HotelsController.changeMainImg);
+
+
+// Номера
+router.post('/addRooms', upload.fields([
+    { name: 'galery', maxCount: 10 }
+]), RoomsController.Rooms);
+
+router.get('/getRooms', RoomsController.getRooms);
+router.get('/getOneRoom/:id', RoomsController.getOneRoom);
+
+router.put('/updateOneRoom/:id', upload.fields([
+    { name: 'galery', maxCount: 10 }
+]), RoomsController.updateOneRoom);
+
+router.post('/updateRoomsOrder', RoomsController.updateRoomsOrder);
+
+router.delete('/deleteRoom/:id', RoomsController.deleteRoom);
+
+router.put('/changeMainImgRoom', RoomsController.changeMainImg);
 
 export default router;
