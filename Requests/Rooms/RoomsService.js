@@ -81,7 +81,7 @@ class RoomsService {
                 throw new Error("не указан ID");
             }
 
-            tour.galery.forEach(photo => {
+            tour.photos.forEach(photo => {
                 const pathToFile = path.resolve('static', photo)
                 if (!fs.existsSync(pathToFile)) return;
                 fs.unlinkSync(pathToFile);
