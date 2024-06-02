@@ -30,7 +30,16 @@ router.post('/addRegion', upload.fields([
 ]), RegionController.addRegion);
 
 router.get('/getRegions', RegionController.getRegions);
+router.get('/getOneRegion/:link', RegionController.getOneRegion);
+
 router.delete('/deleteRegion/:id', RegionController.deleteRegion);
+
+//Починить
+router.put('/updateRegion/:link', upload.fields([
+    { name: 'iconPath' },
+    { name: 'coverImgPath' },
+    { name: 'backgroundImgPath' }
+]), RegionController.updateRegion);
 
 // Многодневный тур +
 router.post('/addMultidayTour', upload.fields([
