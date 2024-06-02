@@ -19,7 +19,7 @@ const Rooms = new mongoose.Schema({
 
     mainPhoto: { type: String, default: '' },
 
-    galery: { type: Array, required: true, default: [] },
+    photos: { type: Array, required: true, default: [] },
     
     region: { type: String, required: true, default: '' },
     hotelID: { type: String, required: true, default: '' },

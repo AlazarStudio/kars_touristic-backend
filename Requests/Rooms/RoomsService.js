@@ -48,7 +48,7 @@ class RoomsService {
                 id,
                 {
                     $set: tourData,
-                    $push: { galery: { $each: photoPaths } }
+                    $push: { photos: { $each: photoPaths } }
                 },
                 { new: true, runValidators: true }
             );

@@ -6,10 +6,10 @@ class RoomsController {
     async Rooms(req, res) {
         try {
             const { files, body } = req;
-            const photoPaths = files.galery.map(file => file.filename);
+            const photoPaths = files.photos.map(file => file.filename);
             const RoomsData = {
                 ...body,
-                galery: photoPaths,
+                photos: photoPaths,
                 mainPhoto: photoPaths[0],
             };
             const tour = await RoomsService.Rooms(RoomsData);
@@ -26,15 +26,15 @@ class RoomsController {
         let tourData = req.body;
         let photoPaths = []; 
     
-        if (req.files && req.files.galery) {
-            photoPaths = req.files.galery.map(file => file.filename); 
+        if (req.files && req.files.photos) {
+            photoPaths = req.files.photos.map(file => file.filename); 
         }
     
         try {
             const updatedTour = await RoomsService.updateOneRoom(id, tourData, photoPaths);
             res.status(200).json(updatedTour);
         } catch (error) {
-            console.error(`Ошибка в updateOneRooms: ${error}`);
+            console.error(`Ошибка в updateOneRoom: ${error}`);
             res.status(500).json({ message: 'Ошибка при обновлении тура' });
         }
     }

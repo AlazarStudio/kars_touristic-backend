@@ -123,14 +123,14 @@ router.put('/changeMainImgHotel', HotelsController.changeMainImg);
 
 // Номера
 router.post('/addRooms', upload.fields([
-    { name: 'galery', maxCount: 10 }
+    { name: 'photos', maxCount: 10 }
 ]), RoomsController.Rooms);
 
 router.get('/getRooms', RoomsController.getRooms);
 router.get('/getOneRoom/:id', RoomsController.getOneRoom);
 
 router.put('/updateOneRoom/:id', upload.fields([
-    { name: 'galery', maxCount: 10 }
+    { name: 'photos', maxCount: 10 }
 ]), RoomsController.updateOneRoom);
 
 router.post('/updateRoomsOrder', RoomsController.updateRoomsOrder);
