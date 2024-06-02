@@ -6,7 +6,7 @@ import router from "./router.js";
 import path from 'path';
 import cors from "cors"
 
-const PORT = process.env.PORT || 5002
+const PORT = process.env.PORT || 80
 // const DB_URL = 'mongodb://127.0.0.1:27017/test';
 const DB_URL = 'mongodb://127.0.0.1:27017/kars_touristic_DB';
 
