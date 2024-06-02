@@ -142,14 +142,18 @@ router.put('/changeMainImgRoom', RoomsController.changeMainImg);
 
 // Достопримечательности
 router.post('/addPlaces', upload.fields([
-    { name: 'galery', maxCount: 10 }
+    { name: 'photos', maxCount: 10 }
 ]), PlacesController.Places);
 
 router.get('/getPlaces', PlacesController.getPlaces);
+
+router.get('/getMultidayToursInPlace/:placeTitle', PlacesController.getMultidayToursInPlace);
+router.get('/getOnedayToursInPlace/:placeTitle', PlacesController.getOnedayToursInPlace);
+
 router.get('/getOnePlace/:id', PlacesController.getOnePlace);
 
 router.put('/updateOnePlace/:id', upload.fields([
-    { name: 'galery', maxCount: 10 }
+    { name: 'photos', maxCount: 10 }
 ]), PlacesController.updateOnePlace);
 
 router.post('/updatePlacesOrder', PlacesController.updatePlacesOrder);

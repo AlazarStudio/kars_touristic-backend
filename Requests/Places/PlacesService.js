@@ -3,6 +3,10 @@ import * as path from 'path';
 
 import Places from "./Places.js";
 
+import MultidayTour from "../MultidayTour/MultidayTour.js";
+
+import OnedayTour from "../OnedayTour/OnedayTour.js";
+
 class PlacesService {
     async Places(PlacesData) {
         const tour = new Places(PlacesData);
@@ -20,10 +24,9 @@ class PlacesService {
             hotelId
         } = req.query;
 
-        const modelFilter = { 
-            title: { $regex: search, $options: 'i' }, 
+        const modelFilter = {
+            title: { $regex: search, $options: 'i' },
             region: { $regex: region, $options: 'i' },
-            hotelID: { $regex: hotelId, $options: 'i' }
         };
 
         const totalCount = await Places.countDocuments(modelFilter).exec();
@@ -48,7 +51,7 @@ class PlacesService {
                 id,
                 {
                     $set: tourData,
-                    $push: { galery: { $each: photoPaths } }
+                    $push: { photos: { $each: photoPaths } }
                 },
                 { new: true, runValidators: true }
             );
@@ -63,6 +66,36 @@ class PlacesService {
         }
     }
 
+
+    async getMultidayToursInPlace(placeTitle) {
+        const modelFilter = {
+            places: {
+                $elemMatch: {
+                    $regex: new RegExp(placeTitle, 'i')
+                }
+            }
+        };
+
+        const totalCount = await MultidayTour.countDocuments(modelFilter).exec();
+        const getMultidayToursInPlace = await MultidayTour.find(modelFilter).exec();
+
+        return { totalCount, getMultidayToursInPlace };
+    }
+
+    async getOnedayToursInPlace(placeTitle) {
+        const modelFilter = {
+            places: {
+                $elemMatch: {
+                    $regex: new RegExp(placeTitle, 'i')
+                }
+            }
+        };
+
+        const totalCount = await OnedayTour.countDocuments(modelFilter).exec();
+        const getOnedayToursInPlace = await OnedayTour.find(modelFilter).exec();
+
+        return { totalCount, getOnedayToursInPlace };
+    }
 
 
     async getOnePlaces(id) {
@@ -81,7 +114,7 @@ class PlacesService {
                 throw new Error("не указан ID");
             }
 
-            tour.galery.forEach(photo => {
+            tour.photos.forEach(photo => {
                 const pathToFile = path.resolve('static', photo)
                 if (!fs.existsSync(pathToFile)) return;
                 fs.unlinkSync(pathToFile);
@@ -95,14 +128,14 @@ class PlacesService {
         }
     }
 
-    
+
     async changeMainImg(imgData) {
         const { id, mainImgPath } = imgData;
 
         try {
             const changeMainImg = await Places.findByIdAndUpdate(
                 id,
-                { mainPhoto: mainImgPath},
+                { mainPhoto: mainImgPath },
                 { new: true, upsert: true }
             );
             return changeMainImg;

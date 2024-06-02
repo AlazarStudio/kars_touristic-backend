@@ -6,10 +6,10 @@ class PlacesController {
     async Places(req, res) {
         try {
             const { files, body } = req;
-            const photoPaths = files.galery.map(file => file.filename);
+            const photoPaths = files.photos.map(file => file.filename);
             const PlacesData = {
                 ...body,
-                galery: photoPaths,
+                photos: photoPaths,
                 mainPhoto: photoPaths[0],
             };
             const tour = await PlacesService.Places(PlacesData);
@@ -26,8 +26,8 @@ class PlacesController {
         let tourData = req.body;
         let photoPaths = []; 
     
-        if (req.files && req.files.galery) {
-            photoPaths = req.files.galery.map(file => file.filename); 
+        if (req.files && req.files.photos) {
+            photoPaths = req.files.photos.map(file => file.filename); 
         }
     
         try {
@@ -65,6 +65,24 @@ class PlacesController {
         } catch (e) {
             console.log(e);
             res.status(500).json(e);
+        }
+    }
+
+    async getMultidayToursInPlace(req, res) {
+        try {
+            const getMultidayToursInPlace = await PlacesService.getMultidayToursInPlace(req.params.placeTitle)
+            return res.status(200).json(getMultidayToursInPlace)
+        } catch (e) {
+            res.status(500).json(e.message)
+        }
+    }
+
+    async getOnedayToursInPlace(req, res) {
+        try {
+            const getOnedayToursInPlace = await PlacesService.getOnedayToursInPlace(req.params.placeTitle)
+            return res.status(200).json(getOnedayToursInPlace)
+        } catch (e) {
+            res.status(500).json(e.message)
         }
     }
 
