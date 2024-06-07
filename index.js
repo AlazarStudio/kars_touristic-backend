@@ -27,8 +27,8 @@ app.get('/*', (req, res) => {
   });
   
   const sslOptions = {
-    key: fs.readFileSync('karstouristic.ru/privkey.pem'),
-    cert: fs.readFileSync('karstouristic.ru/fullchain.pem')
+    key: fs.readFileSync('karstouristic1.ru/privkey.pem'),
+    cert: fs.readFileSync('karstouristic1.ru/fullchain.pem')
   };
   
   https.createServer(sslOptions, app).listen(PORT_HTTPS, () => {
