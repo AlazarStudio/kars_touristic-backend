@@ -26,9 +26,14 @@ app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../kars_touristic/dist', 'index.html'));
   });
   
+//   const sslOptions = {
+//     key: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/privkey.pem'),
+//     cert: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/fullchain.pem')
+//   };
+
   const sslOptions = {
-    key: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/privkey.pem'),
-    cert: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/fullchain.pem')
+    key: fs.readFileSync('karstouristic.ru/privkey.pem'),
+    cert: fs.readFileSync('karstouristic.ru/fullchain.pem')
   };
   
   https.createServer(sslOptions, app).listen(PORT_HTTPS, () => {
