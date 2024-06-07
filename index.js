@@ -26,15 +26,15 @@ app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../kars_touristic/dist', 'index.html'));
   });
   
-//   const sslOptions = {
-//     key: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/privkey.pem'),
-//     cert: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/fullchain.pem')
-//   };
-
   const sslOptions = {
-    key: fs.readFileSync('karstouristic.ru/privkey.pem'),
-    cert: fs.readFileSync('karstouristic.ru/fullchain.pem')
+    key: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/privkey.pem'),
+    cert: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/fullchain.pem')
   };
+
+//   const sslOptions = {
+//     key: fs.readFileSync('karstouristic.ru/privkey.pem'),
+//     cert: fs.readFileSync('karstouristic.ru/fullchain.pem')
+//   };
   
   https.createServer(sslOptions, app).listen(PORT_HTTPS, () => {
     console.log(`HTTPS server running on port ${PORT_HTTPS}`);
@@ -43,8 +43,8 @@ app.get('/*', (req, res) => {
   async function startApp() {
     try {
       await mongoose.connect(DB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+        // useNewUrlParser: true,
+        // useUnifiedTopology: true
       });
       console.log('MongoDB connected');
     } catch (e) {
@@ -88,8 +88,8 @@ app.get('/*', (req, res) => {
 // async function startApp() {
 //     try {
 //         await mongoose.connect(DB_URL, {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true
+//             //useNewUrlParser: true,
+//             //useUnifiedTopology: true
 //         }).then(() => console.log('MongoDB connected'))
 //             .catch(err => console.log('MongoDB connection error:', err));
             
