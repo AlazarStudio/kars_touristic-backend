@@ -81,15 +81,15 @@ class AboutService {
 
     async deleteTeam(id) {
         try {
-            const team = await Team.findById(id);
+            // const team = await Team.findById(id);
 
-            if (!team) {
-                throw new Error("не указан ID");
-            }
+            // if (!team) {
+            //     throw new Error("не указан ID");
+            // }
 
-            const pathToFile = path.resolve('static', team.imgPath)
-            if (!fs.existsSync(pathToFile)) return;
-            fs.unlinkSync(pathToFile);
+            // const pathToFile = path.resolve('static', team.imgPath)
+            // if (!fs.existsSync(pathToFile)) return;
+            // fs.unlinkSync(pathToFile);
 
             const deleteTeam = await Team.findByIdAndDelete(id);
 
