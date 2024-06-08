@@ -1,5 +1,5 @@
 import Router from "express";
-import upload from './Requests/Functions/multerConfig.js';
+import { upload, convertToWebP } from './Requests/Functions/multerConfig.js';
 
 import AuthController from "./Requests/Users/AuthController.js";
 import RegionController from "./Requests/Regions/RegionController.js";
@@ -27,7 +27,7 @@ router.post('/addRegion', upload.fields([
     { name: 'iconPath' },
     { name: 'coverImgPath' },
     { name: 'backgroundImgPath' }
-]), RegionController.addRegion);
+]), convertToWebP, RegionController.addRegion);
 
 router.get('/getRegions', RegionController.getRegions);
 router.get('/getOneRegion/:link', RegionController.getOneRegion);
@@ -39,19 +39,19 @@ router.put('/updateRegion/:link', upload.fields([
     { name: 'iconPath' },
     { name: 'coverImgPath' },
     { name: 'backgroundImgPath' }
-]), RegionController.updateRegion);
+]), convertToWebP, RegionController.updateRegion);
 
 // Многодневный тур +
 router.post('/addMultidayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), MultidayTourController.multidayTour);
+]), convertToWebP, MultidayTourController.multidayTour);
 
 router.get('/getMultidayTours', MultidayTourController.getMultidayTours);
 router.get('/getOneMultidayTour/:id', MultidayTourController.getOneMultidayTour);
 
 router.put('/updateOneMultidayTour/:id', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), MultidayTourController.updateOneMultidayTour);
+]), convertToWebP, MultidayTourController.updateOneMultidayTour);
 
 router.post('/updateMultidayTourOrder', MultidayTourController.updateMultidayTourOrder);
 
@@ -63,14 +63,14 @@ router.put('/changeMainImgMultidayTour', MultidayTourController.changeMainImg);
 // Однодневный тур +
 router.post('/addOnedayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), OnedayTourController.onedayTour);
+]), convertToWebP, OnedayTourController.onedayTour);
 
 router.get('/getOnedayTours', OnedayTourController.getOnedayTours);
 router.get('/getOneOnedayTour/:id', OnedayTourController.getOneOnedayTour);
 
 router.put('/updateOneOnedayTour/:id', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), OnedayTourController.updateOneOnedayTour);
+]), convertToWebP, OnedayTourController.updateOneOnedayTour);
 
 router.post('/updateOnedayTourOrder', OnedayTourController.updateOnedayTourOrder);
 
@@ -87,7 +87,7 @@ router.get('/mission', AboutController.getMission);
 
 router.post('/team', upload.fields([
     { name: 'imgPath' },
-]), AboutController.team);
+]), convertToWebP, AboutController.team);
 
 router.get('/getTeam', AboutController.getTeam);
 router.delete('/deleteTeam/:id', AboutController.deleteTeam);
@@ -109,20 +109,20 @@ router.get('/contacts', ContactsController.getContacts);
 // Турагентам +
 router.put('/turagent', upload.fields([
     { name: 'docPath' },
-]), TuragentController.turagent);
+]), convertToWebP, TuragentController.turagent);
 router.get('/turagent', TuragentController.getTuragent);
 
 // Отели
 router.post('/addHotels', upload.fields([
     { name: 'galery', maxCount: 10 }
-]), HotelsController.Hotels);
+]), convertToWebP, HotelsController.Hotels);
 
 router.get('/getHotels', HotelsController.getHotels);
 router.get('/getOneHotel/:id', HotelsController.getOneHotel);
 
 router.put('/updateOneHotel/:id', upload.fields([
     { name: 'galery', maxCount: 10 }
-]), HotelsController.updateOneHotel);
+]), convertToWebP, HotelsController.updateOneHotel);
 
 router.post('/updateHotelsOrder', HotelsController.updateHotelsOrder);
 
@@ -134,14 +134,14 @@ router.put('/changeMainImgHotel', HotelsController.changeMainImg);
 // Номера
 router.post('/addRooms', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), RoomsController.Rooms);
+]), convertToWebP, RoomsController.Rooms);
 
 router.get('/getRooms', RoomsController.getRooms);
 router.get('/getOneRoom/:id', RoomsController.getOneRoom);
 
 router.put('/updateOneRoom/:id', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), RoomsController.updateOneRoom);
+]), convertToWebP, RoomsController.updateOneRoom);
 
 router.post('/updateRoomsOrder', RoomsController.updateRoomsOrder);
 
@@ -153,7 +153,7 @@ router.put('/changeMainImgRoom', RoomsController.changeMainImg);
 // Достопримечательности
 router.post('/addPlaces', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), PlacesController.Places);
+]), convertToWebP, PlacesController.Places);
 
 router.get('/getPlaces', PlacesController.getPlaces);
 
@@ -164,7 +164,7 @@ router.get('/getOnePlace/:id', PlacesController.getOnePlace);
 
 router.put('/updateOnePlace/:id', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), PlacesController.updateOnePlace);
+]), convertToWebP, PlacesController.updateOnePlace);
 
 router.post('/updatePlacesOrder', PlacesController.updatePlacesOrder);
 
@@ -176,7 +176,7 @@ router.put('/changeMainImgPlace', PlacesController.changeMainImg);
 // Достопримечательности
 router.post('/addEvents', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), EventsController.Events);
+]), convertToWebP, EventsController.Events);
 
 router.get('/getEvents', EventsController.getEvents);
 
@@ -184,7 +184,7 @@ router.get('/getOneEvent/:id', EventsController.getOneEvent);
 
 router.put('/updateOneEvent/:id', upload.fields([
     { name: 'photos', maxCount: 10 }
-]), EventsController.updateOneEvent);
+]), convertToWebP, EventsController.updateOneEvent);
 
 router.post('/updateEventsOrder', EventsController.updateEventsOrder);
 
