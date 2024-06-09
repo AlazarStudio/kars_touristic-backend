@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 
 const PORT_HTTPS = 443; // HTTPS порт
 const PORT_HTTP = 80;  // HTTP порт для редиректа
-const DB_URL = 'mongodb://0.0.0.0:27017/kars_touristic_DB'; // Строка подключения к MongoDB
+const DB_URL = 'mongodb://127.0.0.1:27017/kars_touristic_DB'; // Строка подключения к MongoDB
 
 const app = express();
 app.use(express.json());
