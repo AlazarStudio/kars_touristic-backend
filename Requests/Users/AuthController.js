@@ -11,13 +11,28 @@ class AuthController {
             res.status(500).json(e)
         }
     }
-    
+
     async registration(req, res) {
         try {
-            const registration = await AuthService.registration(req)
-            return res.status(200).json(registration)
+            const { username, password, name, role } = req.query; // Используем req.query для получения параметров запроса
+
+            if (!username || !password || !name || !role) {
+                return res.status(400).json({ message: "Все поля обязательны" });
+            }
+
+            const userValue = {
+                body: {
+                    username,
+                    password,
+                    name,
+                    role
+                }
+            };
+
+            const { user, token } = await AuthService.registration(userValue);
+            return res.status(200).json({ user, token });
         } catch (e) {
-            res.status(500).json('Registration error: ' + e)
+            res.status(500).json('Registration error: ' + e.message);
         }
     }
 

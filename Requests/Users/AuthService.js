@@ -1,5 +1,6 @@
 import User from "./User.js"
 import bcrypt from "bcryptjs"
+import { generateAccessToken } from '../Token/tokenService.js';
 
 class PostService {
   async getUsers(req) {
@@ -26,36 +27,69 @@ class PostService {
       users
     };
   }
-  
+
+  // async registration(userValue) {
+  //   const {
+  //     name,
+  //     role,
+  //     username,
+  //     password,
+  //   } = userValue.body
+
+  //   const candidate = await User.findOne({
+  //     username
+  //   })
+
+  //   if (candidate) {
+  //     throw new Error("Такой пользователь уже существует");
+  //   }
+
+  //   const hashPassword = bcrypt.hashSync(password, 7)
+
+  //   const user = await User.create({
+  //     name: name,
+  //     role: role,
+  //     username: username,
+  //     password: hashPassword,
+  //   });
+
+  //   return {
+  //     user
+  //   }
+  // }
+
   async registration(userValue) {
     const {
-      name,
-      role,
-      username,
-      password,
-    } = userValue.body
+        name,
+        role,
+        username,
+        password,
+    } = userValue.body;
 
     const candidate = await User.findOne({
-      username
-    })
-
-    if (candidate) {
-      throw new Error("Такой пользователь уже существует");
-    }
-
-    const hashPassword = bcrypt.hashSync(password, 7)
-
-    const user = await User.create({
-      name: name,
-      role: role,
-      username: username,
-      password: hashPassword,
+        username
     });
 
-    return {
-      user
+    if (candidate) {
+        throw new Error("Такой пользователь уже существует");
     }
-  }
+
+    const hashPassword = bcrypt.hashSync(password, 7);
+
+    const user = await User.create({
+        name: name,
+        role: role,
+        username: username,
+        password: hashPassword,
+    });
+
+    const token = generateAccessToken(user._id, user.role);
+
+    return {
+        user,
+        token
+    };
+}
 
   async login(userValue) {
     const {
@@ -78,7 +112,7 @@ class PostService {
     } else {
       return user.name
     }
-    
+
   }
 }
 
