@@ -14,9 +14,9 @@ class AuthController {
 
     async registration(req, res) {
         try {
-            const { username, password, name, role } = req.query; // Используем req.query для получения параметров запроса
+            const { username, password, name, phone, email } = req.body; // Используем req.query для получения параметров запроса
 
-            if (!username || !password || !name || !role) {
+            if (!username || !password || !name || !phone || !email) {
                 return res.status(400).json({ message: "Все поля обязательны" });
             }
 
