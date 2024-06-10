@@ -60,36 +60,38 @@ class PostService {
 
   async registration(userValue) {
     const {
-        name,
-        role,
-        username,
-        password,
+      username,
+      password,
+      name,
+      phone,
+      email
     } = userValue.body;
 
     const candidate = await User.findOne({
-        username
+      username
     });
 
     if (candidate) {
-        throw new Error("Такой пользователь уже существует");
+      throw new Error("Такой пользователь уже существует");
     }
 
     const hashPassword = bcrypt.hashSync(password, 7);
 
     const user = await User.create({
-        name: name,
-        role: role,
-        username: username,
-        password: hashPassword,
+      username: username,
+      password: hashPassword,
+      name: name,
+      phone: phone,
+      email: email,
     });
 
     const token = generateAccessToken(user._id, user.role);
 
     return {
-        user,
-        token
+      user,
+      token
     };
-}
+  }
 
   async login(userValue) {
     const {

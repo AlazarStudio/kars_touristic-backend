@@ -25,7 +25,8 @@ class AuthController {
                     username,
                     password,
                     name,
-                    role
+                    phone,
+                    email
                 }
             };
 
