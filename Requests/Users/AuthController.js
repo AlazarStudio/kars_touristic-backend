@@ -12,9 +12,26 @@ class AuthController {
         }
     }
 
+    async user(req, res) {
+        try {
+            const token = req.headers['authorization']?.split(' ')[1];
+            if (!token) {
+                return res.status(401).json({ message: 'Нет токена' });
+            }
+
+            // console.log(token)
+    
+            const user = await AuthService.user(token);
+            return res.status(200).json(user);
+        } catch (e) {
+            console.log(e);
+            res.status(500).json(e);
+        }
+    }
+
     async registration(req, res) {
         try {
-            const { username, password, name, phone, email } = req.body; // Используем req.query для получения параметров запроса
+            const { username, password, name, phone, email } = req.body;
 
             if (!username || !password || !name || !phone || !email) {
                 return res.status(400).json({ message: "Все поля обязательны" });
@@ -39,10 +56,23 @@ class AuthController {
 
     async login(req, res) {
         try {
-            const login = await AuthService.login(req.body)
-            return res.status(200).json(login)
+            const { username, password} = req.body;
+
+            if (!username || !password) {
+                return res.status(400).json({ message: "Все поля обязательны" });
+            }
+
+            const userValue = {
+                body: {
+                    username,
+                    password,
+                }
+            };
+
+            const { user, token } = await AuthService.login(userValue);
+            return res.status(200).json({ user, token });
         } catch (e) {
-            res.status(500).json('Login error: ' + e)
+            res.status(500).json('Registration error: ' + e.message);
         }
     }
 

@@ -1,6 +1,10 @@
 import User from "./User.js"
 import bcrypt from "bcryptjs"
+import jwt from 'jsonwebtoken';
 import { generateAccessToken } from '../Token/tokenService.js';
+
+import dotenv from 'dotenv';
+dotenv.config({ path: './Requests/Token/secret.env' });
 
 class PostService {
   async getUsers(req) {
@@ -28,35 +32,18 @@ class PostService {
     };
   }
 
-  // async registration(userValue) {
-  //   const {
-  //     name,
-  //     role,
-  //     username,
-  //     password,
-  //   } = userValue.body
+  async user(token) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id;
 
-  //   const candidate = await User.findOne({
-  //     username
-  //   })
+      const user = await User.findById(userId);
 
-  //   if (candidate) {
-  //     throw new Error("Такой пользователь уже существует");
-  //   }
-
-  //   const hashPassword = bcrypt.hashSync(password, 7)
-
-  //   const user = await User.create({
-  //     name: name,
-  //     role: role,
-  //     username: username,
-  //     password: hashPassword,
-  //   });
-
-  //   return {
-  //     user
-  //   }
-  // }
+      return user;
+    } catch (e) {
+      throw new Error('Не удалось получить информацию о пользователе');
+    }
+  }
 
   async registration(userValue) {
     const {
@@ -94,28 +81,24 @@ class PostService {
   }
 
   async login(userValue) {
-    const {
-      username,
-      password
-    } = userValue
-
-    const user = await User.findOne({
-      username
-    })
-
-    if (!user) {
-      throw new Error("Логин введен неверно");
+    const { username, password } = userValue.body;
+  
+    const candidate = await User.findOne({ username });
+  
+    if (!candidate) {
+      throw new Error("Такого пользователя не существует");
     }
-
-    const validPassword = bcrypt.compareSync(password, user.password)
-
+  
+    const validPassword = bcrypt.compareSync(password, candidate.password);
+  
     if (!validPassword) {
-      throw new Error('Пароль введен неверно');
-    } else {
-      return user.name
+      throw new Error("Неверный пароль");
     }
-
+  
+    const token = generateAccessToken(candidate._id, candidate.role);
+    return { candidate, token };
   }
+  
 }
 
 export default new PostService();

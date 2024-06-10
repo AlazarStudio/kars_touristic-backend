@@ -18,6 +18,7 @@ import EventsController from "./Requests/Events/EventsController.js";
 const router = new Router()
 
 router.get('/getUsers', AuthController.getUsers);
+router.get('/user', AuthController.user);
 
 router.post('/registration', AuthController.registration);
 router.post('/login', AuthController.login);
