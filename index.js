@@ -39,13 +39,6 @@ app.get('/*', (req, res) => {
   https.createServer(sslOptions, app).listen(PORT_HTTPS, () => {
     console.log(`HTTPS server running on port ${PORT_HTTPS}`);
   });
-
-  http.createServer((req, res) => {
-    res.writeHead(301, { "Location": `https://${req.headers.host}${req.url}` });
-    res.end();
-  }).listen(PORT_HTTP, () => {
-    console.log(`HTTP server running on port ${PORT_HTTP} and redirecting to HTTPS`);
-  });
    
   async function startApp() {
     try {
