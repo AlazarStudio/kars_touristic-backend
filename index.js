@@ -27,13 +27,13 @@ app.use('/refs', express.static('static'));
 //   });
   
   const sslOptions = {
-    key: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/privkey.pem'),
-    cert: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/fullchain.pem')
+    key: fs.readFileSync('../../../etc/letsencrypt/live/backend.karstouristic.ru/privkey.pem'),
+    cert: fs.readFileSync('../../../etc/letsencrypt/live/backend.karstouristic.ru/fullchain.pem')
   };
 
   // const sslOptions = {
-  //   key: fs.readFileSync('karstouristic.ru/privkey.pem'),
-  //   cert: fs.readFileSync('karstouristic.ru/fullchain.pem')
+  //   key: fs.readFileSync('backend.karstouristic.ru/privkey.pem'),
+  //   cert: fs.readFileSync('backend.karstouristic.ru/fullchain.pem')
   // };
   
   https.createServer(sslOptions, app).listen(PORT_HTTPS, () => {
