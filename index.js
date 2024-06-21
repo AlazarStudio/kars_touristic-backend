@@ -20,11 +20,11 @@ app.use(express.json());
 app.use(cors());
 app.use('/api', router);
 app.use('/refs', express.static('static'));
-// app.use(express.static(path.resolve(__dirname, '../kars_touristic/dist')));
+app.use(express.static(path.resolve(__dirname, '../kars_touristic/dist')));
 
-// app.get('/*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, '../kars_touristic/dist', 'index.html'));
-//   });
+app.get('/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../kars_touristic/dist', 'index.html'));
+  });
   
   const sslOptions = {
     key: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/privkey.pem'),
