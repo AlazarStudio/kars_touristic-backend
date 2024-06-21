@@ -1,15 +1,15 @@
 import express from "express";
 import mongoose from "mongoose";
 import router from "./router.js"; // Убедитесь, что путь к вашему роутеру верный
-import path from 'path';
+// import path from 'path';
 import cors from "cors";
 import https from 'https';
 import fs from 'fs';
 import http from 'http';
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const PORT_HTTPS = 443; // HTTPS порт
 const PORT_HTTP = 80;  // HTTP порт для редиректа
@@ -22,9 +22,9 @@ app.use('/api', router);
 app.use('/refs', express.static('static'));
 app.use(express.static(path.resolve(__dirname, '../kars_touristic/dist')));
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../kars_touristic/dist', 'index.html'));
-  });
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../kars_touristic/dist', 'index.html'));
+//   });
   
   const sslOptions = {
     key: fs.readFileSync('../../../etc/letsencrypt/live/karstouristic.ru/privkey.pem'),
