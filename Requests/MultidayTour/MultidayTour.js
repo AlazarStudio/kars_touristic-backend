@@ -8,6 +8,7 @@ const MultidayTour = new mongoose.Schema({
     tourType: { type: String, required: true },
     difficulty: { type: String, required: true },
     cost: { type: String, required: true },
+    optional: { type: String, required: false },
 
     mainPhoto: { type: String, default: ''},
     
