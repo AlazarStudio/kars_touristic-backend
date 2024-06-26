@@ -104,7 +104,7 @@ class PostService {
       const decoded = jwt.verify(token, 'your_jwt_secret');
       const userId = decoded.id;
 
-      const user = await Users.findById(userId);
+      const user = await User.findById(userId);
       if (!user) {
         throw new Error('User not found');
       }
