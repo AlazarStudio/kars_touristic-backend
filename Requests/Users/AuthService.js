@@ -101,12 +101,25 @@ class PostService {
 
   async userUpdate(token, updates) {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, 'your_jwt_secret');
       const userId = decoded.id;
 
-      const user = await User.findById(userId);
+      const user = await Users.findById(userId);
       if (!user) {
         throw new Error('User not found');
+      }
+
+      if (updates.likes) {
+        const likeId = updates.likes[0];
+        const likesSet = new Set(user.likes);
+
+        if (likesSet.has(likeId)) {
+          likesSet.delete(likeId);
+        } else {
+          likesSet.add(likeId);
+        }
+
+        updates.likes = Array.from(likesSet);
       }
 
       Object.keys(updates).forEach(key => {
