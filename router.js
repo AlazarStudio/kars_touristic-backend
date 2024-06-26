@@ -180,7 +180,7 @@ router.delete('/deletePlace/:id', PlacesController.deletePlace);
 router.put('/changeMainImgPlace', PlacesController.changeMainImg);
 
 
-// Достопримечательности
+// Мероприятия
 router.post('/addEvents', upload.fields([
     { name: 'photos', maxCount: 10 }
 ]), convertToWebP, EventsController.Events);
