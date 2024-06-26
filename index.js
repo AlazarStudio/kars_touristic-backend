@@ -16,15 +16,15 @@ app.use(cors());
 app.use('/api', router);
 app.use('/refs', express.static('static'));
 
-const sslOptions = {
-  key: fs.readFileSync('../../../etc/letsencrypt/live/backend.karstouristic.ru/privkey.pem'),
-  cert: fs.readFileSync('../../../etc/letsencrypt/live/backend.karstouristic.ru/fullchain.pem')
-};
-
 // const sslOptions = {
-//   key: fs.readFileSync('backend.karstouristic.ru/privkey.pem'),
-//   cert: fs.readFileSync('backend.karstouristic.ru/fullchain.pem')
+//   key: fs.readFileSync('../../../etc/letsencrypt/live/backend.karstouristic.ru/privkey.pem'),
+//   cert: fs.readFileSync('../../../etc/letsencrypt/live/backend.karstouristic.ru/fullchain.pem')
 // };
+
+const sslOptions = {
+  key: fs.readFileSync('backend.karstouristic.ru/privkey.pem'),
+  cert: fs.readFileSync('backend.karstouristic.ru/fullchain.pem')
+};
 
 https.createServer(sslOptions, app).listen(PORT_HTTPS, () => {
   console.log(`HTTPS server running on port ${PORT_HTTPS}`);

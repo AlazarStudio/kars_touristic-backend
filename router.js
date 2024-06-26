@@ -23,11 +23,7 @@ router.get('/user', AuthController.user);
 router.post('/registration', AuthController.registration);
 router.post('/login', AuthController.login);
 
-//Конвертор в webp
-
-// router.post('/webpUpload', upload.fields([
-//     { name: 'photos'}
-// ]), convertToWebP);
+router.put('/userUpdate', AuthController.userUpdate);
 
 // Регион
 router.post('/addRegion', upload.fields([

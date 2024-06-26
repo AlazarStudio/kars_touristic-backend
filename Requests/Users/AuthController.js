@@ -20,7 +20,7 @@ class AuthController {
             }
 
             // console.log(token)
-    
+
             const user = await AuthService.user(token);
             return res.status(200).json(user);
         } catch (e) {
@@ -56,7 +56,7 @@ class AuthController {
 
     async login(req, res) {
         try {
-            const { username, password} = req.body;
+            const { username, password } = req.body;
 
             if (!username || !password) {
                 return res.status(400).json({ message: "Все поля обязательны" });
@@ -73,6 +73,20 @@ class AuthController {
             return res.status(200).json({ user, token });
         } catch (e) {
             res.status(500).json('Registration error: ' + e.message);
+        }
+    }
+
+    async userUpdate(req, res) {
+        try {
+            const token = req.headers['authorization']?.split(' ')[1];
+            if (!token) {
+                return res.status(401).json({ message: 'Нет токена' });
+            }
+            const updates = req.body;
+            const updatedUser = await AuthService.userUpdate(token, updates);
+            res.json(updatedUser);
+        } catch (e) {
+            res.status(500).json({ message: 'Update error: ' + e.message });
         }
     }
 

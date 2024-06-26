@@ -82,23 +82,45 @@ class PostService {
 
   async login(userValue) {
     const { username, password } = userValue.body;
-  
+
     const candidate = await User.findOne({ username });
-  
+
     if (!candidate) {
       throw new Error("Такого пользователя не существует");
     }
-  
+
     const validPassword = bcrypt.compareSync(password, candidate.password);
-  
+
     if (!validPassword) {
       throw new Error("Неверный пароль");
     }
-  
+
     const token = generateAccessToken(candidate._id, candidate.role);
     return { candidate, token };
   }
-  
+
+  async userUpdate(token, updates) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id;
+
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      Object.keys(updates).forEach(key => {
+        user[key] = updates[key];
+      });
+
+      await user.save();
+
+      return user;
+    } catch (error) {
+      throw new Error('Error updating user: ' + error.message);
+    }
+  }
+
 }
 
 export default new PostService();
