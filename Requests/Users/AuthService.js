@@ -101,7 +101,7 @@ class PostService {
 
   async userUpdate(token, updates) {
     try {
-      const decoded = jwt.verify(token, 'your_jwt_secret');
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decoded.id;
 
       const user = await User.findById(userId);
