@@ -15,9 +15,6 @@ import RoomsController from "./Requests/Rooms/RoomsController.js";
 import PlacesController from "./Requests/Places/PlacesController.js";
 import EventsController from "./Requests/Events/EventsController.js";
 
-
-import nodemailer from 'nodemailer';
-
 const router = new Router()
 
 router.get('/getUsers', AuthController.getUsers);
@@ -199,45 +196,5 @@ router.post('/updateEventsOrder', EventsController.updateEventsOrder);
 router.delete('/deleteEvent/:id', EventsController.deleteEvent);
 
 router.put('/changeMainImgEvent', EventsController.changeMainImg);
-
-
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'alimdzhatdoev@mail.ru',
-        pass: 'DZH@TDOEV@lim4985069',
-    },
-});
-
-router.post('/send-email', (req, res) => {
-    const { selectedTours, totalCost } = req.body;
-
-    let tourDetails = selectedTours.map(tour => `
-        <div>
-            <h3>${tour.tourTitle}</h3>
-            <p>Стоимость: ${tour.cost} ₽</p>
-        </div>
-    `).join('');
-
-    let mailOptions = {
-        from: 'alimdzhatdoev@mail.ru',
-        to: 'adidas_009_96@mail.ru',
-        subject: 'Новый заказ',
-        html: `
-            <h1>Новый заказ</h1>
-            ${tourDetails}
-            <h2>Итого: ${totalCost} ₽</h2>
-        `,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.status(500).send(error.toString());
-        }
-        res.send('Email sent: ' + info.response);
-    });
-});
-
-
 
 export default router;

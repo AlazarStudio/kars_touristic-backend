@@ -5,7 +5,6 @@ import cors from "cors";
 import https from 'https';
 import fs from 'fs';
 import http from 'http';
-import bodyParser from 'body-parser';
 
 const PORT_HTTPS = 443;
 const PORT_HTTP = 80;
@@ -16,9 +15,6 @@ app.use(express.json());
 app.use(cors());
 app.use('/api', router);
 app.use('/refs', express.static('static'));
-app.use(bodyParser.json());
-
-
 
 const sslOptions = {
   key: fs.readFileSync('../../../etc/letsencrypt/live/backend.karstouristic.ru/privkey.pem'),
