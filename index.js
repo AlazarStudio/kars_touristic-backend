@@ -5,6 +5,7 @@ import cors from "cors";
 import https from 'https';
 import fs from 'fs';
 import http from 'http';
+import bodyParser from 'body-parser';
 
 const PORT_HTTPS = 443;
 const PORT_HTTP = 80;

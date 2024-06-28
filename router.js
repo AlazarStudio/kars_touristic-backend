@@ -17,7 +17,6 @@ import EventsController from "./Requests/Events/EventsController.js";
 
 
 import nodemailer from 'nodemailer';
-import bodyParser from 'body-parser';
 
 const router = new Router()
 
