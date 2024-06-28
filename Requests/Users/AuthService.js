@@ -124,6 +124,7 @@ class PostService {
 
       if (updates.cart) {
         const cartSet = new Set(user.cart);
+        updates.cart.forEach(item => cartSet.add(item));
         updates.cart = Array.from(cartSet);
       }
 
