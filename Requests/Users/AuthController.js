@@ -90,6 +90,20 @@ class AuthController {
         }
     }
 
+    async userCart(req, res) {
+        try {
+            const token = req.headers['authorization']?.split(' ')[1];
+            if (!token) {
+                return res.status(401).json({ message: 'Нет токена' });
+            }
+            const tourId = req.params.id;
+            const updatedUser = await UserService.userCart(token, tourId);
+            res.status(200).json(updatedUser);
+        } catch (e) {
+            res.status(500).json({ message: 'Update error: ' + e.message });
+        }
+    }
+
 }
 
 export default new AuthController()

@@ -131,7 +131,7 @@ class PostService {
           }
           cartSet.add(item);
         }
-  
+
         updates.cart = Array.from(cartSet);
       }
 
@@ -141,7 +141,29 @@ class PostService {
 
       await user.save();
 
-      return {user, message: 'Добавлено в корзину'};
+      return { user, message: 'Добавлено в корзину' };
+    } catch (error) {
+      throw new Error('Error updating user: ' + error.message);
+    }
+  }
+
+  async userCart(token, tourId) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id;
+
+      const user = await User.findById(userId);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      // Удаление товара из корзины
+      user.cart = user.cart.filter(item => item.toString() !== tourId);
+
+      await user.save();
+
+      return user;
     } catch (error) {
       throw new Error('Error updating user: ' + error.message);
     }

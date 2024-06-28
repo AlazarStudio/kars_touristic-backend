@@ -25,6 +25,8 @@ router.post('/login', AuthController.login);
 
 router.put('/userUpdate', AuthController.userUpdate);
 
+router.delete('/userCart/:id', AuthController.userCart);
+
 // Регион
 router.post('/addRegion', upload.fields([
     { name: 'iconPath' },
