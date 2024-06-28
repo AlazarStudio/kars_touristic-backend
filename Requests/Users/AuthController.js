@@ -97,7 +97,7 @@ class AuthController {
                 return res.status(401).json({ message: 'Нет токена' });
             }
             const tourId = req.params.id;
-            const updatedUser = await UserService.userCart(token, tourId);
+            const updatedUser = await AuthService.userCart(token, tourId);
             res.status(200).json(updatedUser);
         } catch (e) {
             res.status(500).json({ message: 'Update error: ' + e.message });
