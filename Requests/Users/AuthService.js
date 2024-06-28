@@ -122,6 +122,11 @@ class PostService {
         updates.likes = Array.from(likesSet);
       }
 
+      if (updates.cart) {
+        const cartSet = new Set(user.cart);
+        updates.cart = Array.from(cartSet);
+      }
+
       Object.keys(updates).forEach(key => {
         user[key] = updates[key];
       });
