@@ -141,7 +141,7 @@ class PostService {
 
       await user.save();
 
-      return user;
+      return {user, message: 'Добавлено в корзину'};
     } catch (error) {
       throw new Error('Error updating user: ' + error.message);
     }
