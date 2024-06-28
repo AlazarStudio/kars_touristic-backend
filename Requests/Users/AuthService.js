@@ -124,7 +124,14 @@ class PostService {
 
       if (updates.cart) {
         const cartSet = new Set(user.cart);
-        updates.cart.forEach(item => cartSet.add(item));
+
+        for (const item of updates.cart) {
+          if (cartSet.has(item)) {
+            return (`Данный товар уже был добавлен в корзину`);
+          }
+          cartSet.add(item);
+        }
+  
         updates.cart = Array.from(cartSet);
       }
 
