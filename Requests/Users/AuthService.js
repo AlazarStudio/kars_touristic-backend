@@ -149,6 +149,16 @@ class PostService {
     }
   }
 
+  async deleteUser(id) {
+    try {
+        const deleteUser = await User.findByIdAndDelete(id);
+
+        return { message: 'Успешно удален', deleteUser };
+    } catch (e) {
+        return { message: e.message };
+    }
+}
+
   async userCart(token, tourId) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);

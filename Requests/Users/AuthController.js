@@ -91,6 +91,15 @@ class AuthController {
         }
     }
 
+    async deleteUser(req, res) {
+        try {
+            const deleteUser = await AuthService.deleteUser(req.params.id)
+            return res.status(200).json(deleteUser)
+        } catch (e) {
+            res.status(500).json(e.message)
+        }
+    }
+
     async userCart(req, res) {
         try {
             const token = req.headers['authorization']?.split(' ')[1];
