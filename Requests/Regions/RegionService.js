@@ -53,7 +53,7 @@ class RegionService {
     async updateRegion(id, regionData, regionPhotos) {
         try {
             // Если есть изображения, удаляем старые файлы
-            const existingRegion = await Region.findOne({ id });
+            const existingRegion = await Region.findOne({ "_id": id });
             if (!existingRegion) {
                 throw new Error('Регион не найден');
             }
