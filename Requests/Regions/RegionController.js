@@ -55,20 +55,20 @@ class RegionController {
     async updateRegion(req, res) {
         const { id } = req.params;
         const { title, description } = req.body;
-
+    
         const photos = req.files;
-
-        const iconPath = photos && photos['iconPath'] ? photos['iconPath'][0].filename : null;
-        const coverImgPath = photos && photos['coverImgPath'] ? photos['coverImgPath'][0].filename : null;
-        const backgroundImgPath = photos && photos['backgroundImgPath'] ? photos['backgroundImgPath'][0].filename : null;
-
+    
+        const iconPath = photos && photos['iconPath'] ? photos['iconPath'].map(file => file.filename) : [];
+        const coverImgPath = photos && photos['coverImgPath'] ? photos['coverImgPath'].map(file => file.filename) : [];
+        const backgroundImgPath = photos && photos['backgroundImgPath'] ? photos['backgroundImgPath'].map(file => file.filename) : [];
+    
         const regionData = { title, description };
-
+    
         const regionPhotos = {};
-        if (iconPath) regionPhotos.iconPath = iconPath;
-        if (coverImgPath) regionPhotos.coverImgPath = coverImgPath;
-        if (backgroundImgPath) regionPhotos.backgroundImgPath = backgroundImgPath;
-
+        if (iconPath.length > 0) regionPhotos.iconPath = iconPath;
+        if (coverImgPath.length > 0) regionPhotos.coverImgPath = coverImgPath;
+        if (backgroundImgPath.length > 0) regionPhotos.backgroundImgPath = backgroundImgPath;
+    
         try {
             const updatedRegion = await RegionService.updateRegion(id, regionData, regionPhotos);
             res.status(200).json(updatedRegion);
@@ -77,6 +77,7 @@ class RegionController {
             res.status(500).json({ message: 'Ошибка при обновлении региона' });
         }
     }
+    
 
 }
 

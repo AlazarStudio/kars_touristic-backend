@@ -52,47 +52,53 @@ class RegionService {
 
     async updateRegion(id, regionData, regionPhotos) {
         try {
-            // Если есть изображения, удаляем старые файлы
             const existingRegion = await Region.findOne({ "_id": id });
             if (!existingRegion) {
                 throw new Error('Регион не найден');
             }
-
-            if (regionPhotos.iconPath && existingRegion.iconPath) {
-                const pathToFile = path.resolve('static', existingRegion.iconPath[0]);
-                if (fs.existsSync(pathToFile)) {
-                    fs.unlinkSync(pathToFile);
+    
+            const deleteFileIfExists = (filePath) => {
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
                 }
+            };
+    
+            if (regionPhotos.iconPath && existingRegion.iconPath.length > 0) {
+                existingRegion.iconPath.forEach(file => {
+                    const pathToFile = path.resolve('static', file);
+                    deleteFileIfExists(pathToFile);
+                });
             }
-
-            if (regionPhotos.coverImgPath && existingRegion.coverImgPath) {
-                const pathToFile = path.resolve('static', existingRegion.coverImgPath[0]);
-                if (fs.existsSync(pathToFile)) {
-                    fs.unlinkSync(pathToFile);
-                }
+    
+            if (regionPhotos.coverImgPath && existingRegion.coverImgPath.length > 0) {
+                existingRegion.coverImgPath.forEach(file => {
+                    const pathToFile = path.resolve('static', file);
+                    deleteFileIfExists(pathToFile);
+                });
             }
-
-            if (regionPhotos.backgroundImgPath && existingRegion.backgroundImgPath) {
-                const pathToFile = path.resolve('static', existingRegion.backgroundImgPath[0]);
-                if (fs.existsSync(pathToFile)) {
-                    fs.unlinkSync(pathToFile);
-                }
+    
+            if (regionPhotos.backgroundImgPath && existingRegion.backgroundImgPath.length > 0) {
+                existingRegion.backgroundImgPath.forEach(file => {
+                    const pathToFile = path.resolve('static', file);
+                    deleteFileIfExists(pathToFile);
+                });
             }
-
+    
             const updateData = { ...regionData, ...regionPhotos };
-
+    
             const updatedRegion = await Region.findByIdAndUpdate(
                 id,
                 { $set: updateData },
                 { new: true, runValidators: true }
             );
-
+    
             return updatedRegion;
         } catch (error) {
             console.error(`Ошибка в Service updateRegion: ${error.message}`);
             throw error;
         }
     }
+    
 
 
 
