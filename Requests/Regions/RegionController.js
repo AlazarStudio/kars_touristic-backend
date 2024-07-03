@@ -58,10 +58,6 @@ class RegionController {
 
         const photos = req.files;
 
-        function isEmptyObject(obj) {
-            return Object.keys(obj).length === 0;
-        }
-
         const iconPath = photos && photos['iconPath'] ? photos['iconPath'][0].filename : null;
         const coverImgPath = photos && photos['coverImgPath'] ? photos['coverImgPath'][0].filename : null;
         const backgroundImgPath = photos && photos['backgroundImgPath'] ? photos['backgroundImgPath'][0].filename : null;
