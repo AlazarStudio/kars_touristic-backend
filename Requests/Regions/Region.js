@@ -8,6 +8,7 @@ const Region = new mongoose.Schema({
     backgroundImgPath: { type: Array, required: true, default: [] },
 
     link: { type: String, required: true, default: '' },
+    order: { type: Number, required: true, default: 0 },
 }, { timestamps: true });
 
 export default mongoose.model('Region', Region);
