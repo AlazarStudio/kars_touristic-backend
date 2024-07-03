@@ -42,7 +42,7 @@ router.get('/getOneRegion/:link', RegionController.getOneRegion);
 router.delete('/deleteRegion/:id', RegionController.deleteRegion);
 
 //Починить
-router.put('/updateRegion/:link', upload.fields([
+router.put('/updateRegion/:id', upload.fields([
     { name: 'iconPath' },
     { name: 'coverImgPath' },
     { name: 'backgroundImgPath' }

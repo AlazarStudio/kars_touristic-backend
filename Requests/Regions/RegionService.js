@@ -1,5 +1,7 @@
 import Region from "./Region.js";
 import { transliterate } from 'transliteration';
+import * as fs from 'fs';
+import * as path from 'path';
 
 class RegionService {
     async addRegion(regionData) {
@@ -36,7 +38,7 @@ class RegionService {
         return getOneRegion;
     }
 
-    
+
     async deleteRegion(id) {
         try {
             const deleteRegion = await Region.findByIdAndDelete(id);
@@ -47,45 +49,52 @@ class RegionService {
         }
     }
 
-    async updateRegion(link, regionData) {
-        // Если есть изображения, удаляем старые файлы
-        // const existingRegion = await Region.findOne({ link });
-        // if (!existingRegion) {
-        //     throw new Error('Регион не найден');
-        // }
-    
-        // if (regionData.iconPath && existingRegion.iconPath) {
-        //     const pathToFile = path.resolve('static', existingRegion.iconPath);
-        //     if (fs.existsSync(pathToFile)) {
-        //         fs.unlinkSync(pathToFile);
-        //     }
-        // }
-    
-        // if (regionData.coverImgPath && existingRegion.coverImgPath) {
-        //     const pathToFile = path.resolve('static', existingRegion.coverImgPath);
-        //     if (fs.existsSync(pathToFile)) {
-        //         fs.unlinkSync(pathToFile);
-        //     }
-        // }
-    
-        // if (regionData.backgroundImgPath && existingRegion.backgroundImgPath) {
-        //     const pathToFile = path.resolve('static', existingRegion.backgroundImgPath);
-        //     if (fs.existsSync(pathToFile)) {
-        //         fs.unlinkSync(pathToFile);
-        //     }
-        // }
-    
-        // // Обновляем данные региона, исключая undefined поля
-        // const updatedRegion = await Region.findOneAndUpdate(
-        //     { link },
-        //     { $set: regionData },
-        //     { new: true, runValidators: true }
-        // );
-    
-        // return updatedRegion;
+
+    async updateRegion(id, regionData, regionPhotos) {
+        try {
+            // Если есть изображения, удаляем старые файлы
+            const existingRegion = await Region.findOne({ "_id": id });
+            if (!existingRegion) {
+                throw new Error('Регион не найден');
+            }
+
+            if (regionPhotos.iconPath && existingRegion.iconPath) {
+                const pathToFile = path.resolve('static', existingRegion.iconPath[0]);
+                if (fs.existsSync(pathToFile)) {
+                    fs.unlinkSync(pathToFile);
+                }
+            }
+
+            if (regionPhotos.coverImgPath && existingRegion.coverImgPath) {
+                const pathToFile = path.resolve('static', existingRegion.coverImgPath[0]);
+                if (fs.existsSync(pathToFile)) {
+                    fs.unlinkSync(pathToFile);
+                }
+            }
+
+            if (regionPhotos.backgroundImgPath && existingRegion.backgroundImgPath) {
+                const pathToFile = path.resolve('static', existingRegion.backgroundImgPath[0]);
+                if (fs.existsSync(pathToFile)) {
+                    fs.unlinkSync(pathToFile);
+                }
+            }
+
+            const updateData = { ...regionData, ...regionPhotos };
+
+            const updatedRegion = await Region.findByIdAndUpdate(
+                id,
+                { $set: updateData },
+                { new: true, runValidators: true }
+            );
+
+            return updatedRegion;
+        } catch (error) {
+            console.error(`Ошибка в Service updateRegion: ${error.message}`);
+            throw error;
+        }
     }
-    
-    
+
+
 
 }
 

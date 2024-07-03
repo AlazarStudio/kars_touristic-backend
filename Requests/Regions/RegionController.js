@@ -53,26 +53,35 @@ class RegionController {
     }
 
     async updateRegion(req, res) {
-        const { link } = req.params;
-        // const { title, description } = req.body;
-        // const iconPath = req.files['iconPath'] ? req.files['iconPath'][0].path : null;
-        // const coverImgPath = req.files['coverImgPath'] ? req.files['coverImgPath'][0].path : null;
-        // const backgroundImgPath = req.files['backgroundImgPath'] ? req.files['backgroundImgPath'][0].path : null;
-    
-        // const regionData = { title, description, iconPath, coverImgPath, backgroundImgPath };
+        const { id } = req.params;
+        const { title, description } = req.body;
 
-        // console.log(req.body)
-        console.log(req.files)
-    
-        // try {
-        //     const updatedRegion = await RegionService.updateRegion(link, regionData);
-        //     res.status(200).json(updatedRegion);
-        // } catch (error) {
-        //     console.error(`Ошибка в updateRegion: ${error}`);
-        //     res.status(500).json({ message: 'Ошибка при обновлении региона' });
-        // }
+        const photos = req.files;
+
+        function isEmptyObject(obj) {
+            return Object.keys(obj).length === 0;
+        }
+
+        const iconPath = photos && photos['iconPath'] ? photos['iconPath'][0].filename : null;
+        const coverImgPath = photos && photos['coverImgPath'] ? photos['coverImgPath'][0].filename : null;
+        const backgroundImgPath = photos && photos['backgroundImgPath'] ? photos['backgroundImgPath'][0].filename : null;
+
+        const regionData = { title, description };
+
+        const regionPhotos = {};
+        if (iconPath) regionPhotos.iconPath = iconPath;
+        if (coverImgPath) regionPhotos.coverImgPath = coverImgPath;
+        if (backgroundImgPath) regionPhotos.backgroundImgPath = backgroundImgPath;
+
+        try {
+            const updatedRegion = await RegionService.updateRegion(id, regionData, regionPhotos);
+            res.status(200).json(updatedRegion);
+        } catch (error) {
+            console.error(`Ошибка в updateRegion: ${error}`);
+            res.status(500).json({ message: 'Ошибка при обновлении региона' });
+        }
     }
-    
+
 }
 
 export default new RegionController();

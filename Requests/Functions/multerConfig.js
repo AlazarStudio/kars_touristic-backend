@@ -42,7 +42,7 @@ const convertToWebP = async (req, res, next) => {
                             file.mimetype = 'image/webp';
                         })
                         .catch(err => {
-                            console.error(`Error converting file: ${file.path}`, err);
+                            // console.error(`Error converting file: ${file.path}`, err);
                         });
 
                     filePromises.push(filePromise);
