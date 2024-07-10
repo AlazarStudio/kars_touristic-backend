@@ -31,7 +31,7 @@ class AuthController {
 
     async registration(req, res) {
         try {
-            const { username, password, name, phone, email, role='' } = req.body;
+            const { username, password, name, phone, email, role='user' } = req.body;
 
             if (!username || !password || !name || !phone || !email) {
                 return res.status(400).json({ message: "Все поля обязательны" });
