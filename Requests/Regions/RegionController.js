@@ -1,4 +1,5 @@
 import RegionService from "./RegionService.js"
+import Region from "./Region.js";
 
 class RegionController {
     async addRegion(req, res) {
@@ -75,6 +76,23 @@ class RegionController {
         } catch (error) {
             console.error(`Ошибка в updateRegion: ${error}`);
             res.status(500).json({ message: 'Ошибка при обновлении региона' });
+        }
+    }
+
+    
+    async saveRegionsOrder(req, res) {
+        const { regions } = req.body;
+
+        try {
+            for (let i = 0; i < regions.length; i++) {
+                const id = regions[i];
+                await Region.findByIdAndUpdate(id, { order: i + 1 }, { new: true, runValidators: true });
+            }
+
+            res.status(200).json({ message: 'Order updated successfully' });
+        } catch (error) {
+            console.error(`Ошибка в saveRegionsOrder: ${error}`);
+            res.status(500).json({ message: 'Ошибка при обновлении порядка туров' });
         }
     }
     

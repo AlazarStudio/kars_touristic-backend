@@ -47,6 +47,10 @@ router.put('/updateRegion/:id', upload.fields([
     { name: 'backgroundImgPath' }
 ]), convertToWebP, RegionController.updateRegion);
 
+router.post('/saveRegionsOrder', RegionController.saveRegionsOrder);
+
+
+
 // Многодневный тур +
 router.post('/addMultidayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
