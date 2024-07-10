@@ -9,7 +9,7 @@ const User = new mongoose.Schema({
     likes: { type: Array, required: true, default: [] },
     cart: { type: Array, required: true, default: [] },
     role: { type: String, required: true, default: "user" },
-    accept: { type: Boolean, required: true, default: false }
+    adminPanelAccess: { type: Boolean, required: true, default: false }
 }, { timestamps: true })
 
 export default mongoose.model('Users', User)
