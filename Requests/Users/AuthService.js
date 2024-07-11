@@ -63,6 +63,22 @@ class PostService {
     }
   }
 
+  async getOneTouragent(token, idTouragent) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userRole = decoded.role;
+
+      if (userRole == 'admin') {
+        const user = await User.findById(idTouragent);
+        return user;
+      } else {
+        return {message: 'Недостаточно прав, обратитесь к администратору'};
+      }
+    } catch (e) {
+      throw new Error('Не удалось получить информацию о пользователе');
+    }
+  }
+
   async registration(userValue) {
     const {
       username,

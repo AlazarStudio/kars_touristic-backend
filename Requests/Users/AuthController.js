@@ -29,9 +29,22 @@ class AuthController {
                 return res.status(401).json({ message: 'Нет токена' });
             }
 
-            // console.log(token)
-
             const user = await AuthService.user(token);
+            return res.status(200).json(user);
+        } catch (e) {
+            console.log(e);
+            res.status(500).json(e);
+        }
+    }
+
+    async getOneTouragent(req, res) {
+        try {
+            const token = req.headers['authorization']?.split(' ')[1];
+            if (!token) {
+                return res.status(401).json({ message: 'Нет токена' });
+            }
+
+            const user = await AuthService.getOneTouragent(token, req.params.id);
             return res.status(200).json(user);
         } catch (e) {
             console.log(e);
