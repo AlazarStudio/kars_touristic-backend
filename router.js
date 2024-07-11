@@ -18,12 +18,14 @@ import EventsController from "./Requests/Events/EventsController.js";
 const router = new Router()
 
 router.get('/getUsers', AuthController.getUsers);
+router.get('/getTouragents', AuthController.getTouragents);
 router.get('/user', AuthController.user);
 
 router.post('/registration', AuthController.registration);
 router.post('/login', AuthController.login);
 
 router.put('/userUpdate', AuthController.userUpdate);
+router.put('/userUpdateAccess', AuthController.userUpdateAccess);
 
 router.delete('/deleteUser/:id', AuthController.deleteUser);
 

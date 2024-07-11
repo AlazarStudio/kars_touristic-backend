@@ -32,6 +32,24 @@ class PostService {
     };
   }
 
+  async getTouragents(req) {
+    let modelFilter = {
+      role: {
+        $regex: 'touragent',
+        $options: 'i'
+      }
+    };
+
+    const totalCount = await User.countDocuments(modelFilter).exec();
+    const users = await User.find(modelFilter)
+      .exec();
+
+    return {
+      totalCount,
+      users
+    };
+  }
+
   async user(token) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -149,15 +167,37 @@ class PostService {
     }
   }
 
+  async userUpdateAccess(token, updates) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id;
+
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      Object.keys(updates).forEach(key => {
+        user[key] = updates[key];
+      });
+
+      await user.save();
+
+      return { user, message: 'Добавлено в корзину' };
+    } catch (error) {
+      throw new Error('Error updating user: ' + error.message);
+    }
+  }
+
   async deleteUser(id) {
     try {
-        const deleteUser = await User.findByIdAndDelete(id);
+      const deleteUser = await User.findByIdAndDelete(id);
 
-        return { message: 'Успешно удален', deleteUser };
+      return { message: 'Успешно удален', deleteUser };
     } catch (e) {
-        return { message: e.message };
+      return { message: e.message };
     }
-}
+  }
 
   async userCart(token, tourId) {
     try {

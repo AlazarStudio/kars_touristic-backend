@@ -12,6 +12,16 @@ class AuthController {
         }
     }
 
+    async getTouragents(req, res) {
+        try {
+            const users = await AuthService.getTouragents(req)
+            return res.status(200).json(users)
+        } catch (e) {
+            console.log(e);
+            res.status(500).json(e)
+        }
+    }
+
     async user(req, res) {
         try {
             const token = req.headers['authorization']?.split(' ')[1];
@@ -85,6 +95,20 @@ class AuthController {
             }
             const updates = req.body;
             const updatedUser = await AuthService.userUpdate(token, updates);
+            res.json(updatedUser);
+        } catch (e) {
+            res.status(500).json({ message: 'Update error: ' + e.message });
+        }
+    }
+
+    async userUpdateAccess(req, res) {
+        try {
+            const token = req.headers['authorization']?.split(' ')[1];
+            if (!token) {
+                return res.status(401).json({ message: 'Нет токена' });
+            }       
+            const updates = req.body;
+            const updatedUser = await AuthService.userUpdateAccess(token, updates);
             res.json(updatedUser);
         } catch (e) {
             res.status(500).json({ message: 'Update error: ' + e.message });
