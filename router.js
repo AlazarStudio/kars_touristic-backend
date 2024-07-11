@@ -21,7 +21,7 @@ router.get('/getUsers', AuthController.getUsers);
 router.get('/getTouragents', AuthController.getTouragents);
 
 router.get('/user', AuthController.user);
-router.get('/getOneTouragent', AuthController.getOneTouragent);
+router.get('/getOneTouragent/:id', AuthController.getOneTouragent);
 
 router.post('/registration', AuthController.registration);
 router.post('/login', AuthController.login);
