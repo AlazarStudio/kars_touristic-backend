@@ -120,8 +120,8 @@ class AuthController {
             if (!token) {
                 return res.status(401).json({ message: 'Нет токена' });
             }       
-            const updates = req.body;
-            const updatedUser = await AuthService.userUpdateAccess(token, updates);
+            const updates = {adminPanelAccess: true};
+            const updatedUser = await AuthService.userUpdateAccess(token, updates, req.params.id);
             res.json(updatedUser);
         } catch (e) {
             res.status(500).json({ message: 'Update error: ' + e.message });

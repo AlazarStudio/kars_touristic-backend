@@ -72,7 +72,7 @@ class PostService {
         const user = await User.findById(idTouragent);
         return user;
       } else {
-        return {message: 'Недостаточно прав, обратитесь к администратору'};
+        return { message: 'Недостаточно прав, обратитесь к администратору' };
       }
     } catch (e) {
       throw new Error('Не удалось получить информацию о пользователе');
@@ -183,23 +183,27 @@ class PostService {
     }
   }
 
-  async userUpdateAccess(token, updates) {
+  async userUpdateAccess(token, updates, idTouragent) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const userId = decoded.id;
+      const userRole = decoded.role;
 
-      const user = await User.findById(userId);
-      if (!user) {
-        throw new Error('User not found');
+      if (userRole == 'admin') {
+        const user = await User.findById(idTouragent);
+        if (!user) {
+          throw new Error('User not found');
+        }
+
+        Object.keys(updates).forEach(key => {
+          user[key] = updates[key];
+        });
+
+        await user.save();
+
+        return user;
+      } else {
+        return {message: 'Недостаточно прав, обратитесь к администратору'}
       }
-
-      Object.keys(updates).forEach(key => {
-        user[key] = updates[key];
-      });
-
-      await user.save();
-
-      return { user, message: 'Добавлено в корзину' };
     } catch (error) {
       throw new Error('Error updating user: ' + error.message);
     }

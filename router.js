@@ -27,7 +27,7 @@ router.post('/registration', AuthController.registration);
 router.post('/login', AuthController.login);
 
 router.put('/userUpdate', AuthController.userUpdate);
-router.put('/userUpdateAccess', AuthController.userUpdateAccess);
+router.put('/userUpdateAccess/:id', AuthController.userUpdateAccess);
 
 router.delete('/deleteUser/:id', AuthController.deleteUser);
 
