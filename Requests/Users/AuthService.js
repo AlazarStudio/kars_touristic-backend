@@ -71,7 +71,10 @@ class PostService {
       if (userRole == 'admin') {
         const user = await User.findById(idTouragent);
         return user;
-      } else {
+      } else if (userRole == 'touragent') {
+        const user = await User.findById(idTouragent);
+        return user.name;
+      } {
         return { message: 'Недостаточно прав, обратитесь к администратору' };
       }
     } catch (e) {
@@ -202,7 +205,7 @@ class PostService {
 
         return user;
       } else {
-        return {message: 'Недостаточно прав, обратитесь к администратору'}
+        return { message: 'Недостаточно прав, обратитесь к администратору' }
       }
     } catch (error) {
       throw new Error('Error updating user: ' + error.message);
