@@ -17,13 +17,13 @@ class AuthorTourService {
             search = '',
             filter,
             region = '',
-            userId = ''
+            userID = ''
         } = req.query;
 
         const modelFilter = { 
             tourTitle: { $regex: search, $options: 'i' }, 
             region: { $regex: region, $options: 'i' },
-            authorId: { $regex: userId, $options: 'i' },
+            authorId: { $regex: userID, $options: 'i' },
         };
         const totalCount = await AuthorTour.countDocuments(modelFilter).exec();
         const authorTour = await AuthorTour.find(modelFilter)
