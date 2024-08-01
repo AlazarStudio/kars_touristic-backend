@@ -9,6 +9,7 @@ import FaqController from "./Requests/Faq/FaqController.js";
 import ContactsController from "./Requests/Contacts/ContactsController.js";
 import TuragentController from "./Requests/Turagent/TuragentController.js";
 import MultidayTourController from "./Requests/MultidayTour/MultidayTourController.js";
+import AuthorTourController from "./Requests/AuthorTour/AuthorTourController.js";
 import OnedayTourController from "./Requests/OnedayTour/OnedayTourController.js";
 import HotelsController from "./Requests/Hotels/HotelsController.js";
 import RoomsController from "./Requests/Rooms/RoomsController.js";
@@ -52,6 +53,25 @@ router.put('/updateRegion/:id', upload.fields([
 ]), convertToWebP, RegionController.updateRegion);
 
 router.post('/saveRegionsOrder', RegionController.saveRegionsOrder);
+
+
+// Авторский тур +
+router.post('/addAuthorTours', upload.fields([
+    { name: 'photos', maxCount: 10 }
+]), convertToWebP, AuthorTourController.AuthorTour);
+
+router.get('/getAuthorTours', AuthorTourController.getAuthorTours);
+router.get('/getOneAuthorTours/:id', AuthorTourController.getOneAuthorTour);
+
+router.put('/updateOneAuthorTour/:id', upload.fields([
+    { name: 'photos', maxCount: 10 }
+]), convertToWebP, AuthorTourController.updateOneAuthorTour);
+
+router.post('/updateAuthorTourOrder', AuthorTourController.updateAuthorTourOrder);
+
+router.delete('/deleteAuthorTour/:id', AuthorTourController.deleteAuthorTour);
+
+router.put('/changeMainImgAuthorTour', AuthorTourController.changeMainImg);
 
 
 
