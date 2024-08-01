@@ -19,10 +19,14 @@ class AuthorTourService {
             region = ''
         } = req.query;
 
-        const modelFilter = { tourTitle: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
+        const modelFilter = { 
+            tourTitle: { $regex: search, $options: 'i' }, 
+            region: { $regex: region, $options: 'i' } 
+        };
+
         const totalCount = await AuthorTour.countDocuments(modelFilter).exec();
         const authorTour = await AuthorTour.find(modelFilter)
-            .sort(filter)
+            // .sort(filter)
             // .limit(perPage)
             // .skip((page - 1) * perPage)
             .exec();
