@@ -21,6 +21,7 @@ const AuthorTour = new mongoose.Schema({
     author: { type: String, required: true },
     authorId: { type: String, required: true },
     modered: { type: String, required: true, default: false },
+    comment: { type: String, required: false, default: '' },
 
     order: { type: Number, required: true, default: 0 },
 }, { timestamps: true });
