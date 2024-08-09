@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 
 const Hotels = new mongoose.Schema({
     title: { type: String, required: true, default: '' },
+    city: { type: String, required: true, default: '' },
+    adress: { type: String, required: true, default: '' },
     description: { type: String, required: true, default: '' },
     moreInfo: { type: String, required: true, default: '' },
     stars: { type: Number, required: true, default: 0 },
