@@ -15,7 +15,6 @@ class MultidayTourController {
                 days: body.days || [],
                 mainPhoto: photoPaths[0],
             };
-            console.log(multidayTourData)
             const tour = await MultidayTourService.multidayTour(multidayTourData);
             res.status(201).json(tour);
         } catch (error) {
