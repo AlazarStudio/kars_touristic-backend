@@ -59,7 +59,7 @@ class PostService {
 
       return user;
     } catch (e) {
-      throw new Error('Не удалось получить информацию о пользователе');
+      // throw new Error('Не удалось получить информацию о пользователе');
     }
   }
 
