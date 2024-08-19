@@ -19,15 +19,18 @@ class AgentService {
             region = ''
         } = req.query;
 
-        const modelFilter = { tourTitle: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
-        const totalCount = await Agent.countDocuments(modelFilter).exec();
-        const agent = await Agent.find(modelFilter)
-            .sort(filter)
+        // const modelFilter = { tourTitle: { $regex: search, $options: 'i' }, region: { $regex: region, $options: 'i' } };
+        // const totalCount = await Agent.countDocuments(modelFilter).exec();
+        const agent = await Agent.find()
+            // .sort(filter)
             // .limit(perPage)
             // .skip((page - 1) * perPage)
             .exec();
 
-        return { totalCount, agent };
+        return {
+            // totalCount,
+            agent
+        };
     }
 
     async updateOneAgent(id, tourData) {
