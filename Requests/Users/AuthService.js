@@ -188,6 +188,24 @@ class PostService {
     }
   }
 
+  async userUpdateDebt(debt, idUser) {
+    try {
+      const user = await User.findById(idUser);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      user.debt = debt;
+
+      await user.save();
+
+      return { user, message: 'Обновлено' };
+    } catch (error) {
+      throw new Error('Error updating user: ' + error.message);
+    }
+  }
+
   async userUpdateAccess(token, updates, idTouragent) {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);

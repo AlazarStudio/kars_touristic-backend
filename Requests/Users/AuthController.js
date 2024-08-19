@@ -115,6 +115,17 @@ class AuthController {
         }
     }
 
+    async userUpdateDebt(req, res) {
+        try {
+            const debt = req.body.debt;
+            const idUser = req.body.idUser;
+            const updatedUser = await AuthService.userUpdateDebt(debt, idUser);
+            res.json(updatedUser);
+        } catch (e) {
+            res.status(500).json({ message: 'Update error: ' + e.message });
+        }
+    }
+
     async userUpdateAccess(req, res) {
         try {
             const token = req.headers['authorization']?.split(' ')[1];
