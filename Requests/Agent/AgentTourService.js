@@ -57,12 +57,6 @@ class AgentService {
                 throw new Error("не указан ID");
             }
 
-            tour.photos.forEach(photo => {
-                const pathToFile = path.resolve('static', photo)
-                if (!fs.existsSync(pathToFile)) return;
-                fs.unlinkSync(pathToFile);
-            });
-
             const deleteAgent = await Agent.findByIdAndDelete(id);
 
             return { message: 'Тур успешно удален', deleteAgent };
