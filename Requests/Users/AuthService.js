@@ -89,7 +89,8 @@ class PostService {
       name,
       phone,
       email,
-      role
+      role,
+      adminPanelAccess
     } = userValue.body;
 
     const candidate = await User.findOne({
@@ -109,6 +110,7 @@ class PostService {
       phone: phone,
       email: email,
       role: role,
+      adminPanelAccess: adminPanelAccess
     });
 
     const token = generateAccessToken(user._id, user.role);
