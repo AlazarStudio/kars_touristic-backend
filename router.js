@@ -15,6 +15,7 @@ import HotelsController from "./Requests/Hotels/HotelsController.js";
 import RoomsController from "./Requests/Rooms/RoomsController.js";
 import PlacesController from "./Requests/Places/PlacesController.js";
 import EventsController from "./Requests/Events/EventsController.js";
+import AgentController from "./Requests/Agent/AgentController.js";
 
 const router = new Router()
 
@@ -111,6 +112,20 @@ router.post('/updateOnedayTourOrder', OnedayTourController.updateOnedayTourOrder
 router.delete('/deleteOnedayTour/:id', OnedayTourController.deleteOnedayTour);
 
 router.put('/changeMainImgOnedayTour', OnedayTourController.changeMainImg);
+
+// Agent +
+router.post('/addAgent', AgentController.agent);
+
+router.get('/getAgents', AgentController.getAgents);
+router.get('/getOneAgent/:id', AgentController.getOneAgent);
+
+router.put('/updateOneAgent/:id', AgentController.updateOneAgent);
+
+router.post('/updateAgentOrder', AgentController.updateAgentOrder);
+
+router.delete('/deleteAgent/:id', AgentController.deleteAgent);
+
+router.put('/changeMainImgAgent', AgentController.changeMainImg);
 
 // О нас +
 router.put('/aboutCompany', AboutController.aboutCompany);

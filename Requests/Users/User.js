@@ -9,6 +9,7 @@ const User = new mongoose.Schema({
     likes: { type: Array, required: true, default: [] },
     cart: { type: Array, required: true, default: [] },
     role: { type: String, required: true, default: "user" },
+    debt: { type: Number, required: true, default: 0 },
     
     adminPanelAccess: { type: Boolean, required: true, default: false },
     multidayTours_Touragent: { type: Array, required: true, default: [] },
