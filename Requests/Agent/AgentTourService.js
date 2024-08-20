@@ -65,6 +65,16 @@ class AgentService {
         }
     }
 
+    async deleteAllAgents() {
+        try {
+            const deleteResult = await Agent.deleteMany({});
+    
+            return { message: 'Все агенты успешно удалены', deletedCount: deleteResult.deletedCount };
+        } catch (e) {
+            return { message: e.message };
+        }
+    }
+
 
     async changeMainImg(imgData) {
         const { id, mainImgPath } = imgData;

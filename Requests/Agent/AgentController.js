@@ -60,6 +60,15 @@ class AgentController {
             res.status(500).json(e.message)
         }
     }
+
+    async deleteAllAgents(req, res) {
+        try {
+            const deleteAllAgents = await AgentService.deleteAllAgents(req.params.id)
+            return res.status(200).json(deleteAllAgents)
+        } catch (e) {
+            res.status(500).json(e.message)
+        }
+    }
     
     async updateAgentOrder(req, res) {
         const { orderedIds } = req.body;
