@@ -8,6 +8,7 @@ const Agent = new mongoose.Schema({
     tours: { type: Array, required: true },
     passengers: { type: Array, required: true },
     bookingDate: { type: Date, required: true },
+    bookingTime: { type: String, required: true },
     paymanetState: { type: String, required: true, default: 'processing' },
     confirm: { type: Boolean, required: true, default: false },
 }, { timestamps: true });
