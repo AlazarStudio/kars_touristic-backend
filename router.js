@@ -126,7 +126,7 @@ router.put('/updateOneAgent/:id', AgentController.updateOneAgent);
 router.post('/updateAgentOrder', AgentController.updateAgentOrder);
 
 router.delete('/deleteAgent/:id', AgentController.deleteAgent);
-router.delete('/deleteAllAgents', AgentController.deleteAllAgents);
+// router.delete('/deleteAllAgents', AgentController.deleteAllAgents);
 
 router.put('/changeMainImgAgent', AgentController.changeMainImg);
 
