@@ -4,6 +4,7 @@ const Rooms = new mongoose.Schema({
     title: { type: String, required: true, default: '' },
     description: { type: String, required: true, default: '' },
     places: { type: String, required: true, default: '' },
+    price: { type: String, required: true, default: '' },
 
     // Параметры номера
     square: { type: String, required: true, default: '' }, //Площадь
