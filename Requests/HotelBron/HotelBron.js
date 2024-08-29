@@ -6,6 +6,7 @@ const HotelBron = new mongoose.Schema({
     adress: { type: String, required: true },
     guests: { type: String, required: true },
     price: { type: String, required: true },
+    fullPrice: { type: String, required: true },
     roomNumber: { type: String, required: true },
     arrivalDate: { type: Date, required: true },
     departureDate: { type: Date, required: true },
