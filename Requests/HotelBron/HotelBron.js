@@ -8,7 +8,7 @@ const HotelBron = new mongoose.Schema({
     roomNumber: { type: String, required: true },
     arrivalDate: { type: Date, required: true },
     departureDate: { type: Date, required: true },
-    client: { type: Object, required: true },
+    client: { type: Array, required: true },
 }, { timestamps: true });
 
 export default mongoose.model('HotelBron', HotelBron);
