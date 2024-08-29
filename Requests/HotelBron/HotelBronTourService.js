@@ -19,7 +19,7 @@ class HotelBronService {
             // region = ''
         } = req.query;
 
-        const modelFilter = { hotelBron: { $regex: search, $options: 'i' }};
+        const modelFilter = { name: { $regex: search, $options: 'i' }};
         const totalCount = await HotelBron.countDocuments(modelFilter).exec();
         const hotelBron = await HotelBron.find(modelFilter)
             .sort(filter)
