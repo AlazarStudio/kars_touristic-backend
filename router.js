@@ -16,6 +16,7 @@ import RoomsController from "./Requests/Rooms/RoomsController.js";
 import PlacesController from "./Requests/Places/PlacesController.js";
 import EventsController from "./Requests/Events/EventsController.js";
 import AgentController from "./Requests/Agent/AgentController.js";
+import HotelBronController from "./Requests/HotelBron/HotelBronController.js";
 
 const router = new Router()
 
@@ -117,19 +118,29 @@ router.put('/changeMainImgOnedayTour', OnedayTourController.changeMainImg);
 
 // Agent +
 router.post('/addAgent', AgentController.agent);
+router.post('/updateAgentOrder', AgentController.updateAgentOrder);
 
 router.get('/getAgents', AgentController.getAgents);
 router.get('/getOneAgent/:id', AgentController.getOneAgent);
 
 router.put('/updateOneAgent/:id', AgentController.updateOneAgent);
-
-router.post('/updateAgentOrder', AgentController.updateAgentOrder);
+router.put('/changeMainImgAgent', AgentController.changeMainImg);
 
 router.delete('/deleteAgent/:id', AgentController.deleteAgent);
-
 router.delete('/deleteAllAgents', AgentController.deleteAllAgents);
 
-router.put('/changeMainImgAgent', AgentController.changeMainImg);
+// HotelBron +
+router.post('/addHotelBron', HotelBronController.hotelBron);
+router.post('/updateHotelBronOrder', HotelBronController.updateHotelBronOrder);
+
+router.get('/getHotelBrons', HotelBronController.getHotelBrons);
+router.get('/getOneHotelBron/:id', HotelBronController.getOneHotelBron);
+
+router.put('/updateOneHotelBron/:id', HotelBronController.updateOneHotelBron);
+router.put('/changeMainImgHotelBron', HotelBronController.changeMainImg);
+
+router.delete('/deleteHotelBron/:id', HotelBronController.deleteHotelBron);
+router.delete('/deleteAllHotelBrons', HotelBronController.deleteAllHotelBrons);
 
 // О нас +
 router.put('/aboutCompany', AboutController.aboutCompany);
