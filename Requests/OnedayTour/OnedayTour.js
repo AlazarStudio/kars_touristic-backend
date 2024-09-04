@@ -15,6 +15,8 @@ const OnedayTour = new mongoose.Schema({
     checklists: { type: Array, required: true },
     days: { type: Array, required: true },
     photos: { type: Array, required: true },
+    
+    departureDate: { type: Array, required: true },
 
     region: { type: String, required: true },
     
