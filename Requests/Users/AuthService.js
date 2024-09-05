@@ -89,6 +89,11 @@ class PostService {
       name,
       phone,
       email,
+      address,
+      passportNumber,
+      passportSeries,
+      gender,
+      birthDate,
       role,
       adminPanelAccess
     } = userValue.body;
@@ -109,6 +114,11 @@ class PostService {
       name: name,
       phone: phone,
       email: email,
+      address: address,
+      passportNumber: passportNumber,
+      passportSeries: passportSeries,
+      gender: gender,
+      birthDate: birthDate,
       role: role,
       adminPanelAccess: adminPanelAccess
     });

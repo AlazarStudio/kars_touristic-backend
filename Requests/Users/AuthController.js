@@ -54,7 +54,20 @@ class AuthController {
 
     async registration(req, res) {
         try {
-            const { username, password, name, phone, email, role='user', adminPanelAccess=false } = req.body;
+            const { 
+                username, 
+                password, 
+                name, 
+                phone, 
+                email, 
+                address='',
+                passportNumber='',
+                passportSeries='',
+                gender='',
+                birthDate='',
+                role='user', 
+                adminPanelAccess=false 
+            } = req.body;
 
             if (!username || !password || !name || !phone || !email) {
                 return res.status(400).json({ message: "Все поля обязательны" });
@@ -67,6 +80,11 @@ class AuthController {
                     name,
                     phone,
                     email,
+                    address,
+                    passportNumber,
+                    passportSeries,
+                    gender,
+                    birthDate,
                     role,
                     adminPanelAccess
                 }
