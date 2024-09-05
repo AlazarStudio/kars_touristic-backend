@@ -8,6 +8,11 @@ const User = new mongoose.Schema({
     phone: { type: String, required: true },
     email: { type: String, required: true },
     
+    address: { type: String, required: false },
+    passportNumber: { type: String, required: false },
+    passportSeries: { type: String, required: false },
+    gender: { type: String, required: false },
+    birthDate: { type: String, required: false },
 
     likes: { type: Array, required: true, default: [] },
     cart: { type: Array, required: true, default: [] },
