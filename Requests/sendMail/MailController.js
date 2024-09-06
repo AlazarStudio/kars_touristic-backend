@@ -7,9 +7,9 @@ import Docxtemplater from 'docxtemplater';
 // Контроллер для отправки писем
 class MailController {
     static async sendEmail_file(req, res) {
-        const { messData } = req.body;
+        const { formData, data } = req.body;
 
-        let formData = messData;
+        console.log(data);
 
         let dogovorTags = {
             bron_id: formData.bron_id,
