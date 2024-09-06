@@ -7,6 +7,26 @@ import Docxtemplater from 'docxtemplater';
 // Контроллер для отправки писем
 class MailController {
     static async sendEmail_file(req, res) {
+        function formatDateRange(dateRange) {
+            if (!dateRange) return '';
+
+            const [startDate, endDate] = dateRange.split(' - ');
+
+            const formatDate = (date) => {
+                const [year, month, day] = date.split('-');
+                return `${day}.${month}.${year}`;
+            };
+
+            const formattedStartDate = formatDate(startDate);
+
+            if (endDate) {
+                const formattedEndDate = formatDate(endDate);
+                return `${formattedStartDate} - ${formattedEndDate}`;
+            } else {
+                return formattedStartDate;
+            }
+        }
+
         const { formData } = req.body;
 
         let dogovorTags = {
@@ -19,16 +39,16 @@ class MailController {
             client_phone: formData.passengers[0].phone,
             client_email: formData.passengers[0].email,
 
-            dateEnd: formData.bookingDate.split(' - ')[0],
-            dateStart: formData.bookingDate.split(' - ')[1],
+            dateEnd: formatDateRange(formData.bookingDate).split(' - ')[0],
+            dateStart: formatDateRange(formData.bookingDate).split(' - ')[1],
 
             tourName: formData.tours[0].tourTitle,
             duration: formData.tours[0].duration,
             tourStartPlace: formData.tours[0].tourStartPlace || formData.tours[0].places[0],
 
             paymentNumber: formData.bookingInfo.paymentNumber || formData.bookingInfo._id,
-            paymentDate: formData.bookingInfo.createdAt,
-            paymentType: formData.paymentType,
+            paymentDate: formatDateRange(formData.bookingInfo.createdAt),
+            paymentType: formData.paymentType == 'card' ? 'Карта' : 'Наличные',
             price: formData.price,
             checklists: formData.tours[0].checklists[0],
         }
