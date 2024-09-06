@@ -61,7 +61,7 @@ class MailController {
             paymentDate: formatDate(formData.bookingInfo.createdAt),
             paymentType: formData.paymentType == 'card' ? 'Карта' : 'Наличные',
             price: formData.price,
-            checklists: formData.tours[0].checklists[0],
+            checklists: formData.tours[0].checklists.join(', '),
         }
 
         const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-tour-template.docx');
