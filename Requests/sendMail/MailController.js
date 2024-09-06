@@ -9,18 +9,19 @@ class MailController {
     static async sendEmail_file(req, res) {
         const { emailPayload } = req.body;
 
-        console.log(emailPayload);
+        let formData = emailPayload;
+        console.log(formData);
 
         let dogovorTags = {
             bron_id: formData.bron_id,
-            
+
             client_fio: formData.passengers[0].name,
             client_address: formData.passengers[0].address,
             client_series: formData.passengers[0].passportSeries,
             client_number: formData.passengers[0].passportNumber,
             client_phone: formData.passengers[0].phone,
             client_email: formData.passengers[0].email,
-            
+
             dateEnd: formData.bookingDate.split(' - ')[0],
             dateStart: formData.bookingDate.split(' - ')[1],
 
@@ -39,7 +40,7 @@ class MailController {
 
         const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-tour-template.docx');
         const templateContent = fs.readFileSync(templateName, 'binary');
-        
+
         const filename = `VOUCHER-test.docx`;
 
         const zip = new PizZip(templateContent);
@@ -51,23 +52,23 @@ class MailController {
                 return part.value;
             }
         });
-        
+
         doc.setData(dogovorTags);
-        
+
         try {
             doc.render();
             const output = doc.getZip().generate({ type: 'nodebuffer' });
-            
+
             const filePath = `static/${filename}`;
-            
+
             fs.writeFileSync(filePath, output);
-            
+
         } catch (error) {
             console.error('Ошибка при создании документа:', error);
             return res.status(500).send('Ошибка при создании документа');
         }
 
-        
+
         let transporter = nodemailer.createTransport({
             host: 'smtp.mail.ru',
             port: 465,
@@ -77,7 +78,7 @@ class MailController {
                 pass: 'sfQPpSa7PRb1FdSbGQR3'
             }
         });
-        
+
         const filePathEmail = path.join(process.cwd(), 'static', filename);
 
         let mailOptions = {
