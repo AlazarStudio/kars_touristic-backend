@@ -9,6 +9,8 @@ class MailController {
     static async sendEmail_file(req, res) {
         const { formData } = req.body;
 
+        console.log(formData.bookingInfo)
+
         let dogovorTags = {
             bron_id: formData.bookingInfo._id,
 
