@@ -12,29 +12,32 @@ class MultidayTourService {
 
     async dublicateMultidayTour(multidayTourData) {
         const { mainPhoto, photos, ...restData } = multidayTourData;
-
+    
         const newTour = new MultidayTour({
             ...restData,
             mainPhoto: '',
             photos: []
         });
-
+    
         if (mainPhoto) {
-            const newMainPhotoPath = await copyImage(mainPhoto);
+            // Используем this для вызова метода copyImage
+            const newMainPhotoPath = await this.copyImage(mainPhoto);
             newTour.mainPhoto = newMainPhotoPath;
         }
-
+    
         if (photos && photos.length > 0) {
             for (let photoPath of photos) {
-                const newPhotoPath = await copyImage(photoPath);
+                // Используем this для вызова метода copyImage
+                const newPhotoPath = await this.copyImage(photoPath);
                 newTour.photos.push(newPhotoPath);
             }
         }
-
+    
         await newTour.save();
-
+    
         return newTour;
     }
+    
 
     async copyImage(imagePath) {
         const imageDir = path.dirname(imagePath);
