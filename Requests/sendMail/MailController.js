@@ -46,8 +46,8 @@ class MailController {
             duration: formData.tours[0].duration,
             tourStartPlace: formData.tours[0].tourStartPlace || formData.tours[0].places[0],
 
-            paymentNumber: formData.bookingInfo.paymentNumber || formData.bookingInfo._id,
-            paymentDate: formatDateRange(formData.bookingInfo.createdAt),
+            paymentNumber: formData.paymentNumber,
+            paymentDate: formData.bookingInfo.createdAt,
             paymentType: formData.paymentType == 'card' ? 'Карта' : 'Наличные',
             price: formData.price,
             checklists: formData.tours[0].checklists[0],
