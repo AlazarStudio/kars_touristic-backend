@@ -23,6 +23,20 @@ class MultidayTourController {
         }
     }
 
+    async dublicateMultidayTour(req, res) {
+        try {
+            const { body } = req;
+            const multidayTourData = {
+                ...body
+            };
+            const tour = await MultidayTourService.dublicateMultidayTour(multidayTourData);
+            res.status(201).json(tour);
+        } catch (error) {
+            console.error('Error in MultidayTourController:', error);
+            res.status(500).json({ message: 'Error adding tour' });
+        }
+    }
+
 
     async updateOneMultidayTour(req, res) {
         const { id } = req.params;

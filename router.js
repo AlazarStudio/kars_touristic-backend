@@ -84,6 +84,8 @@ router.post('/addMultidayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
 ]), convertToWebP, MultidayTourController.multidayTour);
 
+router.post('/dublicateMultidayTour', MultidayTourController.dublicateMultidayTour);
+
 router.get('/getMultidayTours', MultidayTourController.getMultidayTours);
 router.get('/getOneMultidayTour/:id', MultidayTourController.getOneMultidayTour);
 

@@ -10,6 +10,12 @@ class MultidayTourService {
         return tour;
     }
 
+    async dublicateMultidayTour(multidayTourData) {
+        const tour = new MultidayTour(multidayTourData);
+        await tour.save();
+        return tour;
+    }
+
     async getMultidayTours(req) {
         const {
             // page = 1,
