@@ -48,12 +48,12 @@ class MultidayTourService {
         const imageExt = path.extname(fullImagePath);
         const imageBaseName = path.basename(fullImagePath, imageExt);
 
-        console.log(imageDir, imageExt, imageBaseName)
-
         const newImageName = `${imageBaseName}_copy${Date.now()}${imageExt}`;
         const newImagePath = path.join(imageDir, newImageName);
 
         await fs.promises.copyFile(fullImagePath, newImagePath);
+
+        console.log(newImagePath)
 
         return newImagePath;
     }
