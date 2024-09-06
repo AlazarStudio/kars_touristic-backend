@@ -10,7 +10,7 @@ class MailController {
         const { formData } = req.body;
 
         let dogovorTags = {
-            bron_id: formData.bron_id,
+            bron_id: formData.bookingInfo._id,
 
             client_fio: formData.passengers[0].name,
             client_address: formData.passengers[0].address,
@@ -26,8 +26,8 @@ class MailController {
             duration: formData.tours[0].duration,
             tourStartPlace: formData.tours[0].tourStartPlace,
 
-            paymentNumber: formData.paymentNumber,
-            paymentDate: formData.paymentDate,
+            paymentNumber: formData.bookingInfo.paymentNumber,
+            paymentDate: formData.bookingInfo.paymentDate,
             paymentType: formData.paymentType,
             price: formData.price,
             checklists: formData.tours[0].checklists[0],
@@ -36,7 +36,7 @@ class MailController {
         const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-tour-template.docx');
         const templateContent = fs.readFileSync(templateName, 'binary');
 
-        const filename = `VOUCHER-test.docx`;
+        const filename = `VOUCHER для тура ${formData.tours[0].tourTitle} - ${formData.passengers[0].name}.docx`;
 
         const zip = new PizZip(templateContent);
         const doc = new Docxtemplater(zip, {
@@ -82,7 +82,7 @@ class MailController {
             subject: `Информация об оплате тура ${formData.tours[0].tourTitle}`,
             text: `karstouristic.ru`,
             html: `Вами был приобретен тур ${formData.tours[0].tourTitle} на сумму <b>${formData.price} рублей</b>. <br/> 
-                Дата прохождения тура:  <b>${formData.bookingDate} рублей</b> <br/> 
+                Дата прохождения тура:  <b>${formData.bookingDate}</b> <br/> 
                 Подробная информация содержится в прикрепленном документе.`,
             attachments: [{
                 filename: filename,
