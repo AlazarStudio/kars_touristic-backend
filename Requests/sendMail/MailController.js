@@ -24,7 +24,7 @@ class MailController {
 
             tourName: formData.tours[0].tourTitle,
             duration: formData.tours[0].duration,
-            tourStartPlace: formData.tours[0].tourStartPlace,
+            tourStartPlace: formData.tours[0].tourStartPlace || formData.tours[0].places[0],
 
             paymentNumber: formData.bookingInfo.paymentNumber || formData.bookingInfo._id,
             paymentDate: formData.bookingInfo.createdAt,
