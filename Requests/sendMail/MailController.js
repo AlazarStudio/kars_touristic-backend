@@ -9,8 +9,8 @@ class MailController {
     static async sendEmail_file(req, res) {
         const { emailPayload } = req.body;
 
-        let formData = emailPayload;
-        console.log(formData);
+        // let formData = emailPayload;
+        console.log(req.body);
 
         let dogovorTags = {
             bron_id: formData.bron_id,
