@@ -27,9 +27,18 @@ class MailController {
             }
         }
 
-        const { formData } = req.body;
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
 
-        console.log(formData)
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0, поэтому добавляем 1
+            const year = date.getFullYear();
+            
+            const formattedDate = `${day}.${month}.${year}`;
+            return formattedDate
+        }
+
+        const { formData } = req.body;
 
         let dogovorTags = {
             bron_id: formData.bookingInfo._id,
@@ -49,7 +58,7 @@ class MailController {
             tourStartPlace: formData.tours[0].tourStartPlace || formData.tours[0].places[0],
 
             paymentNumber: formData.paymentNumber,
-            paymentDate: formData.bookingInfo.createdAt,
+            paymentDate: formatDate(formData.bookingInfo.createdAt),
             paymentType: formData.paymentType == 'card' ? 'Карта' : 'Наличные',
             price: formData.price,
             checklists: formData.tours[0].checklists[0],
