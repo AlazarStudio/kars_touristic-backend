@@ -53,9 +53,7 @@ class MultidayTourService {
 
         await fs.promises.copyFile(fullImagePath, newImagePath);
 
-        console.log(newImagePath)
-
-        return newImagePath;
+        return newImageName;
     }
 
     async getMultidayTours(req) {
