@@ -9,8 +9,6 @@ class MailController {
     static async sendEmail_file(req, res) {
         const { formData } = req.body;
 
-        console.log(formData.bookingInfo)
-
         let dogovorTags = {
             bron_id: formData.bookingInfo._id,
 
@@ -28,8 +26,8 @@ class MailController {
             duration: formData.tours[0].duration,
             tourStartPlace: formData.tours[0].tourStartPlace,
 
-            paymentNumber: formData.bookingInfo.paymentNumber,
-            paymentDate: formData.bookingInfo.paymentDate,
+            paymentNumber: formData.bookingInfo.paymentNumber || formData.bookingInfo._id,
+            paymentDate: formData.bookingInfo.createdAt,
             paymentType: formData.paymentType,
             price: formData.price,
             checklists: formData.tours[0].checklists[0],
