@@ -17,11 +17,23 @@ class OnedayTourController {
             const tour = await OnedayTourService.onedayTour(multidayTourData);
             res.status(201).json(tour);
         } catch (error) {
-            console.error('Error in MultidayTourController:', error);
+            console.error('Error in OnedayTourController:', error);
             res.status(500).json({ message: 'Error adding tour' });
         }
     }
 
+    async dublicateOnedayTour(req, res) {
+        try {
+            const { body } = req;
+    
+            // Дублируем тур вместе с изображениями
+            const tour = await OnedayTourService.dublicateOnedayTour(body);
+            res.status(201).json(tour);
+        } catch (error) {
+            console.error('Error in OnedayTourController:', error);
+            res.status(500).json({ message: 'Error duplicating tour' });
+        }
+    }
     
     async getOnedayTours(req, res) {
         try {

@@ -105,6 +105,8 @@ router.post('/addOnedayTour', upload.fields([
     { name: 'photos', maxCount: 10 }
 ]), convertToWebP, OnedayTourController.onedayTour);
 
+router.post('/dublicateOnedayTour', OnedayTourController.dublicateOnedayTour);
+
 router.get('/getOnedayTours', OnedayTourController.getOnedayTours);
 router.get('/getOneOnedayTour/:id', OnedayTourController.getOneOnedayTour);
 
