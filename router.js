@@ -17,8 +17,12 @@ import PlacesController from "./Requests/Places/PlacesController.js";
 import EventsController from "./Requests/Events/EventsController.js";
 import AgentController from "./Requests/Agent/AgentController.js";
 import HotelBronController from "./Requests/HotelBron/HotelBronController.js";
+import MailController from "./Requests/sendMail/MailController.js";
 
 const router = new Router()
+
+router.post('/send-email', MailController.sendEmail);
+router.post('/send-email-file', MailController.sendEmail_file);
 
 router.get('/getUsers', AuthController.getUsers);
 router.get('/getTouragents', AuthController.getTouragents);
