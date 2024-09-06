@@ -11,9 +11,42 @@ class MultidayTourService {
     }
 
     async dublicateMultidayTour(multidayTourData) {
-        const tour = new MultidayTour(multidayTourData);
-        await tour.save();
-        return tour;
+        const { mainPhoto, photos, ...restData } = multidayTourData;
+
+        const newTour = new MultidayTour({
+            ...restData,
+            mainPhoto: '',
+            photos: []
+        });
+
+        if (mainPhoto) {
+            const newMainPhotoPath = await copyImage(mainPhoto);
+            newTour.mainPhoto = newMainPhotoPath;
+        }
+
+        if (photos && photos.length > 0) {
+            for (let photoPath of photos) {
+                const newPhotoPath = await copyImage(photoPath);
+                newTour.photos.push(newPhotoPath);
+            }
+        }
+
+        await newTour.save();
+
+        return newTour;
+    }
+
+    async copyImage(imagePath) {
+        const imageDir = path.dirname(imagePath);
+        const imageExt = path.extname(imagePath);
+        const imageBaseName = path.basename(imagePath, imageExt);
+
+        const newImageName = `${imageBaseName}_copy${Date.now()}${imageExt}`;
+        const newImagePath = path.join(imageDir, newImageName);
+
+        await fs.promises.copyFile(imagePath, newImagePath);
+
+        return newImagePath;
     }
 
     async getMultidayTours(req) {
@@ -101,7 +134,7 @@ class MultidayTourService {
         try {
             const changeMainImg = await MultidayTour.findByIdAndUpdate(
                 id,
-                { mainPhoto: mainImgPath},
+                { mainPhoto: mainImgPath },
                 { new: true, upsert: true }
             );
             return changeMainImg;

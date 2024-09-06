@@ -26,16 +26,16 @@ class MultidayTourController {
     async dublicateMultidayTour(req, res) {
         try {
             const { body } = req;
-            const multidayTourData = {
-                ...body
-            };
-            const tour = await MultidayTourService.dublicateMultidayTour(multidayTourData);
+    
+            // Дублируем тур вместе с изображениями
+            const tour = await MultidayTourService.dublicateMultidayTour(body);
             res.status(201).json(tour);
         } catch (error) {
             console.error('Error in MultidayTourController:', error);
-            res.status(500).json({ message: 'Error adding tour' });
+            res.status(500).json({ message: 'Error duplicating tour' });
         }
     }
+    
 
 
     async updateOneMultidayTour(req, res) {
