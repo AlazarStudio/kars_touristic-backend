@@ -168,12 +168,12 @@ class MailController {
         let dogovorTags = {
             bron_id: formData.bookingInfo._id,
 
-            client_fio: formData.client.name,
-            client_address: formData.client.address,
-            client_series: formData.client.passportSeries,
-            client_number: formData.client.passportNumber,
-            client_phone: formData.client.phone,
-            client_email: formData.client.email,
+            client_fio: formData.client[0].name,
+            client_address: formData.client[0].address,
+            client_series: formData.client[0].passportSeries,
+            client_number: formData.client[0].passportNumber,
+            client_phone: formData.client[0].phone,
+            client_email: formData.client[0].email,
 
             dateStart: formatDateRange(formData.arrivalDate),
             dateEnd: formatDateRange(formData.departureDate),
@@ -192,7 +192,7 @@ class MailController {
         const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-hotel-template.docx');
         const templateContent = fs.readFileSync(templateName, 'binary');
 
-        const filename = `VOUCHER для отеля ${formData.hotel.title} - ${formData.client.name}.docx`;
+        const filename = `VOUCHER для отеля ${formData.hotel.title} - ${formData.client[0].name}.docx`;
 
         const zip = new PizZip(templateContent);
         const doc = new Docxtemplater(zip, {
@@ -234,7 +234,7 @@ class MailController {
 
         let mailOptions = {
             from: 'alimdzhatdoev@mail.ru',
-            to: formData.client.email,
+            to: formData.client[0].email,
             subject: `Информация о бронировании номер ${formData.roomNumber} в отеле ${formData.hotel.title}`,
             text: `karstouristic.ru`,
             html: `Вами был забронирован номер ${formData.roomNumber} в отеле ${formData.hotel.title} на сумму <b>${formData.fullPrice} рублей</b>. <br/> 
