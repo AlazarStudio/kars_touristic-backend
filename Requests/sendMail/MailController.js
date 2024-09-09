@@ -165,8 +165,6 @@ class MailController {
 
         const { formData } = req.body;
 
-        console.log(formData)
-
         let dogovorTags = {
             bron_id: formData.bookingInfo._id,
 
