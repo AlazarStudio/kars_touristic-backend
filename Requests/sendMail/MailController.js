@@ -40,8 +40,6 @@ class MailController {
 
         const { formData } = req.body;
 
-        console.log(formData)
-
         let dogovorTags = {
             bron_id: formData.bookingInfo._id,
 
@@ -52,8 +50,8 @@ class MailController {
             client_phone: formData.passengers[0].phone,
             client_email: formData.passengers[0].email,
 
-            dateEnd: formatDateRange(formData.bookingDate).split(' - ')[0],
-            dateStart: formatDateRange(formData.bookingDate).split(' - ')[1],
+            dateStart: formatDateRange(formData.bookingDate).split(' - ')[0],
+            dateEnd: formatDateRange(formData.bookingDate).split(' - ')[1],
 
             tourName: formData.tours[0].tourTitle,
             duration: formData.tours[0].duration,
@@ -70,6 +68,133 @@ class MailController {
         const templateContent = fs.readFileSync(templateName, 'binary');
 
         const filename = `VOUCHER для тура ${formData.tours[0].tourTitle} - ${formData.passengers[0].name}.docx`;
+
+        const zip = new PizZip(templateContent);
+        const doc = new Docxtemplater(zip, {
+            nullGetter(part) {
+                if (part.value === undefined) {
+                    return "";
+                }
+                return part.value;
+            }
+        });
+
+        doc.setData(dogovorTags);
+
+        try {
+            doc.render();
+            const output = doc.getZip().generate({ type: 'nodebuffer' });
+
+            const filePath = `static/${filename}`;
+
+            fs.writeFileSync(filePath, output);
+
+        } catch (error) {
+            console.error('Ошибка при создании документа:', error);
+            return res.status(500).send('Ошибка при создании документа');
+        }
+
+
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.mail.ru',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'alimdzhatdoev@mail.ru',
+                pass: 'sfQPpSa7PRb1FdSbGQR3'
+            }
+        });
+
+        const filePathEmail = path.join(process.cwd(), 'static', filename);
+
+        let mailOptions = {
+            from: 'alimdzhatdoev@mail.ru',
+            to: formData.passengers[0].email,
+            subject: `Информация об оплате тура ${formData.tours[0].tourTitle}`,
+            text: `karstouristic.ru`,
+            html: `Вами был приобретен тур ${formData.tours[0].tourTitle} на сумму <b>${formData.price} рублей</b>. <br/> 
+                Дата прохождения тура:  <b>${formData.bookingDate}</b> <br/> 
+                Подробная информация содержится в прикрепленном документе.`,
+            attachments: [{
+                filename: filename,
+                path: filePathEmail
+            }]
+        };
+
+        try {
+            let info = await transporter.sendMail(mailOptions);
+            console.log('Письмо отправлено: ' + info.response);
+            res.status(200).json({ message: 'Письмо успешно отправлено', info: info.response });
+        } catch (error) {
+            console.error('Ошибка при отправке письма:', error);
+            res.status(500).json({ message: 'Ошибка при отправке письма', error: error.toString() });
+        }
+    }
+
+    static async sendEmail_file_hotel(req, res) {
+        function formatDateRange(dateRange) {
+            if (!dateRange) return '';
+
+            const [startDate, endDate] = dateRange.split(' - ');
+
+            const formatDate = (date) => {
+                const [year, month, day] = date.split('-');
+                return `${day}.${month}.${year}`;
+            };
+
+            const formattedStartDate = formatDate(startDate);
+
+            if (endDate) {
+                const formattedEndDate = formatDate(endDate);
+                return `${formattedStartDate} - ${formattedEndDate}`;
+            } else {
+                return formattedStartDate;
+            }
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0, поэтому добавляем 1
+            const year = date.getFullYear();
+            
+            const formattedDate = `${day}.${month}.${year}`;
+            return formattedDate
+        }
+
+        const { formData } = req.body;
+
+        console.log(formData)
+
+        let dogovorTags = {
+            bron_id: formData.bookingInfo._id,
+
+            client_fio: formData.client.name,
+            client_address: formData.client.address,
+            client_series: formData.client.passportSeries,
+            client_number: formData.client.passportNumber,
+            client_phone: formData.client.phone,
+            client_email: formData.client.email,
+
+            dateStart: formatDateRange(formData.arrivalDate),
+            dateEnd: formatDateRange(formData.departureDate),
+
+            hotelName: formData.hotel.title,
+            roomNumber: formData.roomNumber,
+            dopServices: formData.hotel.moreInfo,
+
+            paymentNumber: formData.paymentNumber,
+            paymentDate: formatDate(formData.bookingInfo.createdAt),
+            paymentType: formData.paymentType == 'card' ? 'Карта' : 'Наличные',
+            price: formData.fullPrice,
+            checklists: formData.hotel.description,
+        }
+
+        const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-hotel-template.docx');
+        const templateContent = fs.readFileSync(templateName, 'binary');
+
+        const filename = `VOUCHER для отеля ${formData.tours[0].tourTitle} - ${formData.passengers[0].name}.docx`;
 
         const zip = new PizZip(templateContent);
         const doc = new Docxtemplater(zip, {

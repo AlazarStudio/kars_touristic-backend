@@ -22,6 +22,7 @@ import MailController from "./Requests/sendMail/MailController.js";
 const router = new Router()
 
 router.post('/send-email-file', MailController.sendEmail_file);
+router.post('/send-email-file-hotel', MailController.sendEmail_file_hotel);
 router.post('/send-email', MailController.sendEmail);
 
 router.get('/getUsers', AuthController.getUsers);
