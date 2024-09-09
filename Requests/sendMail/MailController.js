@@ -179,7 +179,7 @@ class MailController {
             dateEnd: formatDateRange(formData.departureDate),
 
             hotelName: formData.hotel.title,
-            address: formData.hotel.address,
+            address: formData.hotel.adress,
             roomNumber: formData.roomNumber,
             dopServices: formData.hotel.moreInfo,
 
