@@ -180,7 +180,7 @@ class MailController {
 
             hotelName: formData.hotel.title,
             address: formData.hotel.adress,
-            roomNumber: formData.roomNumber,
+            roomNumber: formData.roomNumber == 'none' ? formData.roomNumber : '-',
             dopServices: formData.hotel.moreInfo,
 
             paymentNumber: formData.paymentNumber,
