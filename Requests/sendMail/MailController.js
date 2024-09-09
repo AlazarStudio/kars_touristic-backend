@@ -194,7 +194,7 @@ class MailController {
         const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-hotel-template.docx');
         const templateContent = fs.readFileSync(templateName, 'binary');
 
-        const filename = `VOUCHER для отеля ${formData.tours[0].tourTitle} - ${formData.passengers[0].name}.docx`;
+        const filename = `VOUCHER для отеля ${formData.hotel.title} - ${formData.client.name}.docx`;
 
         const zip = new PizZip(templateContent);
         const doc = new Docxtemplater(zip, {
