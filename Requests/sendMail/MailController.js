@@ -236,11 +236,11 @@ class MailController {
 
         let mailOptions = {
             from: 'alimdzhatdoev@mail.ru',
-            to: formData.passengers[0].email,
-            subject: `Информация об оплате тура ${formData.tours[0].tourTitle}`,
+            to: formData.clientemail,
+            subject: `Информация о бронировании номер ${formData.roomNumber} в отеле ${formData.hotel.title}`,
             text: `karstouristic.ru`,
-            html: `Вами был приобретен тур ${formData.tours[0].tourTitle} на сумму <b>${formData.price} рублей</b>. <br/> 
-                Дата прохождения тура:  <b>${formData.bookingDate}</b> <br/> 
+            html: `Вами был забронирован номер ${formData.roomNumber} в отеле ${formData.hotel.title} на сумму <b>${formData.fullPrice} рублей</b>. <br/> 
+                Даты бронирования:  <b>${formatDateRange(formData.arrivalDate)} - ${formatDateRange(formData.departureDate)}</b> <br/> 
                 Подробная информация содержится в прикрепленном документе.`,
             attachments: [{
                 filename: filename,
