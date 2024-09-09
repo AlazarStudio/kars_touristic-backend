@@ -236,7 +236,7 @@ class MailController {
 
         let mailOptions = {
             from: 'alimdzhatdoev@mail.ru',
-            to: formData.clientemail,
+            to: formData.client.email,
             subject: `Информация о бронировании номер ${formData.roomNumber} в отеле ${formData.hotel.title}`,
             text: `karstouristic.ru`,
             html: `Вами был забронирован номер ${formData.roomNumber} в отеле ${formData.hotel.title} на сумму <b>${formData.fullPrice} рублей</b>. <br/> 
