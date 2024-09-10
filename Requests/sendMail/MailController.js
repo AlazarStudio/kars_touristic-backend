@@ -41,6 +41,7 @@ class MailController {
         const { formData } = req.body;
 
         let dogovorTags = {
+            items: formData.passengers,
             bron_id: formData.bookingInfo._id,
 
             client_fio: formData.passengers[0].name,
@@ -64,7 +65,7 @@ class MailController {
             checklists: formData.tours[0].checklists.join(', '),
         }
 
-        const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-tour-template.docx');
+        const templateName = path.join(process.cwd(), 'templates', 'VOUCHER-tourAgent-template.docx');
         const templateContent = fs.readFileSync(templateName, 'binary');
 
         const filename = `VOUCHER для тура ${formData.tours[0].tourTitle} - ${formData.passengers[0].name}.docx`;
