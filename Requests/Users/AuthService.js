@@ -102,9 +102,9 @@ class PostService {
       username
     });
 
-    if (candidate) {
-      throw new Error("Такой пользователь уже существует");
-    }
+    // if (candidate) {
+    //   throw new Error("Такой пользователь уже существует");
+    // }
 
     const hashPassword = bcrypt.hashSync(password, 7);
 
