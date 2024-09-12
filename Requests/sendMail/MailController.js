@@ -101,15 +101,15 @@ class MailController {
             port: 465,
             secure: true,
             auth: {
-                user: 'alimdzhatdoev@mail.ru',
-                pass: 'sfQPpSa7PRb1FdSbGQR3'
+                user: 'kars-touristic@mail.ru',
+                pass: 'GdWjd18aAKsNuBevXE0u'
             }
         });
 
         const filePathEmail = path.join(process.cwd(), 'static', filename);
 
         let mailOptions = {
-            from: 'alimdzhatdoev@mail.ru',
+            from: 'kars-touristic@mail.ru',
             to: formData.passengers[0].email,
             subject: `Информация об оплате тура ${formData.tours[0].tourTitle}`,
             text: `karstouristic.ru`,
@@ -227,15 +227,15 @@ class MailController {
             port: 465,
             secure: true,
             auth: {
-                user: 'alimdzhatdoev@mail.ru',
-                pass: 'sfQPpSa7PRb1FdSbGQR3'
+                user: 'kars-touristic@mail.ru',
+                pass: 'GdWjd18aAKsNuBevXE0u'
             }
         });
 
         const filePathEmail = path.join(process.cwd(), 'static', filename);
 
         let mailOptions = {
-            from: 'alimdzhatdoev@mail.ru',
+            from: 'kars-touristic@mail.ru',
             to: formData.client[0].email,
             subject: `Информация о бронировании номер ${formData.roomNumber} в отеле ${formData.hotel.title}`,
             text: `karstouristic.ru`,
@@ -266,13 +266,13 @@ class MailController {
             port: 465,
             secure: true,
             auth: {
-                user: 'alimdzhatdoev@mail.ru',
-                pass: 'sfQPpSa7PRb1FdSbGQR3'
+                user: 'kars-touristic@mail.ru',
+                pass: 'GdWjd18aAKsNuBevXE0u'
             }
         });
 
         let mailOptions = {
-            from: 'alimdzhatdoev@mail.ru',
+            from: 'kars-touristic@mail.ru',
             to,
             subject,
             text,
