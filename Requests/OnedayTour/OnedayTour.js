@@ -8,6 +8,8 @@ const OnedayTour = new mongoose.Schema({
     tourType: { type: String, required: true },
     difficulty: { type: String, required: true },
     cost: { type: String, required: true },
+    optional: { type: String, required: false },
+    typeOfBron: { type: String, required: false },
     
     min: { type: String, required: false },
     max: { type: String, required: false },
