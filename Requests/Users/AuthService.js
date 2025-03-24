@@ -9,7 +9,10 @@ dotenv.config({ path: './Requests/Token/secret.env' });
 class PostService {
   async getUsers(req) {
     const {
-      page = 1, perPage = 10, search = '', filter
+      // page = 1, 
+      // perPage = 10, 
+      search = '', 
+      filter
     } = req.query;
 
     let modelFilter = {
@@ -22,8 +25,8 @@ class PostService {
     const totalCount = await User.countDocuments(modelFilter).exec();
     const users = await User.find(modelFilter)
       .sort(filter)
-      .limit(perPage)
-      .skip((page - 1) * perPage)
+      // .limit(perPage)
+      // .skip((page - 1) * perPage)
       .exec();
 
     return {
