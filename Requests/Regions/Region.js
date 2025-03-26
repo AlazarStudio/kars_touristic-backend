@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const Region = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
+    descriptionSecond: { type: String, required: true },
     iconPath: { type: Array, required: true, default: [] },
     coverImgPath: { type: Array, required: true, default: [] },
     backgroundImgPath: { type: Array, required: true, default: [] },

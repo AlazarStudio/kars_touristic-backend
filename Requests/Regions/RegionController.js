@@ -4,7 +4,7 @@ import Region from "./Region.js";
 class RegionController {
     async addRegion(req, res) {
         try {
-            const { title, description } = req.body;
+            const { title, description, descriptionSecond } = req.body;
             const { iconPath, coverImgPath, backgroundImgPath } = req.files;
 
             if (!iconPath || !backgroundImgPath) {
@@ -14,6 +14,7 @@ class RegionController {
             const region = await RegionService.addRegion({
                 title,
                 description,
+                descriptionSecond,
                 iconPath: iconPath[0],
                 coverImgPath: coverImgPath[0],
                 backgroundImgPath: backgroundImgPath[0]
@@ -55,7 +56,7 @@ class RegionController {
 
     async updateRegion(req, res) {
         const { id } = req.params;
-        const { title, description } = req.body;
+        const { title, description, descriptionSecond } = req.body;
     
         const photos = req.files;
     
@@ -63,7 +64,7 @@ class RegionController {
         const coverImgPath = photos && photos['coverImgPath'] ? photos['coverImgPath'].map(file => file.filename) : [];
         const backgroundImgPath = photos && photos['backgroundImgPath'] ? photos['backgroundImgPath'].map(file => file.filename) : [];
     
-        const regionData = { title, description };
+        const regionData = { title, description, descriptionSecond };
     
         const regionPhotos = {};
         if (iconPath.length > 0) regionPhotos.iconPath = iconPath;

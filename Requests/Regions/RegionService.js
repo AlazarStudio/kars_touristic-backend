@@ -5,7 +5,7 @@ import * as path from 'path';
 
 class RegionService {
     async addRegion(regionData) {
-        const { title, description, iconPath, coverImgPath, backgroundImgPath } = regionData;
+        const { title, description, descriptionSecond, iconPath, coverImgPath, backgroundImgPath } = regionData;
 
         const iconPathName = iconPath ? iconPath.filename : '';
         const coverImgPathName = coverImgPath ? coverImgPath.filename : '';
@@ -15,6 +15,7 @@ class RegionService {
         const region = new Region({
             title,
             description,
+            descriptionSecond,
             iconPath: iconPathName,
             coverImgPath: coverImgPathName,
             backgroundImgPath: backgroundImgPathName,
