@@ -5,7 +5,6 @@ class ReviewController {
   async Review(req, res) {
     try {
       const { body } = req;
-      console.log(body);
       const ReviewData = {
         ...body,
       };
