@@ -2,6 +2,9 @@ import ReviewService from "./ReviewService.js";
 import Review from "./Review.js";
 import jwt from "jsonwebtoken";
 
+import dotenv from "dotenv";
+dotenv.config({ path: "./Requests/Token/secret.env" });
+
 class ReviewController {
   async Review(req, res) {
     const token = req.headers["authorization"]?.split(" ")[1];
