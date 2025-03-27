@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const Region = new mongoose.Schema({
+const Region = new mongoose.Schema(
+  {
     title: { type: String, required: true },
     description: { type: String, required: true },
     descriptionSecond: { type: String, required: true },
@@ -8,8 +9,11 @@ const Region = new mongoose.Schema({
     coverImgPath: { type: Array, required: true, default: [] },
     backgroundImgPath: { type: Array, required: true, default: [] },
 
-    link: { type: String, required: true, default: '' },
+    link: { type: String, required: true, default: "" },
     order: { type: Number, required: true, default: 0 },
-}, { timestamps: true });
+    visible: { type: Boolean, required: true, default: true },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('Region', Region);
+export default mongoose.model("Region", Region);
