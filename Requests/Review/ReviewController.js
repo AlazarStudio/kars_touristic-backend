@@ -8,8 +8,11 @@ dotenv.config({ path: "./Requests/Token/secret.env" });
 class ReviewController {
   async Review(req, res) {
     const token = req.headers["authorization"]?.split(" ")[1];
+    console.log("Token: " + token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Token: " + decoded);
     const userId = decoded.id;
+    console.log("Token: " + userId);
     try {
       const { files, body } = req;
       const photoPaths = files.photos.map((file) => file.filename);
