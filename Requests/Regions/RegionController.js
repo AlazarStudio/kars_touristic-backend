@@ -8,11 +8,9 @@ class RegionController {
       const { iconPath, coverImgPath, backgroundImgPath } = req.files;
 
       if (!iconPath || !backgroundImgPath) {
-        return res
-          .status(400)
-          .send({
-            message: "Необходимо прикрепить файлы iconPath и backgroundImgPath",
-          });
+        return res.status(400).send({
+          message: "Необходимо прикрепить файлы iconPath и backgroundImgPath",
+        });
       }
 
       const region = await RegionService.addRegion({

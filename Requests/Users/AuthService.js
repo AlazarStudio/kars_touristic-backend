@@ -1,25 +1,25 @@
-import User from "./User.js"
-import bcrypt from "bcryptjs"
-import jwt from 'jsonwebtoken';
-import { generateAccessToken } from '../Token/tokenService.js';
+import User from "./User.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { generateAccessToken } from "../Token/tokenService.js";
 
-import dotenv from 'dotenv';
-dotenv.config({ path: './Requests/Token/secret.env' });
+import dotenv from "dotenv";
+dotenv.config({ path: "./Requests/Token/secret.env" });
 
 class PostService {
   async getUsers(req) {
     const {
-      // page = 1, 
-      // perPage = 10, 
-      search = '', 
-      filter
+      // page = 1,
+      // perPage = 10,
+      search = "",
+      filter,
     } = req.query;
 
     let modelFilter = {
       name: {
         $regex: search,
-        $options: 'i'
-      }
+        $options: "i",
+      },
     };
 
     const totalCount = await User.countDocuments(modelFilter).exec();
@@ -31,25 +31,24 @@ class PostService {
 
     return {
       totalCount,
-      users
+      users,
     };
   }
 
   async getTouragents(req) {
     let modelFilter = {
       role: {
-        $regex: 'touragent',
-        $options: 'i'
-      }
+        $regex: "touragent",
+        $options: "i",
+      },
     };
 
     const totalCount = await User.countDocuments(modelFilter).exec();
-    const users = await User.find(modelFilter)
-      .exec();
+    const users = await User.find(modelFilter).exec();
 
     return {
       totalCount,
-      users
+      users,
     };
   }
 
@@ -71,17 +70,18 @@ class PostService {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const userRole = decoded.role;
 
-      if (userRole == 'admin') {
+      if (userRole == "admin") {
         const user = await User.findById(idTouragent);
         return user;
-      } else if (userRole == 'touragent') {
+      } else if (userRole == "touragent") {
         const user = await User.findById(idTouragent);
         return user.name;
-      } {
-        return { message: 'Недостаточно прав, обратитесь к администратору' };
+      }
+      {
+        return { message: "Недостаточно прав, обратитесь к администратору" };
       }
     } catch (e) {
-      throw new Error('Не удалось получить информацию о пользователе');
+      throw new Error("Не удалось получить информацию о пользователе");
     }
   }
 
@@ -98,11 +98,11 @@ class PostService {
       gender,
       birthDate,
       role,
-      adminPanelAccess
+      adminPanelAccess,
     } = userValue.body;
 
     const candidate = await User.findOne({
-      username
+      username,
     });
 
     // if (candidate) {
@@ -123,14 +123,14 @@ class PostService {
       gender: gender,
       birthDate: birthDate,
       role: role,
-      adminPanelAccess: adminPanelAccess
+      adminPanelAccess: adminPanelAccess,
     });
 
     const token = generateAccessToken(user._id, user.role);
 
     return {
       user,
-      token
+      token,
     };
   }
 
@@ -160,7 +160,7 @@ class PostService {
 
       const user = await User.findById(userId);
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
 
       if (updates.likes) {
@@ -181,7 +181,7 @@ class PostService {
 
         for (const item of updates.cart) {
           if (cartSet.has(item)) {
-            return (`Данный товар уже был добавлен в корзину`);
+            return `Данный товар уже был добавлен в корзину`;
           }
           cartSet.add(item);
         }
@@ -189,15 +189,15 @@ class PostService {
         updates.cart = Array.from(cartSet);
       }
 
-      Object.keys(updates).forEach(key => {
+      Object.keys(updates).forEach((key) => {
         user[key] = updates[key];
       });
 
       await user.save();
 
-      return { user, message: 'Добавлено в корзину' };
+      return { user, message: "Добавлено в корзину" };
     } catch (error) {
-      throw new Error('Error updating user: ' + error.message);
+      throw new Error("Error updating user: " + error.message);
     }
   }
 
@@ -206,16 +206,16 @@ class PostService {
       const user = await User.findById(idUser);
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
 
       user.debt = debt;
 
       await user.save();
 
-      return { user, message: 'Обновлено' };
+      return { user, message: "Обновлено" };
     } catch (error) {
-      throw new Error('Error updating user: ' + error.message);
+      throw new Error("Error updating user: " + error.message);
     }
   }
 
@@ -224,13 +224,13 @@ class PostService {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const userRole = decoded.role;
 
-      if (userRole == 'admin') {
+      if (userRole == "admin") {
         const user = await User.findById(idTouragent);
         if (!user) {
-          throw new Error('User not found');
+          throw new Error("User not found");
         }
 
-        Object.keys(updates).forEach(key => {
+        Object.keys(updates).forEach((key) => {
           user[key] = updates[key];
         });
 
@@ -238,10 +238,10 @@ class PostService {
 
         return user;
       } else {
-        return { message: 'Недостаточно прав, обратитесь к администратору' }
+        return { message: "Недостаточно прав, обратитесь к администратору" };
       }
     } catch (error) {
-      throw new Error('Error updating user: ' + error.message);
+      throw new Error("Error updating user: " + error.message);
     }
   }
 
@@ -249,7 +249,7 @@ class PostService {
     try {
       const deleteUser = await User.findByIdAndDelete(id);
 
-      return { message: 'Успешно удален', deleteUser };
+      return { message: "Успешно удален", deleteUser };
     } catch (e) {
       return { message: e.message };
     }
@@ -263,20 +263,19 @@ class PostService {
       const user = await User.findById(userId);
 
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
 
       // Удаление товара из корзины
-      user.cart = user.cart.filter(item => item.toString() !== tourId);
+      user.cart = user.cart.filter((item) => item.toString() !== tourId);
 
       await user.save();
 
       return user;
     } catch (error) {
-      throw new Error('Error updating user: ' + error.message);
+      throw new Error("Error updating user: " + error.message);
     }
   }
-
 }
 
 export default new PostService();

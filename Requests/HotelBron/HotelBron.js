@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const HotelBron = new mongoose.Schema({
+const HotelBron = new mongoose.Schema(
+  {
     userID: { type: String, required: true },
     name: { type: String, required: true },
     adress: { type: String, required: true },
@@ -11,6 +12,8 @@ const HotelBron = new mongoose.Schema({
     arrivalDate: { type: Date, required: true },
     departureDate: { type: Date, required: true },
     client: { type: Array, required: true },
-}, { timestamps: true });
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('HotelBron', HotelBron);
+export default mongoose.model("HotelBron", HotelBron);

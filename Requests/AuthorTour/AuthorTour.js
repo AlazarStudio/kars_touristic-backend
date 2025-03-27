@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const AuthorTour = new mongoose.Schema({
+const AuthorTour = new mongoose.Schema(
+  {
     tourTitle: { type: String, required: true },
     travelMethod: { type: String, required: true },
     duration: { type: String, required: true },
@@ -13,8 +14,8 @@ const AuthorTour = new mongoose.Schema({
 
     min: { type: String, required: false },
     max: { type: String, required: false },
-    
-    mainPhoto: { type: String, default: '' },
+
+    mainPhoto: { type: String, default: "" },
 
     places: { type: Array, required: true },
     checklists: { type: Array, required: true },
@@ -27,9 +28,12 @@ const AuthorTour = new mongoose.Schema({
     author: { type: String, required: true },
     authorId: { type: String, required: true },
     modered: { type: String, required: true, default: false },
-    comment: { type: String, required: false, default: '' },
+    comment: { type: String, required: false, default: "" },
 
     order: { type: Number, required: true, default: 0 },
-}, { timestamps: true });
+    review: { type: Array, required: false, default: [] },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('AuthorTour', AuthorTour);
+export default mongoose.model("AuthorTour", AuthorTour);

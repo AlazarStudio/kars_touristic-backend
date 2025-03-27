@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const User = new mongoose.Schema({
+const User = new mongoose.Schema(
+  {
     username: { type: String, required: true },
     password: { type: String, required: true },
 
@@ -18,10 +19,12 @@ const User = new mongoose.Schema({
     cart: { type: Array, required: true, default: [] },
     role: { type: String, required: true, default: "user" },
     debt: { type: Number, required: true, default: 0 },
-    
+
     adminPanelAccess: { type: Boolean, required: true, default: false },
     multidayTours_Touragent: { type: Array, required: true, default: [] },
     onedayTours_Touragent: { type: Array, required: true, default: [] },
-}, { timestamps: true })
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('Users', User)
+export default mongoose.model("Users", User);

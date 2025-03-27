@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const MultidayTour = new mongoose.Schema({
+const MultidayTour = new mongoose.Schema(
+  {
     tourTitle: { type: String, required: true },
     travelMethod: { type: String, required: true },
     duration: { type: String, required: true },
@@ -14,8 +15,8 @@ const MultidayTour = new mongoose.Schema({
     min: { type: String, required: false },
     max: { type: String, required: false },
 
-    mainPhoto: { type: String, default: ''},
-    
+    mainPhoto: { type: String, default: "" },
+
     places: { type: Array, required: true },
     checklists: { type: Array, required: true },
     days: { type: Array, required: true },
@@ -26,6 +27,9 @@ const MultidayTour = new mongoose.Schema({
     region: { type: String, required: true },
 
     order: { type: Number, required: true, default: 0 },
-}, { timestamps: true });
+    review: { type: Array, required: false, default: [] },
+  },
+  { timestamps: true }
+);
 
-export default mongoose.model('MultidayTour', MultidayTour);
+export default mongoose.model("MultidayTour", MultidayTour);
