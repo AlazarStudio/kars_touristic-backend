@@ -2,9 +2,8 @@ import mongoose from "mongoose";
 
 const Review = new mongoose.Schema(
   {
-    title: { type: String, required: false, default: "" },
-    description: { type: String, required: false, default: "" },
-    photos: { type: Array, required: false, default: [] },
+    text: { type: String, required: false, default: "" },
+    rating: { type: Number, required: false, default: "" },
 
     hotelID: { type: String, required: false },
     roomID: { type: String, required: false },
