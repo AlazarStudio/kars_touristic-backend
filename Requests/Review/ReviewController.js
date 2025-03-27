@@ -4,11 +4,9 @@ import Review from "./Review.js";
 class ReviewController {
   async Review(req, res) {
     try {
-      const { files, body } = req;
-      const photoPaths = files.photos.map((file) => file.filename);
+      const { body } = req;
       const ReviewData = {
         ...body,
-        photos: photoPaths ? photoPaths : [],
       };
       const review = await ReviewService.Review(ReviewData);
       res.status(201).json(review);
@@ -21,18 +19,9 @@ class ReviewController {
   async updateOneReview(req, res) {
     const { id } = req.params;
     let reviewData = req.body;
-    let photoPaths = [];
-
-    if (req.files && req.files.photos) {
-      photoPaths = req.files.photos.map((file) => file.filename);
-    }
 
     try {
-      const updatedReview = await ReviewService.updateOneReview(
-        id,
-        reviewData,
-        photoPaths
-      );
+      const updatedReview = await ReviewService.updateOneReview(id, reviewData);
       res.status(200).json(updatedReview);
     } catch (error) {
       console.error(`Ошибка в updateOneReview: ${error}`);

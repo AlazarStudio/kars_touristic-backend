@@ -36,34 +36,13 @@ class ReviewService {
     return { totalCount, reviews };
   }
 
-  async updateOneReview(id, reviewData, photoPaths) {
-    if (reviewData.photosToDelete) {
-      const pathToFile = path.resolve(
-        "static",
-        JSON.parse(reviewData.photosToDelete)[0]
-      );
-      if (!fs.existsSync(pathToFile)) return;
-      fs.unlinkSync(pathToFile);
-    }
-
-    if (photoPaths.length > 0) {
-      const updatedReview = await Review.findByIdAndUpdate(
-        id,
-        {
-          $set: reviewData,
-          $push: { photos: { $each: photoPaths } },
-        },
-        { new: true, runValidators: true }
-      );
-      return updatedReview;
-    } else {
-      const updatedReview = await Review.findByIdAndUpdate(
-        id,
-        { $set: reviewData },
-        { new: true, runValidators: true }
-      );
-      return updatedReview;
-    }
+  async updateOneReview(id, reviewData) {
+    const updatedReview = await Review.findByIdAndUpdate(
+      id,
+      { $set: reviewData },
+      { new: true, runValidators: true }
+    );
+    return updatedReview;
   }
 
   async getOneReview(id) {
@@ -81,12 +60,6 @@ class ReviewService {
       if (!review) {
         throw new Error("не указан ID");
       }
-
-      review.photos.forEach((photo) => {
-        const pathToFile = path.resolve("static", photo);
-        if (!fs.existsSync(pathToFile)) return;
-        fs.unlinkSync(pathToFile);
-      });
 
       const deleteReview = await Review.findByIdAndDelete(id);
 
