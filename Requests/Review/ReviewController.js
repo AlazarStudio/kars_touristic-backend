@@ -8,7 +8,7 @@ class ReviewController {
       const photoPaths = files.photos.map((file) => file.filename);
       const ReviewData = {
         ...body,
-        photos: photoPaths,
+        photos: photoPaths ? photoPaths : [],
       };
       const review = await ReviewService.Review(ReviewData);
       res.status(201).json(review);
