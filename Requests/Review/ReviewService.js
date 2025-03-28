@@ -12,8 +12,6 @@ class ReviewService {
 
   async getReview(req) {
     const {
-      search = "",
-      filter,
       hotelId = "",
       roomId = "",
       oneTourId = "",
@@ -22,7 +20,6 @@ class ReviewService {
     } = req.query;
 
     const modelFilter = {
-      title: { $regex: search, $options: "i" },
       hotelID: { $regex: hotelId, $options: "i" },
       roomID: { $regex: roomId, $options: "i" },
       oneTourID: { $regex: oneTourId, $options: "i" },
@@ -37,6 +34,8 @@ class ReviewService {
 
     const totalCount = await Review.countDocuments(modelFilter).exec();
     const reviews = await Review.find(modelFilter).sort(filter).exec();
+
+    console.log("\n reviews" + reviews);
 
     return { totalCount, reviews };
   }
