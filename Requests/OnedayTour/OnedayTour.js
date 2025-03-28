@@ -33,3 +33,4 @@ const OnedayTour = new mongoose.Schema(
 );
 
 export default mongoose.model("OnedayTour", OnedayTour);
+  

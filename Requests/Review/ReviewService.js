@@ -14,11 +14,11 @@ class ReviewService {
     const {
       search = "",
       filter,
-      hotelId,
-      roomId,
-      oneTourId,
-      multiTourId,
-      autorTourId,
+      hotelId = "",
+      roomId = "",
+      oneTourId = "",
+      multiTourId = "",
+      autorTourId = "",
     } = req.query;
 
     const modelFilter = {
