@@ -22,13 +22,15 @@ class ReviewService {
 
     console.log("\n req", req.query);
 
-    const modelFilter = {
-      hotelID: { $regex: hotelId, $options: "i" },
-      roomID: { $regex: roomId, $options: "i" },
-      oneTourID: { $regex: oneTourId, $options: "i" },
-      multiTourID: { $regex: multiTourId, $options: "i" },
-      autorTourID: { $regex: autorTourId, $options: "i" },
-    };
+    const modelFilter = {};
+
+    if (hotelId) modelFilter.hotelID = { $regex: hotelId, $options: "i" };
+    if (roomId) modelFilter.roomID = { $regex: roomId, $options: "i" };
+    if (oneTourId) modelFilter.oneTourID = { $regex: oneTourId, $options: "i" };
+    if (multiTourId)
+      modelFilter.multiTourID = { $regex: multiTourId, $options: "i" };
+    if (autorTourId)
+      modelFilter.autorTourID = { $regex: autorTourId, $options: "i" };
 
     console.log(
       "\n modelFilter" + modelFilter,
