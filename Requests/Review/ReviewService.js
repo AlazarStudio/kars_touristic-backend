@@ -19,6 +19,8 @@ class ReviewService {
       multiTourId = "",
       autorTourId = "",
     } = req.query;
+    
+    console.log("\n req", req, "\n req string" + JSON.stringify(req));
 
     const modelFilter = {
       hotelID: { $regex: hotelId, $options: "i" },
