@@ -10,6 +10,7 @@ const Events = new mongoose.Schema(
     photos: { type: Array, required: true, default: [] },
     region: { type: String, required: true, default: "" },
     order: { type: Number, required: true, default: 0 },
+    visible: { type: Boolean, required: true, default: true },
   },
   { timestamps: true }
 );

@@ -22,7 +22,7 @@ class RoomsController {
 
   async updateOneRoom(req, res) {
     const { id } = req.params;
-    let tourData = req.body;
+    let { tourData, visible } = req.body;
     let photoPaths = [];
 
     if (req.files && req.files.photos) {
@@ -33,6 +33,7 @@ class RoomsController {
       const updatedTour = await RoomsService.updateOneRoom(
         id,
         tourData,
+        visible,
         photoPaths
       );
       res.status(200).json(updatedTour);
