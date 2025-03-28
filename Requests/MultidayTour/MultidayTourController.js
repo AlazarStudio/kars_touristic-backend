@@ -38,7 +38,7 @@ class MultidayTourController {
 
   async updateOneMultidayTour(req, res) {
     const { id } = req.params;
-    let { tourData, visible } = req.body;
+    let { tourData } = req.body;
     let photoPaths = [];
 
     if (req.files && req.files.photos) {
@@ -49,7 +49,6 @@ class MultidayTourController {
       const updatedTour = await MultidayTourService.updateOneMultidayTour(
         id,
         tourData,
-        visible,
         photoPaths
       );
       res.status(200).json(updatedTour);
