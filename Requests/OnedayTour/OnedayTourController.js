@@ -47,7 +47,7 @@ class OnedayTourController {
 
   async updateOneOnedayTour(req, res) {
     const { id } = req.params;
-    let { tourData, visible } = req.body;
+    let tourData = req.body;
     let photoPaths = [];
 
     if (req.files && req.files.photos) {
@@ -58,7 +58,6 @@ class OnedayTourController {
       const updatedTour = await OnedayTourService.updateOneOnedayTour(
         id,
         tourData,
-        visible,
         photoPaths
       );
       res.status(200).json(updatedTour);

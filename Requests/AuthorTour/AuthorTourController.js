@@ -25,7 +25,7 @@ class AuthorTourController {
 
   async updateOneAuthorTour(req, res) {
     const { id } = req.params;
-    let { tourData, visible } = req.body;
+    let tourData = req.body;
     let photoPaths = [];
 
     if (req.files && req.files.photos) {
@@ -36,7 +36,6 @@ class AuthorTourController {
       const updatedTour = await AuthorTourService.updateOneAuthorTour(
         id,
         tourData,
-        visible,
         photoPaths
       );
       res.status(200).json(updatedTour);
