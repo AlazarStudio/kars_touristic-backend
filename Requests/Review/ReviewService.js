@@ -30,6 +30,11 @@ class ReviewService {
       autorTourID: { $regex: autorTourId, $options: "i" },
     };
 
+    console.log(
+      "\n modelFilter" + modelFilter,
+      "\n modelFilter string" + JSON.stringify(modelFilter)
+    );
+
     const totalCount = await Review.countDocuments(modelFilter).exec();
     const reviews = await Review.find(modelFilter).sort(filter).exec();
 
