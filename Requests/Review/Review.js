@@ -11,7 +11,7 @@ const Review = new mongoose.Schema(
     multiTourID: { type: String, required: false },
     autorTourID: { type: String, required: false },
     userID: { type: String, required: true },
-    visible: { type: Boolean, required: true, default: true },
+    visible: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );
