@@ -29,6 +29,7 @@ const OnedayTour = new mongoose.Schema(
     order: { type: Number, required: true, default: 0 },
     review: { type: Array, required: false, default: [] },
     visible: { type: Boolean, required: true, default: true },
+    popular: { type: Boolean, required: false, default: false },
   },
   { timestamps: true }
 );
