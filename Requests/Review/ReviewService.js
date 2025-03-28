@@ -32,6 +32,9 @@ class ReviewService {
     const totalCount = await Review.countDocuments(modelFilter).exec();
     const reviews = await Review.find(modelFilter).exec();
 
+    console.log("req.query:", req.query);
+    console.log("modelFilter:", modelFilter);
+
     return { totalCount, reviews };
   }
 
