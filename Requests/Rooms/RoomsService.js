@@ -14,21 +14,21 @@ class RoomsService {
     const {
       // page = 1,
       // perPage = 10,
-      search = "",
-      filter,
+      title = "",
+      // filter,
       region = "",
-      hotelId,
+      hotelID = "",
     } = req.query;
 
-    const modelFilter = {
-      title: { $regex: search, $options: "i" },
-      region: { $regex: region, $options: "i" },
-      hotelID: { $regex: hotelId, $options: "i" },
-    };
+    const modelFilter = {};
+
+    if (title) modelFilter.title = { $regex: title, $options: "i" };
+    if (region) modelFilter.region = { $regex: region, $options: "i" };
+    if (hotelID) modelFilter.hotelID = { $regex: hotelID, $options: "i" };
 
     const totalCount = await Rooms.countDocuments(modelFilter).exec();
     const rooms = await Rooms.find(modelFilter)
-      .sort(filter)
+      // .sort(filter)
       // .limit(perPage)
       // .skip((page - 1) * perPage)
       .exec();
