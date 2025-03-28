@@ -11,13 +11,8 @@ class ReviewService {
   }
 
   async getReview(req) {
-    const {
-      hotelId = "",
-      roomId = "",
-      oneTourId = "",
-      multiTourId = "",
-      autorTourId = "",
-    } = req.query;
+    const { filter, hotelId, roomId, oneTourId, multiTourId, autorTourId } =
+      req.query;
 
     const modelFilter = {
       hotelID: { $regex: hotelId, $options: "i" },
