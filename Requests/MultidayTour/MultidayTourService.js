@@ -80,7 +80,7 @@ class MultidayTourService {
   }
 
   async updateOneMultidayTour(id, tourData, photoPaths) {
-    if (tourData.photosToDelete) {
+    if (tourData && tourData.photosToDelete) {
       const pathToFile = path.resolve(
         "static",
         JSON.parse(tourData.photosToDelete)[0]
