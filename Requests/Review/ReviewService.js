@@ -12,22 +12,22 @@ class ReviewService {
 
   async getReview(req) {
     const {
-      hotelId = "",
-      roomId = "",
-      oneTourId = "",
-      multiTourId = "",
-      autorTourId = "",
+      hotelID = "",
+      roomID = "",
+      oneTourID = "",
+      multiTourID = "",
+      autorTourID = "",
     } = req.query;
 
     const modelFilter = {};
 
-    if (hotelId) modelFilter.hotelID = { $regex: hotelId, $options: "i" };
-    if (roomId) modelFilter.roomID = { $regex: roomId, $options: "i" };
-    if (oneTourId) modelFilter.oneTourID = { $regex: oneTourId, $options: "i" };
-    if (multiTourId)
-      modelFilter.multiTourID = { $regex: multiTourId, $options: "i" };
-    if (autorTourId)
-      modelFilter.autorTourID = { $regex: autorTourId, $options: "i" };
+    if (hotelID) modelFilter.hotelID = { $regex: hotelID, $options: "i" };
+    if (roomID) modelFilter.roomID = { $regex: roomID, $options: "i" };
+    if (oneTourID) modelFilter.oneTourID = { $regex: oneTourID, $options: "i" };
+    if (multiTourID)
+      modelFilter.multiTourID = { $regex: multiTourID, $options: "i" };
+    if (autorTourID)
+      modelFilter.autorTourID = { $regex: autorTourID, $options: "i" };
 
     const totalCount = await Review.countDocuments(modelFilter).exec();
     const reviews = await Review.find(modelFilter).exec();
