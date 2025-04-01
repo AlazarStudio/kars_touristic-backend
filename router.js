@@ -212,7 +212,7 @@ router.get("/getTeam", AboutController.getTeam);
 router.delete("/deleteTeam/:id", AboutController.deleteTeam);
 
 // Трансфер +
-router.put("/transfer", TransferController.transfer);
+router.post("/transfer", TransferController.transfer);
 router.get("/transfer", TransferController.getTransfer);
 
 // FAQ +
