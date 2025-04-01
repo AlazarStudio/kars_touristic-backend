@@ -6,7 +6,7 @@ class TransferController {
       const { body } = req;
 
       const transfer = await TransferService.transfer({
-        body,
+        ...body,
       });
 
       res.status(201).send(transfer);
