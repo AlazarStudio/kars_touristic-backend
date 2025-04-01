@@ -9,7 +9,7 @@ class TransferService {
 
   async getTransfer() {
     try {
-      const transfer = await Transfer.findMany({});
+      const transfer = await Transfer.find({});
       return transfer;
     } catch (error) {
       throw new Error("Error getting aboutCompany: " + error.message);
