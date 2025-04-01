@@ -2,18 +2,9 @@ import Transfer from "./Transfer.js";
 
 class TransferService {
   async transfer(transferData) {
-    const { title, description, link } = transferData;
-
-    try {
-      const updatedTransfer = await Transfer.findOneAndUpdate(
-        {},
-        { title, description, link },
-        { new: true, upsert: true }
-      );
-      return updatedTransfer;
-    } catch (error) {
-      throw new Error("Error updating transfer: " + error.message);
-    }
+    const transfer = new Transfer(transferData);
+    await transfer.save();
+    return transfer;
   }
 
   async getTransfer() {

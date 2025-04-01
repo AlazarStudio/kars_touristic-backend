@@ -3,12 +3,10 @@ import TransferService from "./TransferService.js";
 class TransferController {
   async transfer(req, res) {
     try {
-      const { title, description, link } = req.query;
+      const { body } = req;
 
       const transfer = await TransferService.transfer({
-        title,
-        description,
-        link,
+        body,
       });
 
       res.status(201).send(transfer);
