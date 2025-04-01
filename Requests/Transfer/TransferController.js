@@ -27,6 +27,15 @@ class TransferController {
         .send({ message: "Не удалось получить данные", error: error.message });
     }
   }
+
+  async deleteTransfer(req, res) {
+    try {
+      const deleteTransfers = await TransferService.deleteTransfer(req.params.id);
+      return res.status(200).json(deleteTransfers);
+    } catch (e) {
+      res.status(500).json(e.message);
+    }
+  }
 }
 
 export default new TransferController();

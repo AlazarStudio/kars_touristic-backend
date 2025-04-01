@@ -12,7 +12,17 @@ class TransferService {
       const transfer = await Transfer.find({});
       return transfer;
     } catch (error) {
-      throw new Error("Error getting aboutCompany: " + error.message);
+      throw new Error("Ошибка при получении трансфера: " + error.message);
+    }
+  }
+
+  async deleteTransfer(id) {
+    try {
+      const deleteTransfer = await Transfer.findByIdAndDelete(id);
+
+      return { message: "Трансфер успешно удален", deleteTransfer };
+    } catch (e) {
+      return { message: e.message };
     }
   }
 }
