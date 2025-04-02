@@ -17,7 +17,7 @@ class TransferService {
   }
 
   async updateTransfer(id, transferData) {
-    const updatedTransfer = await Rooms.findByIdAndUpdate(
+    const updatedTransfer = await Transfer.findByIdAndUpdate(
       id,
       { $set: transferData },
       { new: true, runValidators: true }
