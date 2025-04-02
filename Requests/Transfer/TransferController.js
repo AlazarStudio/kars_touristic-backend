@@ -29,17 +29,18 @@ class TransferController {
   }
 
   async updateTransfer(req, res) {
+    const { id } = req.params;
+    let transferData = req.body;
+
     try {
-      const { body } = req;
       const updateTransfer = await TransferService.updateTransfer(
-        req.params.id,
-        { ...body }
+        id,
+        transferData
       );
-      res.status(200).send(updateTransfer);
+      res.status(200).json(updateTransfer);
     } catch (error) {
-      res
-        .status(500)
-        .send({ message: "Не удалось обновить данные", error: error.message });
+      console.error(`Ошибка в updateTransfer: ${error}`);
+      res.status(500).json({ message: "Ошибка при обновлении" });
     }
   }
 

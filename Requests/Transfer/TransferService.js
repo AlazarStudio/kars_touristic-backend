@@ -17,12 +17,12 @@ class TransferService {
   }
 
   async updateTransfer(id, transferData) {
-    try {
-      const updatedTransfer = await Transfer.findByIdAndUpdate(id, transferData, { new: true });
-      return updatedTransfer;
-    } catch (error) {
-      throw new Error("Ошибка при изменении трансфера: " + error.message);
-    }
+    const updatedTransfer = await Rooms.findByIdAndUpdate(
+      id,
+      { $set: transferData },
+      { new: true, runValidators: true }
+    );
+    return updatedTransfer;
   }
 
   async deleteTransfer(id) {
