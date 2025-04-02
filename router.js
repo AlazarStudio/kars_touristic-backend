@@ -213,7 +213,7 @@ router.delete("/deleteTeam/:id", AboutController.deleteTeam);
 
 // Трансфер +
 router.get("/transfer", TransferController.getTransfer);
-router.put("/transfer", TransferController.updateTransfer);
+router.put("/transfer/:id", TransferController.updateTransfer);
 router.post("/transfer", TransferController.transfer);
 router.delete("/transfer/:id", TransferController.deleteTransfer);
 
