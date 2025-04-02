@@ -18,6 +18,7 @@ const Transfer = new mongoose.Schema(
     personName: { type: String, required: false },
     personPhone: { type: String, required: false },
     personEmail: { type: String, required: false },
+    status: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );
