@@ -16,6 +16,15 @@ class TransferService {
     }
   }
 
+  async updateTransfer(id, transferData) {
+    try {
+      const updatedTransfer = await Transfer.findByIdAndUpdate(id, transferData, { new: true });
+      return updatedTransfer;
+    } catch (error) {
+      throw new Error("Ошибка при изменении трансфера: " + error.message);
+    }
+  }
+
   async deleteTransfer(id) {
     try {
       const deleteTransfer = await Transfer.findByIdAndDelete(id);

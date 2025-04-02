@@ -28,9 +28,26 @@ class TransferController {
     }
   }
 
+  async updateTransfer(req, res) {
+    try {
+      const { body } = req;
+      const updateTransfer = await TransferService.updateTransfer(
+        req.params.id,
+        { ...body }
+      );
+      res.status(200).send(updateTransfer);
+    } catch (error) {
+      res
+        .status(500)
+        .send({ message: "Не удалось обновить данные", error: error.message });
+    }
+  }
+
   async deleteTransfer(req, res) {
     try {
-      const deleteTransfers = await TransferService.deleteTransfer(req.params.id);
+      const deleteTransfers = await TransferService.deleteTransfer(
+        req.params.id
+      );
       return res.status(200).json(deleteTransfers);
     } catch (e) {
       res.status(500).json(e.message);
