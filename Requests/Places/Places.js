@@ -5,6 +5,7 @@ const Places = new mongoose.Schema(
     title: { type: String, required: true, default: "" },
     description: { type: String, required: true, default: "" },
     mapLink: { type: String, required: true, default: "" },
+    city: { type: String, required: true, default: "" },
 
     placeItems: { type: Array, required: true, default: [] },
 
