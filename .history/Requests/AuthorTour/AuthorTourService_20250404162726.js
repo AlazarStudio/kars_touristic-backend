@@ -1,8 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import User from '../Users/User.js';
+import * as fs from "fs";
+import * as path from "path";
 
-import AuthorTour from './AuthorTour.js';
+import AuthorTour from "./AuthorTour.js";
 
 class AuthorTourService {
   async AuthorTour(AuthorTourData) {
@@ -12,41 +11,34 @@ class AuthorTourService {
   }
 
   async getAuthorTours(req) {
-    const { search = '', filter, region = '', userID = '' } = req.query;
+    const {
+      // page = 1,
+      // perPage = 10,
+      search = "",
+      filter,
+      region = "",
+      userID = "",
+    } = req.query;
 
     const modelFilter = {
-      tourTitle: { $regex: search, $options: 'i' },
-      region: { $regex: region, $options: 'i' },
-      authorId: { $regex: userID, $options: 'i' },
+      tourTitle: { $regex: search, $options: "i" },
+      region: { $regex: region, $options: "i" },
+      authorId: { $regex: userID, $options: "i" },
     };
-
     const totalCount = await AuthorTour.countDocuments(modelFilter).exec();
-    const authorTours = await AuthorTour.find(modelFilter).sort(filter).exec();
+    const authorTour = await AuthorTour.find(modelFilter)
+      .sort(filter)
+      // .limit(perPage)
+      // .skip((page - 1) * perPage)
+      .exec();
 
-    // Получаем пользователей с полем likes
-    const users = await User.find({}, 'likes').exec();
-
-    // Подсчитываем лайки
-    const likesMap = {};
-    users.forEach((user) => {
-      user.likes.forEach((likeId) => {
-        likesMap[likeId] = (likesMap[likeId] || 0) + 1;
-      });
-    });
-
-    // Добавляем likesCount к каждому туру
-    const toursWithLikes = authorTours.map((tour) => ({
-      ...tour._doc,
-      likesCount: likesMap[tour._id] || 0,
-    }));
-
-    return { totalCount, authorTour: toursWithLikes };
+    return { totalCount, authorTour };
   }
 
   async updateOneAuthorTour(id, tourData, photoPaths) {
     if (tourData.photosToDelete) {
       const pathToFile = path.resolve(
-        'static',
+        "static",
         JSON.parse(tourData.photosToDelete)[0]
       );
       if (!fs.existsSync(pathToFile)) return;
@@ -63,18 +55,19 @@ class AuthorTourService {
         { new: true, runValidators: true }
       );
       return updatedTour;
+    } else {
+      const updatedTour = await AuthorTour.findByIdAndUpdate(
+        id,
+        { $set: tourData },
+        { new: true, runValidators: true }
+      );
+      return updatedTour;
     }
-    const updatedTour = await AuthorTour.findByIdAndUpdate(
-      id,
-      { $set: tourData },
-      { new: true, runValidators: true }
-    );
-    return updatedTour;
   }
 
   async getOneAuthorTour(id) {
     if (!id) {
-      throw new Error('не указан ID');
+      throw new Error("не указан ID");
     }
     const getOneAuthorTour = await AuthorTour.findById(id);
     return getOneAuthorTour;
@@ -85,18 +78,18 @@ class AuthorTourService {
       const tour = await AuthorTour.findById(id);
 
       if (!tour) {
-        throw new Error('не указан ID');
+        throw new Error("не указан ID");
       }
 
       tour.photos.forEach((photo) => {
-        const pathToFile = path.resolve('static', photo);
+        const pathToFile = path.resolve("static", photo);
         if (!fs.existsSync(pathToFile)) return;
         fs.unlinkSync(pathToFile);
       });
 
       const deleteAuthorTour = await AuthorTour.findByIdAndDelete(id);
 
-      return { message: 'Тур успешно удален', deleteAuthorTour };
+      return { message: "Тур успешно удален", deleteAuthorTour };
     } catch (e) {
       return { message: e.message };
     }
@@ -113,7 +106,7 @@ class AuthorTourService {
       );
       return changeMainImg;
     } catch (error) {
-      throw new Error(`Error updating AuthorTour: ${error.message}`);
+      throw new Error("Error updating AuthorTour: " + error.message);
     }
   }
 }
