@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const HotelBron = new mongoose.Schema(
   {
@@ -10,7 +10,7 @@ const HotelBron = new mongoose.Schema(
     price: { type: Number, required: true },
     fullPrice: { type: Number, required: true },
     guests: { type: Number, required: true },
-    status: { type: String, default: 'В ожидании' }, // Например: "pending", "confirmed", "canceled"
+    status: { type: String, default: "В ожидании" }, // Например: "pending", "confirmed", "canceled"
     client: {
       name: { type: String, required: true },
       phone: { type: String, required: true },
@@ -19,9 +19,9 @@ const HotelBron = new mongoose.Schema(
       passportSeries: { type: String, required: true },
       gender: { type: String, required: true },
       birthDate: { type: Date, required: true },
-    },
+    }
   },
   { timestamps: true }
 );
 
-export default mongoose.model('HotelBron', HotelBron);
+export default mongoose.model("HotelBron", HotelBron);
