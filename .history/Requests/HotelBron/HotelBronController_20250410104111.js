@@ -27,31 +27,7 @@ class HotelBronController {
     }
   }
 
-  // Обновление статуса
 
-  async updateHotelBronStatus(req, res) {
-    try {
-      const { id } = req.params;
-      const { status } = req.body;
-  
-      const updated = await HotelBron.findByIdAndUpdate(
-        id,
-        { status },
-        { new: true }
-      );
-  
-      if (!updated) {
-        return res.status(404).json({ message: "Бронь не найдена" });
-      }
-  
-      res.status(200).json(updated);
-    } catch (error) {
-      console.error("Ошибка при обновлении статуса:", error);
-      res.status(500).json({ message: "Ошибка сервера" });
-    }
-  }
-
-    // Обновление статуса
   
 
   async updateOneHotelBron(req, res) {
