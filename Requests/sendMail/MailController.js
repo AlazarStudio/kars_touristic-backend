@@ -181,12 +181,12 @@ class MailController {
     let dogovorTags = {
       bron_id: formData.bookingInfo._id,
 
-      client_fio: formData.client[0].name,
-      client_address: formData.client[0].address,
-      client_series: formData.client[0].passportSeries,
-      client_number: formData.client[0].passportNumber,
-      client_phone: formData.client[0].phone,
-      client_email: formData.client[0].email,
+      client_fio: formData.client.name,
+      client_address: formData.client.address,
+      client_series: formData.client.passportSeries,
+      client_number: formData.client.passportNumber,
+      client_phone: formData.client.phone,
+      client_email: formData.client.email,
 
       dateStart: formatDateRange(formData.arrivalDate),
       dateEnd: formatDateRange(formData.departureDate),
