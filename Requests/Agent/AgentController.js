@@ -9,6 +9,8 @@ class AgentController {
       const multidayTourData = {
         ...body,
       };
+      console.log("\n tourdata", multidayTourData);
+      
       const tour = await AgentService.agent(multidayTourData);
       res.status(201).json(tour);
     } catch (error) {
