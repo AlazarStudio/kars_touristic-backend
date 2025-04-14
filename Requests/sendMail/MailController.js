@@ -210,7 +210,7 @@ class MailController {
     );
     const templateContent = fs.readFileSync(templateName, "binary");
 
-    const filename = `VOUCHER для отеля ${formData.hotel.title} - ${formData.client[0].name}.docx`;
+    const filename = `VOUCHER для отеля ${formData.hotel.title} - ${formData.client.name}.docx`;
 
     const zip = new PizZip(templateContent);
     const doc = new Docxtemplater(zip, {
