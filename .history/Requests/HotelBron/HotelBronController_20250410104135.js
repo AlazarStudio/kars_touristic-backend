@@ -50,8 +50,6 @@ class HotelBronController {
       res.status(500).json({ message: "Ошибка сервера" });
     }
   }
-
-    // Обновление статуса
   
 
   async updateOneHotelBron(req, res) {

@@ -1,8 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import User from '../Users/User.js';
+import * as fs from "fs";
+import * as path from "path";
 
-import MultidayTour from './MultidayTour.js';
+import MultidayTour from "./MultidayTour.js";
 
 class MultidayTourService {
   async multidayTour(multidayTourData) {
@@ -16,7 +15,7 @@ class MultidayTourService {
 
     const newTour = new MultidayTour({
       ...restData,
-      mainPhoto: '',
+      mainPhoto: "",
       photos: [],
     });
 
@@ -27,7 +26,7 @@ class MultidayTourService {
     }
 
     if (photos && photos.length > 0) {
-      for (const photoPath of photos) {
+      for (let photoPath of photos) {
         // Используем this для вызова метода copyImage
         const newPhotoPath = await this.copyImage(photoPath);
         newTour.photos.push(newPhotoPath);
@@ -40,7 +39,7 @@ class MultidayTourService {
   }
 
   async copyImage(imagePath) {
-    const fullImagePath = path.resolve('static', imagePath); // Пример построения абсолютного пути
+    const fullImagePath = path.resolve("static", imagePath); // Пример построения абсолютного пути
     if (!fs.existsSync(fullImagePath)) {
       throw new Error(`File not found: ${fullImagePath}`);
     }
@@ -58,42 +57,32 @@ class MultidayTourService {
   }
 
   async getMultidayTours(req) {
-    const { search = '', filter, region = '' } = req.query;
+    const {
+      // page = 1,
+      // perPage = 10,
+      search = "",
+      filter,
+      region = "",
+    } = req.query;
 
     const modelFilter = {
-      tourTitle: { $regex: search, $options: 'i' },
-      region: { $regex: region, $options: 'i' },
+      tourTitle: { $regex: search, $options: "i" },
+      region: { $regex: region, $options: "i" },
     };
-
     const totalCount = await MultidayTour.countDocuments(modelFilter).exec();
     const multidayTour = await MultidayTour.find(modelFilter)
       .sort(filter)
+      // .limit(perPage)
+      // .skip((page - 1) * perPage)
       .exec();
 
-    // Подгружаем всех пользователей, чтобы собрать лайки
-    const users = await User.find({}, 'likes');
-
-    // Собираем лайки в объект: { tourId: count }
-    const likesMap = {};
-    users.forEach((user) => {
-      user.likes.forEach((tourId) => {
-        likesMap[tourId] = (likesMap[tourId] || 0) + 1;
-      });
-    });
-
-    // Добавляем likesCount в каждый тур
-    const toursWithLikes = multidayTour.map((tour) => ({
-      ...tour._doc,
-      likesCount: likesMap[tour._id] || 0,
-    }));
-
-    return { totalCount, multidayTour: toursWithLikes };
+    return { totalCount, multidayTour };
   }
 
   async updateOneMultidayTour(id, tourData, photoPaths) {
     if (tourData && tourData.photosToDelete) {
       const pathToFile = path.resolve(
-        'static',
+        "static",
         JSON.parse(tourData.photosToDelete)[0]
       );
       if (!fs.existsSync(pathToFile)) return;
@@ -110,18 +99,19 @@ class MultidayTourService {
         { new: true, runValidators: true }
       );
       return updatedTour;
+    } else {
+      const updatedTour = await MultidayTour.findByIdAndUpdate(
+        id,
+        { $set: tourData },
+        { new: true, runValidators: true }
+      );
+      return updatedTour;
     }
-    const updatedTour = await MultidayTour.findByIdAndUpdate(
-      id,
-      { $set: tourData },
-      { new: true, runValidators: true }
-    );
-    return updatedTour;
   }
 
   async getOneMultidayTour(id) {
     if (!id) {
-      throw new Error('не указан ID');
+      throw new Error("не указан ID");
     }
     const getOneMultidayTour = await MultidayTour.findById(id);
     return getOneMultidayTour;
@@ -132,18 +122,18 @@ class MultidayTourService {
       const tour = await MultidayTour.findById(id);
 
       if (!tour) {
-        throw new Error('не указан ID');
+        throw new Error("не указан ID");
       }
 
       tour.photos.forEach((photo) => {
-        const pathToFile = path.resolve('static', photo);
+        const pathToFile = path.resolve("static", photo);
         if (!fs.existsSync(pathToFile)) return;
         fs.unlinkSync(pathToFile);
       });
 
       const deleteMultidayTour = await MultidayTour.findByIdAndDelete(id);
 
-      return { message: 'Тур успешно удален', deleteMultidayTour };
+      return { message: "Тур успешно удален", deleteMultidayTour };
     } catch (e) {
       return { message: e.message };
     }
@@ -160,7 +150,7 @@ class MultidayTourService {
       );
       return changeMainImg;
     } catch (error) {
-      throw new Error(`Error updating MultidayTour: ${error.message}`);
+      throw new Error("Error updating MultidayTour: " + error.message);
     }
   }
 }

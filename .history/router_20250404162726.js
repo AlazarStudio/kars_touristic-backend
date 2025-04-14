@@ -188,9 +188,6 @@ router.post("/updateHotelBronOrder", HotelBronController.updateHotelBronOrder);
 router.get("/getHotelBrons", HotelBronController.getHotelBrons);
 router.get("/getOneHotelBron/:id", HotelBronController.getOneHotelBron);
 
-router.put("/updateHotelBronStatus/:id", HotelBronController.updateHotelBronStatus);
-
-
 router.put("/updateOneHotelBron/:id", HotelBronController.updateOneHotelBron);
 router.put("/changeMainImgHotelBron", HotelBronController.changeMainImg);
 

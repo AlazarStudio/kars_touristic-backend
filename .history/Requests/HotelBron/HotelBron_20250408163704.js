@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const HotelBron = new mongoose.Schema(
   {
     userID: { type: String, required: true },
-    name: { type: String, required: true }, // Название гостиницы
+    // name: { type: String, required: true }, // Название гостиницы
     roomNumber: { type: String, required: true }, // Название номера
     arrivalDate: { type: Date, required: true },
     departureDate: { type: Date, required: true },

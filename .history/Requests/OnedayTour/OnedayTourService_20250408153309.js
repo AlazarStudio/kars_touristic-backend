@@ -1,8 +1,8 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 import User from '../Users/User.js';
 
-import OnedayTour from './OnedayTour.js';
+import OnedayTour from "./OnedayTour.js";
 
 class OnedayTourService {
   async onedayTour(onedayTourData) {
@@ -16,7 +16,7 @@ class OnedayTourService {
 
     const newTour = new OnedayTour({
       ...restData,
-      mainPhoto: '',
+      mainPhoto: "",
       photos: [],
     });
 
@@ -27,7 +27,7 @@ class OnedayTourService {
     }
 
     if (photos && photos.length > 0) {
-      for (const photoPath of photos) {
+      for (let photoPath of photos) {
         // Используем this для вызова метода copyImage
         const newPhotoPath = await this.copyImage(photoPath);
         newTour.photos.push(newPhotoPath);
@@ -40,7 +40,7 @@ class OnedayTourService {
   }
 
   async copyImage(imagePath) {
-    const fullImagePath = path.resolve('static', imagePath); // Пример построения абсолютного пути
+    const fullImagePath = path.resolve("static", imagePath); // Пример построения абсолютного пути
     if (!fs.existsSync(fullImagePath)) {
       throw new Error(`File not found: ${fullImagePath}`);
     }
@@ -56,42 +56,33 @@ class OnedayTourService {
 
     return newImageName;
   }
-
   async getOnedayTours(req) {
-    const { search = '', filter, region = '' } = req.query;
+    const {
+      // page = 1,
+      // perPage = 10,
+      search = "",
+      filter,
+      region = "",
+    } = req.query;
 
     const modelFilter = {
-      tourTitle: { $regex: search, $options: 'i' },
-      region: { $regex: region, $options: 'i' },
+      tourTitle: { $regex: search, $options: "i" },
+      region: { $regex: region, $options: "i" },
     };
-
     const totalCount = await OnedayTour.countDocuments(modelFilter).exec();
-    const onedayTours = await OnedayTour.find(modelFilter).sort(filter).exec();
+    const onedayTour = await OnedayTour.find(modelFilter)
+      .sort(filter)
+      // .limit(perPage)
+      // .skip((page - 1) * perPage)
+      .exec();
 
-    // Получаем всех пользователей с полем likes
-    const users = await User.find({}, 'likes').exec();
-
-    // Подсчитываем количество лайков для каждого тура
-    const likesMap = {};
-    users.forEach((user) => {
-      user.likes.forEach((likeId) => {
-        likesMap[likeId] = (likesMap[likeId] || 0) + 1;
-      });
-    });
-
-    // Добавляем likesCount в каждый тур
-    const toursWithLikes = onedayTours.map((tour) => ({
-      ...tour._doc,
-      likesCount: likesMap[tour._id] || 0,
-    }));
-
-    return { totalCount, onedayTour: toursWithLikes };
+    return { totalCount, onedayTour };
   }
 
   async updateOneOnedayTour(id, tourData, photoPaths) {
     if (tourData.photosToDelete) {
       const pathToFile = path.resolve(
-        'static',
+        "static",
         JSON.parse(tourData.photosToDelete)[0]
       );
       if (!fs.existsSync(pathToFile)) return;
@@ -108,18 +99,19 @@ class OnedayTourService {
         { new: true, runValidators: true }
       );
       return updatedTour;
+    } else {
+      const updatedTour = await OnedayTour.findByIdAndUpdate(
+        id,
+        { $set: tourData },
+        { new: true, runValidators: true }
+      );
+      return updatedTour;
     }
-    const updatedTour = await OnedayTour.findByIdAndUpdate(
-      id,
-      { $set: tourData },
-      { new: true, runValidators: true }
-    );
-    return updatedTour;
   }
 
   async getOneOnedayTour(id) {
     if (!id) {
-      throw new Error('не указан ID');
+      throw new Error("не указан ID");
     }
     const getOneOnedayTour = await OnedayTour.findById(id);
     return getOneOnedayTour;
@@ -130,18 +122,18 @@ class OnedayTourService {
       const tour = await OnedayTour.findById(id);
 
       if (!tour) {
-        throw new Error('не указан ID');
+        throw new Error("не указан ID");
       }
 
       tour.photos.forEach((photo) => {
-        const pathToFile = path.resolve('static', photo);
+        const pathToFile = path.resolve("static", photo);
         if (!fs.existsSync(pathToFile)) return;
         fs.unlinkSync(pathToFile);
       });
 
       const deleteOnedayTour = await OnedayTour.findByIdAndDelete(id);
 
-      return { message: 'Тур успешно удален', deleteOnedayTour };
+      return { message: "Тур успешно удален", deleteOnedayTour };
     } catch (e) {
       return { message: e.message };
     }
@@ -158,7 +150,7 @@ class OnedayTourService {
       );
       return changeMainImg;
     } catch (error) {
-      throw new Error(`Error updating MultidayTour: ${error.message}`);
+      throw new Error("Error updating MultidayTour: " + error.message);
     }
   }
 }
