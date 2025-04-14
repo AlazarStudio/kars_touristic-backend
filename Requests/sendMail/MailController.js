@@ -135,12 +135,10 @@ class MailController {
         .json({ message: "Письмо успешно отправлено", info: info.response });
     } catch (error) {
       console.error("Ошибка при отправке письма:", error);
-      res
-        .status(500)
-        .json({
-          message: "Ошибка при отправке письма",
-          error: error.toString(),
-        });
+      res.status(500).json({
+        message: "Ошибка при отправке письма",
+        error: error.toString(),
+      });
     }
   }
 
@@ -177,6 +175,8 @@ class MailController {
     }
 
     const { formData } = req.body;
+
+    console.log("\n formdata", formData);
 
     let dogovorTags = {
       bron_id: formData.bookingInfo._id,
@@ -276,12 +276,10 @@ class MailController {
         .json({ message: "Письмо успешно отправлено", info: info.response });
     } catch (error) {
       console.error("Ошибка при отправке письма:", error);
-      res
-        .status(500)
-        .json({
-          message: "Ошибка при отправке письма",
-          error: error.toString(),
-        });
+      res.status(500).json({
+        message: "Ошибка при отправке письма",
+        error: error.toString(),
+      });
     }
   }
 
@@ -314,12 +312,10 @@ class MailController {
         .json({ message: "Письмо успешно отправлено", info: info.response });
     } catch (error) {
       console.error("Ошибка при отправке письма:", error);
-      res
-        .status(500)
-        .json({
-          message: "Ошибка при отправке письма",
-          error: error.toString(),
-        });
+      res.status(500).json({
+        message: "Ошибка при отправке письма",
+        error: error.toString(),
+      });
     }
   }
 }
