@@ -176,8 +176,6 @@ class MailController {
 
     const { formData } = req.body;
 
-    console.log("\n formdata", formData);
-
     let dogovorTags = {
       bron_id: formData.bookingInfo._id,
 
@@ -250,7 +248,7 @@ class MailController {
 
     let mailOptions = {
       from: "kars-touristic@mail.ru",
-      to: formData.client[0].email,
+      to: formData.client.email,
       subject: `Информация о бронировании номер ${formData.roomNumber} в отеле ${formData.hotel.title}`,
       text: `karstouristic.ru`,
       html: `Вами был забронирован номер ${formData.roomNumber} в отеле ${
