@@ -28,6 +28,10 @@ const Rooms = new mongoose.Schema(
 
     order: { type: Number, required: true, default: 0 },
     review: { type: Array, required: false, default: [] },
+    rating: { type: Number, required: false },
+    adress: { type: String, required: true, default: "" },
+    adressLink: { type: String, required: true, default: "" },
+    popular: { type: Boolean, required: false, default: false },
     visible: { type: Boolean, required: true, default: true },
   },
   { timestamps: true }

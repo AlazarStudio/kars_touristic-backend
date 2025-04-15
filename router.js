@@ -19,6 +19,7 @@ import AgentController from "./Requests/Agent/AgentController.js";
 import HotelBronController from "./Requests/HotelBron/HotelBronController.js";
 import MailController from "./Requests/sendMail/MailController.js";
 import ReviewController from "./Requests/Review/ReviewController.js";
+import PartnerController from "./Requests/Partner/PartnerController.js";
 
 const router = new Router();
 
@@ -188,8 +189,10 @@ router.post("/updateHotelBronOrder", HotelBronController.updateHotelBronOrder);
 router.get("/getHotelBrons", HotelBronController.getHotelBrons);
 router.get("/getOneHotelBron/:id", HotelBronController.getOneHotelBron);
 
-router.put("/updateHotelBronStatus/:id", HotelBronController.updateHotelBronStatus);
-
+router.put(
+  "/updateHotelBronStatus/:id",
+  HotelBronController.updateHotelBronStatus
+);
 
 router.put("/updateOneHotelBron/:id", HotelBronController.updateOneHotelBron);
 router.put("/changeMainImgHotelBron", HotelBronController.changeMainImg);
@@ -365,5 +368,13 @@ router.put(
 );
 
 router.delete("/deleteReview/:id", ReviewController.deleteReview);
+
+// Partner
+
+router.post("/Partner", PartnerController.Partner);
+router.get("/getPartner", PartnerController.getPartner);
+router.get("/getOnePartner/:id", PartnerController.getOnePartner);
+router.put("/updateOnePartner/:id", PartnerController.updateOnePartner);
+router.delete("/deletePartner/:id", PartnerController.deletePartner);
 
 export default router;
