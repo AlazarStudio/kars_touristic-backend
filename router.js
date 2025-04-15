@@ -371,10 +371,10 @@ router.delete("/deleteReview/:id", ReviewController.deleteReview);
 
 // Partner
 
-router.post("/Partner", PartnerController.Partner);
+router.post("/Partner", upload.fields([{ name: "img", maxCount: 10 }]), convertToWebP, PartnerController.Partner);
 router.get("/getPartner", PartnerController.getPartner);
 router.get("/getOnePartner/:id", PartnerController.getOnePartner);
-router.put("/updateOnePartner/:id", PartnerController.updateOnePartner);
+router.put("/updateOnePartner/:id", upload.fields([{ name: "img", maxCount: 10 }]), convertToWebP, PartnerController.updateOnePartner);
 router.delete("/deletePartner/:id", PartnerController.deletePartner);
 
 export default router;
