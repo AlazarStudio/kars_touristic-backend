@@ -1,31 +1,27 @@
-import PartnerService from './PartnerService.js';
+import PartnerService from "./PartnerService.js";
 
-import Partner from './Partner.js';
+import Partner from "./Partner.js";
 
 class PartnerController {
   async Partner(req, res) {
     try {
       const { files, body } = req;
-      const imgPaths = files?.img?.map((file) => file.filename) || [];
-
+      const imgPaths = files.imgs.map((file) => file.filename);
       const PartnerData = {
         ...body,
         img: imgPaths,
       };
-
       const partner = await PartnerService.Partner(PartnerData);
       res.status(201).json(partner);
     } catch (error) {
-      console.error('Error in PartnerController:', error);
-      res
-        .status(500)
-        .json({ message: 'Error adding Partner', error: error.message });
+      console.error("Error in PartnerController:", error);
+      res.status(500).json({ message: "Error adding Partner" });
     }
   }
 
   async updateOnePartner(req, res) {
     const { id } = req.params;
-    const data = req.body;
+    let data = req.body;
     let imgPaths = [];
 
     if (req.files && req.files.imgs) {
@@ -41,7 +37,7 @@ class PartnerController {
       res.status(200).json(updatedPartner);
     } catch (error) {
       console.error(`Ошибка в updateOnePartner: ${error}`);
-      res.status(500).json({ message: 'Ошибка при обновлении партнёра' });
+      res.status(500).json({ message: "Ошибка при обновлении партнёра" });
     }
   }
 
