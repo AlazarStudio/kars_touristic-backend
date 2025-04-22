@@ -232,7 +232,7 @@ router.get("/faq", FaqController.getFaq);
 router.delete("/deleteFaq/:id", FaqController.deleteFaq);
 
 router.put("/faqInfo", AboutController.faqInfo);
-router.get("/getTransferInfo", AboutController.getTransferInfo);
+router.get("/getFaqInfo", AboutController.getFaqInfo);
 
 // Контакты +
 router.put("/contacts", ContactsController.contacts);
