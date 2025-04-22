@@ -96,6 +96,58 @@ class AboutService {
       return { message: e.message };
     }
   }
+
+  // transfer
+
+  async transferInfo(data) {
+    const { transferInfo } = data;
+
+    try {
+      const updatedTransfer = await TransferInfo.findOneAndUpdate(
+        {},
+        { transferInfo },
+        { new: true, upsert: true }
+      );
+      return updatedTransfer;
+    } catch (error) {
+      throw new Error("Error updating transferInfo: " + error.message);
+    }
+  }
+
+  async getTransferInfo() {
+    try {
+      const transfer = await TransferInfo.findOne({});
+      return transfer;
+    } catch (error) {
+      throw new Error("Error getting transferInfo: " + error.message);
+    }
+  }
+
+  // FAQ
+
+  async faqInfo(data) {
+    const { faqInfo } = data;
+
+    try {
+      const updatedFaq = await FaqInfo.findOneAndUpdate(
+        {},
+        { faqInfo },
+        { new: true, upsert: true }
+      );
+      return updatedFaq;
+    } catch (error) {
+      throw new Error("Error updating faq: " + error.message);
+    }
+  }
+
+  async getFaqInfo() {
+    try {
+      const faq = await FaqInfo.findOne({});
+      return faq;
+    } catch (error) {
+      throw new Error("Error getting faq: " + error.message);
+    }
+  }
 }
 
 export default new AboutService();

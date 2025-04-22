@@ -91,6 +91,54 @@ class AboutController {
       res.status(500).json(e.message);
     }
   }
+
+  // transfer
+  async transferInfo(req, res) {
+    try {
+      const about = await AboutService.transferInfo(req.query);
+
+      res.status(201).send(about);
+    } catch (error) {
+      res
+        .status(500)
+        .send({ message: "Не удалось добавить", error: error.message });
+    }
+  }
+
+  async getTransferInfo(req, res) {
+    try {
+      const about = await AboutService.getTransferInfo();
+      res.status(200).send(about);
+    } catch (error) {
+      res
+        .status(500)
+        .send({ message: "Не удалось получить данные", error: error.message });
+    }
+  }
+
+  // faq
+  async faqInfo(req, res) {
+    try {
+      const about = await AboutService.faqInfo(req.query);
+
+      res.status(201).send(about);
+    } catch (error) {
+      res
+        .status(500)
+        .send({ message: "Не удалось добавить", error: error.message });
+    }
+  }
+
+  async getFaqInfo(req, res) {
+    try {
+      const about = await AboutService.getFaqInfo();
+      res.status(200).send(about);
+    } catch (error) {
+      res
+        .status(500)
+        .send({ message: "Не удалось получить данные", error: error.message });
+    }
+  }
 }
 
 export default new AboutController();
