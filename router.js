@@ -223,7 +223,7 @@ router.put("/transfer/:id", TransferController.updateTransfer);
 router.post("/transfer", TransferController.transfer);
 router.delete("/transfer/:id", TransferController.deleteTransfer);
 
-router.post("/transferInfo", AboutController.transferInfo);
+router.put("/transferInfo", AboutController.transferInfo);
 router.get("/getTransferInfo", AboutController.getTransferInfo);
 
 // FAQ +
@@ -231,7 +231,7 @@ router.post("/faq", FaqController.faq);
 router.get("/faq", FaqController.getFaq);
 router.delete("/deleteFaq/:id", FaqController.deleteFaq);
 
-router.post("/faqInfo", AboutController.faqInfo);
+router.put("/faqInfo", AboutController.faqInfo);
 router.get("/getTransferInfo", AboutController.getTransferInfo);
 
 // Контакты +
