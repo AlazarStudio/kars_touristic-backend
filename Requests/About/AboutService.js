@@ -110,6 +110,8 @@ class AboutService {
         { description },
         { new: true, upsert: true }
       );
+      console.log("\n updatedTransfer: " + updatedTransfer)
+      console.log("\n updatedTransfer str: " + JSON.stringify(updatedTransfer))
       return updatedTransfer;
     } catch (error) {
       throw new Error("Error updating transferInfo: " + error.message);
