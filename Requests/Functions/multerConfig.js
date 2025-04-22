@@ -6,7 +6,7 @@ import { promisify } from "util";
 
 const unlinkAsync = promisify(fs.unlink);
 
-const MAX_FILE_SIZE = 4 * 1024 * 1024;
+const MAX_FILE_SIZE = 6 * 1024 * 1024;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
