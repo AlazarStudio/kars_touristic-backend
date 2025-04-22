@@ -104,14 +104,16 @@ class AboutService {
   async transferInfo(data) {
     const { description } = data;
 
+    console.log("\n description: " + description)
+
     try {
       const updatedTransfer = await TransferInfo.findOneAndUpdate(
         {},
         { description },
         { new: true, upsert: true }
       );
-      console.log("\n updatedTransfer: " + updatedTransfer)
-      console.log("\n updatedTransfer str: " + JSON.stringify(updatedTransfer))
+      // console.log("\n updatedTransfer: " + updatedTransfer)
+      // console.log("\n updatedTransfer str: " + JSON.stringify(updatedTransfer))
       return updatedTransfer;
     } catch (error) {
       throw new Error("Error updating transferInfo: " + error.message);
