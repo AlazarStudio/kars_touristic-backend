@@ -55,7 +55,7 @@ const convertToWebP = async (req, res, next) => {
               file.mimetype = "image/webp";
             })
             .catch((err) => {
-              console.error(`Error converting file: ${file.path}`, err);
+              // console.error(`Error converting file: ${file.path}`, err);
             });
 
           filePromises.push(filePromise);
@@ -66,7 +66,7 @@ const convertToWebP = async (req, res, next) => {
     await Promise.all(filePromises);
     next();
   } catch (err) {
-    console.error("Error in convertToWebP middleware:", err);
+    // console.error("Error in convertToWebP middleware:", err);
     next(err);
   }
 };
