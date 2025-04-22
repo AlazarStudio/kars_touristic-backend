@@ -3,6 +3,8 @@ import Mission from "./Mission.js";
 import Team from "./Team.js";
 import * as fs from "fs";
 import * as path from "path";
+import TransferInfo from "./TransferInfo.js";
+import FaqInfo from "./FaqInfo.js";
 
 class AboutService {
   async aboutCompany(aboutData) {
@@ -100,12 +102,12 @@ class AboutService {
   // transfer
 
   async transferInfo(data) {
-    const { transferInfo } = data;
+    const { description } = data;
 
     try {
       const updatedTransfer = await TransferInfo.findOneAndUpdate(
         {},
-        { transferInfo },
+        { description },
         { new: true, upsert: true }
       );
       return updatedTransfer;
@@ -126,12 +128,12 @@ class AboutService {
   // FAQ
 
   async faqInfo(data) {
-    const { faqInfo } = data;
+    const { description } = data;
 
     try {
       const updatedFaq = await FaqInfo.findOneAndUpdate(
         {},
-        { faqInfo },
+        { description },
         { new: true, upsert: true }
       );
       return updatedFaq;

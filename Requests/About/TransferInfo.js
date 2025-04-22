@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const TransferInfo = new mongoose.Schema(
   {
-    transferInfo: { type: String, required: false },
+    description: { type: String, required: false },
   },
   { timestamps: true }
 );

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const FaqInfo = new mongoose.Schema(
   {
-    faqInfo: { type: String, required: false },
+    description: { type: String, required: false },
   },
   { timestamps: true }
 );
