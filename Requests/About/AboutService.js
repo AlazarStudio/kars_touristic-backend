@@ -104,7 +104,7 @@ class AboutService {
   async transferInfo(data) {
     const { description } = data;
 
-    console.log("\n description: " + data)
+    console.log("\n description: " + JSON.stringify(data))
 
     try {
       const updatedTransfer = await TransferInfo.findOneAndUpdate(
