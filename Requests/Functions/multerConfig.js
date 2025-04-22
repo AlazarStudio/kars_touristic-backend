@@ -17,9 +17,9 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ 
-  storage, 
-  limits: { fileSize: MAX_FILE_SIZE } 
+const upload = multer({
+  storage,
+  limits: { fileSize: MAX_FILE_SIZE },
 });
 
 const convertToWebP = async (req, res, next) => {
@@ -39,16 +39,17 @@ const convertToWebP = async (req, res, next) => {
           );
           const outputFilePath = path.join(file.destination, outputFilename);
 
+          // Генерируем новый файл с уникальным именем для WebP
           const filePromise = sharp(file.path)
             .webp({
-              quality: 80, 
+              quality: 80,
               nearLossless: true,
             })
-            .resize({ width: 1024 }) 
+            .resize({ width: 1024 })
             .toFile(outputFilePath)
             .then(async () => {
-              // console.log(`Converting file: ${file.path} to ${outputFilePath}`);
-              await unlinkAsync(file.path); 
+              // Удаляем оригинальный файл
+              await unlinkAsync(file.path);
               file.path = outputFilePath;
               file.filename = outputFilename;
               file.mimetype = "image/webp";
@@ -65,7 +66,7 @@ const convertToWebP = async (req, res, next) => {
     await Promise.all(filePromises);
     next();
   } catch (err) {
-    // console.error("Error in convertToWebP middleware:", err);
+    console.error("Error in convertToWebP middleware:", err);
     next(err);
   }
 };
