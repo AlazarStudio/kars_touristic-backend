@@ -65,7 +65,7 @@ const convertToWebP = async (req, res, next) => {
     await Promise.all(filePromises);
     next();
   } catch (err) {
-    console.error("Error in convertToWebP middleware:", err);
+    // console.error("Error in convertToWebP middleware:", err);
     next(err);
   }
 };
