@@ -12,6 +12,7 @@ class AuthorTourController {
         photos: photoPaths,
         places: body.places || [],
         checklists: body.checklists || [],
+        entries: body.entries || [],
         days: body.days || [],
         mainPhoto: photoPaths[0],
       };
