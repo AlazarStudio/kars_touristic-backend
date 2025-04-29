@@ -223,7 +223,12 @@ router.put("/transfer/:id", TransferController.updateTransfer);
 router.post("/transfer", TransferController.transfer);
 router.delete("/transfer/:id", TransferController.deleteTransfer);
 
-router.put("/transferInfo", AboutController.transferInfo);
+router.put(
+  "/transferInfo",
+  upload.fields([{ name: "images", maxCount: 10 }]),
+  convertToWebP,
+  AboutController.transferInfo
+);
 router.get("/getTransferInfo", AboutController.getTransferInfo);
 
 // FAQ +
@@ -231,7 +236,12 @@ router.post("/faq", FaqController.faq);
 router.get("/faq", FaqController.getFaq);
 router.delete("/deleteFaq/:id", FaqController.deleteFaq);
 
-router.put("/faqInfo", AboutController.faqInfo);
+router.put(
+  "/faqInfo",
+  upload.fields([{ name: "images", maxCount: 10 }]),
+  convertToWebP,
+  AboutController.faqInfo
+);
 router.get("/getFaqInfo", AboutController.getFaqInfo);
 
 // Контакты +
@@ -248,7 +258,12 @@ router.put(
 router.get("/turagent", TuragentController.getTuragent);
 
 // Отели
-router.post("/addHotels", upload.fields([{ name: "galery", maxCount: 10 }]), convertToWebP, HotelsController.Hotels);
+router.post(
+  "/addHotels",
+  upload.fields([{ name: "galery", maxCount: 10 }]),
+  convertToWebP,
+  HotelsController.Hotels
+);
 
 router.get("/getHotels", HotelsController.getHotels);
 router.get("/getOneHotel/:id", HotelsController.getOneHotel);
