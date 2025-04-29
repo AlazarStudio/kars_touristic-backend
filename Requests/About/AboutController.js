@@ -95,7 +95,10 @@ class AboutController {
   // transfer
   async transferInfo(req, res) {
     try {
-      const about = await AboutService.transferInfo(req.query);
+      const { files, body } = req;
+      const imgPath = files.photos.map((file) => file.filename);
+      const data = {...body, imgPath}
+      const about = await AboutService.transferInfo(data);
 
       res.status(201).send(about);
     } catch (error) {
@@ -119,7 +122,10 @@ class AboutController {
   // faq
   async faqInfo(req, res) {
     try {
-      const about = await AboutService.faqInfo(req.query);
+      const { files, body } = req;
+      const imgPath = files.photos.map((file) => file.filename);
+      const data = {...body, imgPath}
+      const about = await AboutService.faqInfo(data);
 
       res.status(201).send(about);
     } catch (error) {

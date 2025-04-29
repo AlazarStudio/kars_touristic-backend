@@ -102,12 +102,12 @@ class AboutService {
   // transfer
 
   async transferInfo(data) {
-    const { description } = data;
-
+    const { description, imgPath } = data;
+    const imgPathName = imgPath ? imgPath.filename : "";
     try {
       const updatedTransfer = await TransferInfo.findOneAndUpdate(
         {},
-        { description },
+        { description, images: imgPathName },
         { new: true, upsert: true }
       );
       return updatedTransfer;
@@ -128,12 +128,12 @@ class AboutService {
   // FAQ
 
   async faqInfo(data) {
-    const { description } = data;
-
+    const { description, imgPath } = data;
+    const imgPathName = imgPath ? imgPath.filename : "";
     try {
       const updatedFaq = await FaqInfo.findOneAndUpdate(
         {},
-        { description },
+        { description, images: imgPathName },
         { new: true, upsert: true }
       );
       return updatedFaq;

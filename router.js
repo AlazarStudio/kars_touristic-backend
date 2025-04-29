@@ -248,12 +248,7 @@ router.put(
 router.get("/turagent", TuragentController.getTuragent);
 
 // Отели
-router.post(
-  "/addHotels",
-  upload.fields([{ name: "galery", maxCount: 10 }]),
-  convertToWebP,
-  HotelsController.Hotels
-);
+router.post("/addHotels", upload.fields([{ name: "galery", maxCount: 10 }]), convertToWebP, HotelsController.Hotels);
 
 router.get("/getHotels", HotelsController.getHotels);
 router.get("/getOneHotel/:id", HotelsController.getOneHotel);
