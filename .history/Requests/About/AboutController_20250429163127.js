@@ -96,7 +96,7 @@ class AboutController {
   async transferInfo(req, res) {
     try {
       const { files, body } = req;
-      const imgPath = files.images.map((file) => file.filename);
+      const imgPath = files.photos.map((file) => file.filename);
       const data = {...body, imgPath}
       const about = await AboutService.transferInfo(data);
 
@@ -123,7 +123,7 @@ class AboutController {
   async faqInfo(req, res) {
     try {
       const { files, body } = req;
-      const imgPath = files.images.map((file) => file.filename);
+      const imgPath = files.photos.map((file) => file.filename);
       const data = {...body, imgPath}
       const about = await AboutService.faqInfo(data);
 

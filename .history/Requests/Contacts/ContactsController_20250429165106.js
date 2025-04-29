@@ -6,11 +6,12 @@ class ContactsController {
       const { adress, phone, email } = req.query;
       const imgPath = files.images.map((file) => file.filename);
       
+
       const contacts = await ContactsService.contacts({
         adress,
         phone,
         email,
-        imgPath
+        images
       });
 
       res.status(201).send(contacts);
