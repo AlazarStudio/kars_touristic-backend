@@ -18,7 +18,7 @@ const MultidayTour = new mongoose.Schema(
     mainPhoto: { type: String, default: "" },
 
     places: { type: Array, required: true },
-    checklists: { type: Array, required: true },
+    checklists: { type: Array, required: false },
     entries: { type: Array, required: true },
     days: { type: Array, required: true },
     photos: { type: Array, required: true },
