@@ -1,10 +1,10 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import AboutCompany from './AboutCompany.js';
-import Mission from './Mission.js';
-import Team from './Team.js';
-import TransferInfo from './TransferInfo.js';
-import FaqInfo from './FaqInfo.js';
+import AboutCompany from "./AboutCompany.js";
+import Mission from "./Mission.js";
+import Team from "./Team.js";
+import * as fs from "fs";
+import * as path from "path";
+import TransferInfo from "./TransferInfo.js";
+import FaqInfo from "./FaqInfo.js";
 
 class AboutService {
   async aboutCompany(aboutData) {
@@ -18,7 +18,7 @@ class AboutService {
       );
       return updatedAbout;
     } catch (error) {
-      throw new Error(`Error updating aboutCompany: ${error.message}`);
+      throw new Error("Error updating aboutCompany: " + error.message);
     }
   }
 
@@ -27,7 +27,7 @@ class AboutService {
       const about = await AboutCompany.findOne({});
       return about;
     } catch (error) {
-      throw new Error(`Error getting aboutCompany: ${error.message}`);
+      throw new Error("Error getting aboutCompany: " + error.message);
     }
   }
 
@@ -42,7 +42,7 @@ class AboutService {
       );
       return updatedMission;
     } catch (error) {
-      throw new Error(`Error updating mission: ${error.message}`);
+      throw new Error("Error updating mission: " + error.message);
     }
   }
 
@@ -51,14 +51,14 @@ class AboutService {
       const mission = await Mission.findOne({});
       return mission;
     } catch (error) {
-      throw new Error(`Error getting mission: ${error.message}`);
+      throw new Error("Error getting mission: " + error.message);
     }
   }
 
   async team(aboutData) {
     const { name, description, imgPath } = aboutData;
 
-    const imgPathName = imgPath ? imgPath.filename : '';
+    const imgPathName = imgPath ? imgPath.filename : "";
 
     const team = new Team({
       name,
@@ -75,7 +75,7 @@ class AboutService {
       const team = await Team.find();
       return team;
     } catch (error) {
-      throw new Error(`Error getting mission: ${error.message}`);
+      throw new Error("Error getting mission: " + error.message);
     }
   }
 
@@ -93,7 +93,7 @@ class AboutService {
 
       const deleteTeam = await Team.findByIdAndDelete(id);
 
-      return { message: 'Успешно удален' };
+      return { message: "Успешно удален" };
     } catch (e) {
       return { message: e.message };
     }
@@ -103,7 +103,7 @@ class AboutService {
 
   async transferInfo(data) {
     const { description, imgPath } = data;
-    const imgPathName = imgPath ? imgPath.filename : '';
+    const imgPathName = imgPath ? imgPath.filename : "";
     try {
       const updatedTransfer = await TransferInfo.findOneAndUpdate(
         {},
@@ -112,7 +112,7 @@ class AboutService {
       );
       return updatedTransfer;
     } catch (error) {
-      throw new Error(`Error updating transferInfo: ${error.message}`);
+      throw new Error("Error updating transferInfo: " + error.message);
     }
   }
 
@@ -121,7 +121,7 @@ class AboutService {
       const transfer = await TransferInfo.findOne({});
       return transfer;
     } catch (error) {
-      throw new Error(`Error getting transferInfo: ${error.message}`);
+      throw new Error("Error getting transferInfo: " + error.message);
     }
   }
 
@@ -129,10 +129,7 @@ class AboutService {
 
   async faqInfo(data) {
     const { description, imgPath } = data;
-    const imgPathName = Array.isArray(imgPath)
-      ? imgPath.map((file) => file.filename)
-      : [imgPath?.filename].filter(Boolean);
-
+    const imgPathName = imgPath ? imgPath.filename : "";
     try {
       const updatedFaq = await FaqInfo.findOneAndUpdate(
         {},
@@ -141,7 +138,7 @@ class AboutService {
       );
       return updatedFaq;
     } catch (error) {
-      throw new Error(`Error updating faq: ${error.message}`);
+      throw new Error("Error updating faq: " + error.message);
     }
   }
 
@@ -150,7 +147,7 @@ class AboutService {
       const faq = await FaqInfo.findOne({});
       return faq;
     } catch (error) {
-      throw new Error(`Error getting faq: ${error.message}`);
+      throw new Error("Error getting faq: " + error.message);
     }
   }
 }

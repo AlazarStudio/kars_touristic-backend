@@ -124,7 +124,7 @@ class AboutController {
     try {
       const { files, body } = req;
       const imgPath = files.images || [];
-      const data = { ...body, imgPath };
+      cconst data = { ...body, imgPath };
       const about = await AboutService.faqInfo(data);
 
       res.status(201).send(about);
