@@ -2,14 +2,12 @@ import Contacts from "./Contacts.js";
 
 class ContactsService {
   async contacts(contactsData) {
-    const { adress, phone, email, imgPath  } = contactsData;
-    const imgPathName = Array.isArray(imgPath)
-    ? imgPath.map((file) => file.filename)
-    : [imgPath?.filename].filter(Boolean);
+    const { adress, phone, email } = contactsData;
+
     try {
       const updatedContacts = await Contacts.findOneAndUpdate(
         {},
-        { adress, phone, email, images: imgPathName },
+        { adress, phone, email },
         { new: true, upsert: true }
       );
       return updatedContacts;

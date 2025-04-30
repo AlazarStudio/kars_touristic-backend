@@ -1,9 +1,9 @@
-import ContactsService from './ContactsService.js';
+import ContactsService from "./ContactsService.js";
 
 class ContactsController {
   async contacts(req, res) {
     try {
-      const { files, body } = req;
+    const { files, body } = req;
       const imgPath = files.images || [];
       const data = { ...body, imgPath };
       const contacts = await ContactsService.faqInfo(data);
@@ -12,7 +12,7 @@ class ContactsController {
     } catch (error) {
       res
         .status(500)
-        .send({ message: 'Не удалось добавить', error: error.message });
+        .send({ message: "Не удалось добавить", error: error.message });
     }
   }
 
@@ -23,7 +23,7 @@ class ContactsController {
     } catch (error) {
       res
         .status(500)
-        .send({ message: 'Не удалось получить данные', error: error.message });
+        .send({ message: "Не удалось получить данные", error: error.message });
     }
   }
 }

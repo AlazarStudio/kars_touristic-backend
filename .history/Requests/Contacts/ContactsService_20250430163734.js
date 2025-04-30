@@ -9,7 +9,7 @@ class ContactsService {
     try {
       const updatedContacts = await Contacts.findOneAndUpdate(
         {},
-        { adress, phone, email, images: imgPathName },
+        { adress, phone, email },
         { new: true, upsert: true }
       );
       return updatedContacts;
