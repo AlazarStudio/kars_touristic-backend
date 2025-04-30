@@ -6,8 +6,7 @@ class ContactsController {
       const { files, body } = req;
       const imgPath = files.images || [];
       const data = { ...body, imgPath };
-      const contacts = await ContactsService.contacts(data);
-
+      const contacts = await ContactsService.(data);
 
       res.status(201).send(contacts);
     } catch (error) {
