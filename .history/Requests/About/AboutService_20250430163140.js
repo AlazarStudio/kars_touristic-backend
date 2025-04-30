@@ -104,8 +104,8 @@ class AboutService {
   async transferInfo(data) {
     const { description, imgPath } = data;
     const imgPathName = Array.isArray(imgPath)
-      ? imgPath.map((file) => file.filename)
-      : [imgPath?.filename].filter(Boolean);
+    ? imgPath.map((file) => file.filename)
+    : [imgPath?.filename].filter(Boolean);
     try {
       const updatedTransfer = await TransferInfo.findOneAndUpdate(
         {},
